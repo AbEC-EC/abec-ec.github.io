@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Ecogora | GA</title>
+
+    <script src="scramble.js"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script>
+		MathJax = {
+		tex: {
+		  tags: 'ams'  // should be 'ams', 'none', or 'all'
+		}
+		};
+	</script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <link rel="icon" href="images/luffy-smile-rb.png" />
+    <link rel="shortcut icon" href="images/luffy-smile-rb.png" />
+    <link rel="stylesheet" type="text/css" href="../../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/hack.min.css"
+      integrity="sha512-XgCw4Srl8lC1ECwcaHwAU0WnxQwHkqmInzg9wJLtGB7DRuMaXPuK2k9WJ2AwRDGdrgK9eJpZl2hUlLi2WQssmw=="
+      crossorigin="anonymous"
+    />
+	<style>
+		h1 {
+			text-align: center;
+			background: #EEEEEE;
+			padding: .2em 1em;
+			border-top: 3px solid #666666;
+			border-bottom: 3px solid #999999;
+		}
+  </style>
+  </head>
+
+<body>
+<section>
+<pre>
+
+<div style="float: left">ALGORITMOS(1)</div><div style="float: right">ALGORITMOS(1)</div><div style="margin: 0 auto; width: 100%; text-align: center"><span id="top">Genetic Algorithm (GA)</span></div>
+<div id="google_translate_element"></div>
+> <a href="https://ecogora.vercel.app">[ Home ]</a>
+
+<script type="text/javascript">
+function setCookie(key, value, expiry) {
+  var expires = new Date();
+  expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+  document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+}
+
+function googleTranslateElementInit() {
+	setCookie('googtrans', '/pt/en',1);
+	new google.translate.TranslateElement(
+		{pageLanguage: 'pt', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element'
+	);
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> INTRODUCAO</span>
+</div>
+<div id="divName"> 
+<p> O algoritmo Genetic Algorithm (GA), é uma técnica de otimização baseada na seleção natural e reprodução biológica. Ele funciona de maneira semelhante a evolução natural, onde indivíduos mais adaptados ao ambiente são selecionados e têm maior chance de passar seus genes para a próxima geração. No algoritmo genético, uma população de soluções candidatas é criada e evoluída através de operações de seleção, cruzamento e mutação. O objetivo é encontrar a solução mais adaptada a um determinado problema, através de uma busca sistemática e eficiente por soluções melhores.
+</p>
+</div>
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> PRELIMINARES</span>
+</div>
+<div id="divSynopsis"> 
+<p>Antes de mais nada, eh importante deixar claro aqui conceitos como genótipo e fenótipo, que são fundamentais no algoritmo genético.
+<h1 style="color: orange">> DEFINICOES</h1>
+O <b>genótipo</b> é a representação interna do <b>Indivíduo</b>, ou seja, é a sua sequência de genes que carrega informações genéticas que determinam as suas características. No algoritmo genético, o genótipo é representado por uma cadeia de bits (ou cromossomo), que codifica a informação genética do Indivíduo. 
+Como por exemplo, na sequencia de 8 bits abaixo (1 byte), cada bit representa um <b>gene</b> e os 8 bits juntos representam o <b>Individuo</b> (cromossomo):
+<br>
+<div style="text-align: center;">
+<img class="centerImg" src="individual.png" alt="individual" style="width:50%;height:220px;">
+</div>
+<br>
+Já o <b>fenótipo</b> é a manifestação externa das características do Indivíduo, ou seja, é a sua aparência, comportamento ou outra característica observável que é resultado da interação do genótipo com o ambiente. No algoritmo genético, o fenótipo é obtido a partir do genótipo, aplicando-se uma função de decodificação que transforma a informação genética em uma solução ou resultado que pode ser avaliado.
+<br><br>
+No algoritmo genético, o processo de seleção, crossover e mutação atua sobre o genótipo dos <b>Indivíduos</b>, permitindo a geração de novas soluções candidatas que serão avaliadas a partir do seu fenótipo. O objetivo do algoritmo é encontrar a solução que otimiza a função de avaliação a partir da manipulação do genótipo dos indivíduos ao longo das gerações.
+<br><br>
+E por ultimo, porem nao menos importante, temos a <b>Populacao</b>, que eh composta por 1 ou mais Individuos.
+<h3 style="color:green">>> CHECKPOINT <<</h3>
+Conceitos que devem estar claros ate aqui: <b>Populacao</b>, <b>Individuo</b> e <b>Gene</b>.
+
+<h3>Principais caracteristicas:</h3>
+<ul>
+<li><b>População:</b> o algoritmo genético trabalha com uma população de indivíduos, permitindo explorar diversas soluções em paralelo e aumentando a chance de encontrar a melhor resposta.</li>
+<li><b>Seleção:</b> o algoritmo genético utiliza um mecanismo de seleção natural, no qual indivíduos que possuem melhores características tendem a se reproduzir mais e, consequentemente, passar essas características para as próximas gerações.</li>
+<li><b>Crossover:</b> através da combinação de dois indivíduos, o algoritmo genético cria novos indivíduos que podem apresentar combinações genéticas diferentes, possibilitando a variação genética na população.</li>
+<li><b>Mutação:</b> o algoritmo genético introduz uma pequena chance de mutação nos indivíduos filhos, o que pode levar a novas características ou melhorias nas características já existentes.</li>
+<li><b>Codificação:</b> o algoritmo genético utiliza uma codificação para representar os indivíduos, permitindo que eles possam ser processados por meio de operações matemáticas e lógicas.</li>
+<li><b>Avaliação Fitness:</b> o algoritmo genético utiliza uma função de avaliação fitness para medir a qualidade de cada solução, com base nos seus objetivos e restrições.</li>
+</ul>
+</p>
+</div>
+
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> DESCRICAO</span>
+</div>
+<div id="divSynopsis"> 
+<p>
+A seguir uma explicacao mais detalhada de alguns operadores, porem, como vimos anteriormente, os individuos sao representados geralmente como sendo composto por genes binarios, isso torna a aplicacao dos operadores mais intuitiva.
+Dessa forma, quando queremos utilizar o GA para um problema em que a solucao sao numeros reais por exemplo, e nao bytes, devemos fazer a <b>Codificacao</b> e <b>Decodificacao</b> desses valores reais.
+
+<h1 style="color: orange">> OPERADORES</h1>
+<h3>>> ENCODER/DECODER</h3>
+Para os casos em que a solucao do problema sao valores reais, no momento em que formos avaliar se os Individuos da populacao sao ou nao bons candidatos, devemos converte-los de sua representacao binaria para um valor real.
+<br>
+<div style="text-align: center;">
+<img class="centerImg" src="encoder2.png" alt="encoder2" style="width:60%;height:60px;">
+</div>
+<br>
+Existem algumas formas de fazer essa conversao, utilizaremos aqui a equacao abaixo, que faz uma conversao direta.
+<br>
+<div style="text-align: center;">
+<img class="centerImg" src="encoder.png" alt="encoder" style="width:50%;height:80px;">
+</div>
+<br>
+A principio pode parecer uma equacao complicada, mas eh na realidade bem simples. A somatoria esta apenas fazendo a conversao de binario para decimal onde l eh o numero de genes (bits) que o individuo tem, a figura abaixo expande a somatoria com o Individuo acima como exemplo.
+<br>
+<div style="text-align: center;">
+<img class="centerImg" src="convertion.png" alt="convertion" style="width:70%;height:70px;">
+</div>
+<br>
+E o ultimo termo eh responsavel por adequar o valor da conversao para o intervalo desejado (tambem conhecido como map function). 
+<br>
+
+Os valores de <b>max</b> e <b>min</b> dependem do problema, por exemplo, na conversao direta de binario para decimal, 1 byte (bin: 11111111) tem o valor de 255 em decimal. Porem, se quisermos adequar esse valor para ficar entre 0 e 100, definimos <b>min=0</b> e <b>max=100</b>.
+E portanto, nessa escala, o valor 128 em binario (bin: 00000001) sera aproximadamente 50. 
+<br><br>
+
+Nesse momento eh interessante que esse tipo de conversao esteja bem clara, se voce ainda nao estiver convencido do funcionamento desta conversao, faca alguns testes praticos com essa equacao.
+Eh importante ressaltar, que quanto maior o numero de genes por individuo (letra l na equacao), maior precisao a conversao tera.
+<br><br>
+Ok, mas uma pergunta honesta que pode ser feita neste momento eh, "mas e se a solucao do meu problema for mais de um valor?". Por exemplo, se o problema for uma funcao f(x, y) e voce quer encontrar x e y que minimize a funcao, e como x e y sao independentes, como faria?
+<br>
+Bom, nesses casos (que sao muito comuns), uma abordagem eh simplesmente multiplicar o numero de genes do Individuo pelo numero de variaveis independentes do problema (numero de dimensoes do problema). No exemplo da funcao f(x, y) acima, o numero de genes seria duplicado por Individuo.
+<br>
+A figura abaixo reprensenta essa divisao no Individuo. A parte matematica da conversao continua sendo exatamente a mesma, tendo apenas que levar em consideracao onde termina uma variavel e onde comeca a outra.
+<br>
+<div style="text-align: center;">
+<img class="centerImg" src="2d.png" alt="2d" style="width:80%;height:230px;">
+</div>
+
+<h3 style="color:green">>> CHECKPOINT <<</h3>
+Conceitos que devem estar claros ate aqui: <b>Conversao</b> e <b>Representacao de mais de uma variavel por Individuo</b>.
+<hr>
+
+<h3>>> SELECAO</h3>
+A seleção é uma das etapas fundamentais do algoritmo genético e tem como objetivo escolher os indivíduos mais adaptados do grupo para gerar a próxima geração. Existem diferentes estratégias de seleção que podem ser utilizadas, tais como:
+<ul>
+<li><b>Seleção por torneio:</b> Nessa estratégia, são escolhidos aleatoriamente alguns indivíduos da população e é selecionado o melhor entre eles para fazer parte da próxima geração. Esse processo é repetido até que sejam selecionados todos os indivíduos necessários para formar a próxima geração.</li>
+<li><b>Seleção por roleta:</b> Nessa estratégia, cada indivíduo tem uma probabilidade proporcional à sua aptidão de ser selecionado para fazer parte da próxima geração. Quanto maior a aptidão do indivíduo, maior a sua probabilidade de ser escolhido.</li>
+<li><b>Seleção por classificação linear:</b> Nessa estratégia, os indivíduos são ordenados de acordo com a sua aptidão e são selecionados os melhores, sendo que a probabilidade de ser escolhido diminui à medida que se avança na lista.</li>
+<li><b>Seleção por elitismo:</b> Nessa estratégia, os melhores indivíduos da população são selecionados para fazer parte da próxima geração, sem sofrer nenhum tipo de alteração. Essa técnica garante que os indivíduos mais adaptados não sejam perdidos ao longo das gerações.</li>
+</ul>
+Iremos implementar mais adiante a selecao por elitismo.
+<br>
+Em resumo, a seleção é uma etapa crucial do algoritmo genético, pois é responsável por garantir que os indivíduos mais adaptados sejam mantidos e possam gerar descendentes igualmente adaptados.
+<hr>
+<h3>>> CROSSOVER</h3>
+O crossover, também conhecido como recombinação genética, é uma das etapas essenciais do algoritmo genético. Ele é responsável por criar novas combinações de genes a partir dos pais selecionados na etapa de seleção, criando assim uma nova geração de indivíduos.
+O processo de crossover consiste em escolher dois indivíduos (ou pais) da população selecionada na etapa anterior e misturar aleatoriamente os seus genes, criando um novo indivíduo (ou filho). Esse processo é repetido até que sejam gerados todos os indivíduos necessários para a nova geração.
+Existem diversas técnicas de crossover que podem ser utilizadas, dentre as quais destacam-se:
+<ul>
+<li><b>Crossover de um ponto:</b> Nessa técnica, um ponto é escolhido aleatoriamente na sequência de genes dos pais e os seus segmentos são trocados, gerando assim dois filhos.</li>
+<li><b>Crossover de dois pontos:</b> Nessa técnica, dois pontos são escolhidos aleatoriamente na sequência de genes dos pais e os segmentos entre esses pontos são trocados, gerando assim dois filhos.</li>
+<li><b>Crossover uniforme:</b> Nessa técnica, cada gene é escolhido aleatoriamente de um dos pais, gerando assim um novo filho.</li>
+<li><b>Crossover aritmético:</b> Nessa técnica, os genes dos pais são combinados de forma ponderada, gerando assim um filho que é uma média ponderada dos pais.</li>
+</ul>
+
+Iremos implementar mais adiante a primeira, <b>Crossover de um ponto</b>, que pode ser vista na imagem a seguir:
+<br>
+<div style="text-align: center;">
+<img class="centerImg" src="crossover.png" alt="crossover" style="width:70%;height:320px;">
+</div>
+<br>
+O objetivo do crossover é aumentar a diversidade genética da população, permitindo a exploração de novas combinações genéticas que possam ser mais adaptadas ao ambiente em questão. É importante ressaltar que o sucesso do crossover depende tanto da escolha adequada da técnica de crossover quanto do tipo de problema a ser resolvido.
+<hr>
+<h3>>> MUTACAO</h3>
+A mutação é uma das etapas essenciais do algoritmo genético, juntamente com a seleção e o crossover. A sua função é introduzir variações aleatórias nos indivíduos da população, permitindo a exploração de novas soluções que possam ser mais adaptadas ao ambiente em questão.
+O processo de mutação consiste em alterar aleatoriamente um ou mais genes de um indivíduo da população. Essa alteração pode ocorrer de diversas formas, tais como:
+<ul>
+<li><b>Mutação por troca:</b> Nessa técnica, um gene é escolhido aleatoriamente e trocado por outro gene.</li>
+<li><b>Mutação por inversão:</b> Nessa técnica, um segmento de genes é escolhido aleatoriamente e invertido.</li>
+<li><b>Mutação por inserção:</b> Nessa técnica, um gene é escolhido aleatoriamente e inserido em uma posição aleatória da sequência de genes.</li>
+<li><b>Mutação por deleção:</b> Nessa técnica, um gene é escolhido aleatoriamente e removido da sequência de genes.</li>
+</ul>
+
+Iremos implementar mais adiante a primeira, <b>Swap mutation</b>, que pode ser vista na imagem a seguir:
+<br>
+<div style="text-align: center;">
+<img class="centerImg" src="mutation.png" alt="mutation" style="width:70%;height:220px;">
+</div>
+<br>
+É importante ressaltar que a taxa de mutação é um parâmetro importante do algoritmo genético, pois ela determina a frequência com que as mutações ocorrem na população. Se a taxa de mutação for muito baixa, pode ocorrer uma convergência prematura da população para um ótimo local. Por outro lado, se a taxa de mutação for muito alta, a população pode perder características importantes, comprometendo a sua adaptação ao ambiente.
+Em resumo, a mutação é uma etapa importante do algoritmo genético, pois permite a exploração de novas soluções, aumentando a diversidade genética da população. A taxa de mutação deve ser escolhida cuidadosamente, para evitar convergência prematura ou perda de características importantes da população.
+
+<hr>
+<h1 style="color: orange">> O ALGORITMO</h1>
+<ol>
+<li>Uma populacao inicial eh gerada, usualmente aleatoria, porem, caso seja conhecida alguma informacao que ajude a conhecer a solucao do problema, essa informacao pode ser usada para gerar uma populacao inicial "mais adequada" ao problema.</li>
+<li>A populacao inicial eh entao avaliada, para saber o quao boa ela eh para o problema em questao.</li>
+<li>Caso ela ja seja boa o suficiente (essa suficiencia eh pre-definida e depende do problema, poder computacional, precisao desejada, etc ...), o algoritmo acaba ai, pois ja existe uma solucao boa o sufiente.</li>
+<li>Caso a populacao ainda nao seja uma solucao boa o suficiente eh entao aplicado os operadores do algoritmo.</li>
+<li>Que no caso do GA, podem ser: Selecao, Mutacao, Cruzamento, Elitismo (diversas variacoes desses operadores, bem como outros operadores foram ao longo do tempo sendo acrescentados no GA original e dao caracteristicas diferentes ao algoritmo, e pode ser uteis ou nao a depender do problema).</li>
+<li>Apos aplicados os operadores na populacao, uma nova populacao eh obtida com essas mudancas. Essa nova populacao pode ou nao ser mais adequada como solucao do problema.</li>
+<li>A nova populacao eh avaliada.</li>
+<li>Os passos 3-7 sao entao repetidos ate que se obtenha uma populacao que seja uma solucao suficientemente boa para o problema (ou, caso o numero maximo de geracoes pre-definido tenha sido alcancado).</li>
+</ol>
+<img class="fit-picture" src="GA-schema.png" alt="Schema of GA algorithm" style="width:100%;height:400px;">
+</p>
+</div>
+
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> BORA FAZER</span>
+</div>
+<div id="divSynopsis"> 
+<p>	Vamos agora utilizar na pratica este algoritmo. Iremos programar em python3, e portanto, os requisitos sao:
+<ul>
+<li>Python3 > <a href="https://realpython.com/installing-python/">[ Guia de instalacao ]</a></li>
+<li>Biblioteca Deap > <a href="https://pypi.org/project/deap/">[ Guia de instalacao ]</a></li>
+<li>Biblioteca Numpy > <a href="https://numpy.org/install/">[ Guia de instalacao ]</a></li>
+<li>Biblioteca Matplotlib > <a href="https://matplotlib.org/stable/users/installing/index.html">[ Guia de instalacao ]</a></li>
+</ul>
+
+A ideia aqui eh criar um codigo que seja escalavel e portanto facilmente adaptavel para diversos tipos de problema. Dessa forma, pode ser que a principio algumas funcoes e abordagens parecam desnecessarias, mas tenham em mente que o intuito eh fazermos um codigo util na pratica.
+A principio iremos escrevendo as funcoes e algumas variaveis, e nao precisem se preocupar em que ordem elas devem ficar no codigo, pois no final estara o codigo completo com uma ordem sugerida. A principal ideia agora eh entendermos a logica dos operadores e como implementa-los.
+<h1 style="color: orange">> CODING</h1>
+Vamos agora finalmente colocar a mao na massa, e programar!! :)
+<br><br>
+A primeira coisa a se fazer no codigo eh importar as bibliotecas que serao utilizadas.
+
+<div>
+<hr>
+<code>
+1:	<span style="color: green">from</span> deap import base<br>
+2:	<span style="color: green">from</span> deap import benchmarks<br>
+3:	<span style="color: green">from</span> deap import creator<br>
+4:	<span style="color: green">from</span> deap import tools<br>
+5:	<span style="color: green">import</span> itertools<br>
+6:	<span style="color: green">import</span> random<br>
+7:	<span style="color: green">import</span> math<br>
+8:	<span style="color: green">import</span> time<br>
+9:	<span style="color: green">import</span> fitFunction
+</code>
+<hr>
+</div>
+
+As linhas de 1-4 estao importando algumas funcoes que utilizaremos da biblioteca Deap. As linhas de 5-8 sao bibliotecas nativa do python que utilizaremos e por fim, na linha 9 estamos importanto o arquivo fitFunction.py que devera estar na mesma pasta do codigo principal. Mais para frente trataremos deste arquivo.
+<br><br>
+Antes de comecarmos a criar as funcoes dos operadores, iremos criar uma variavel onde sera feita a parametrizacao do algoritmo, onde definiremos por exemplo, o numero de invididuos da populacao, tamanho dos Individuos, taxa de mutacao e etc...
+
+<div>
+<code>
+<hr>
+1 : parameters = {<br>
+2 :	&emsp;<span style="color: yellow">"POPSIZE"</span>: 100,<br>
+3 :	&emsp;<span style="color: yellow">"INDSIZE"</span>: 8,<br>
+4 :	&emsp;<span style="color: yellow">"NDIM"</span>: 1,<br>
+5 :	&emsp;<span style="color: yellow">"MIN"</span>: -100,<br>
+6 :	&emsp;<span style="color: yellow">"MAX"</span>: 100,<br>
+7 :	&emsp;<span style="color: yellow">"NEVALS"</span>: 200000,<br>
+8 :	&emsp;<span style="color: yellow">"RUNS"</span>: 1,<br>
+9 :	&emsp;<span style="color: yellow">"SEL"</span>: 0.2,<br>
+10:	&emsp;<span style="color: yellow">"CROSS"</span>: 1,<br>
+11:	&emsp;<span style="color: yellow">"MUT"</span>: 0.001,<br>
+12:	&emsp;<span style="color: yellow">"TYPE"</span>: "CHAR",<br>
+13:	&emsp;<span style="color: yellow">"BENCHMARK"</span>: "HORO"}
+</code>
+<hr>
+</div>
+A descricao dos parametros eh a seguinte:
+<ul>
+<li><b>POPSIZE:</b> Numero de Individuos na populacao.</li>
+<li><b>INDSIZE:</b> Tamanho do Individuo; Numero de genes.</li>
+<li><b>NDIM:</b> Dimensao do problema; Quantidade de variaveis que um Individuo deve representar.</li>
+<li><b>MIN:</b> Valor minimo no espaco de busca do problema.</li>
+<li><b>MAX:</b> Valor maximo no espaco de busca do problema.</li>
+<li><b>NEVALS:</b> Numero total de avaliacoes que o programa deve fazer; Apos atingir esse valor a solucao do problema sera  melhor solucao encontrada ate o momento.</li>
+<li><b>RUNS:</b> Numero de runs que o programa deve rodar; Se RUNS > 1 eh feita uma media simples da melhor solucao de cada run e essa media passa a ser a solucao do problema.</li>
+<li><b>SEL:</b> Parametrizacao do operador Selecao; Ex.: No caso de Elitismo, indica a porcentagem de Individuos que devem passar direto para a proxima geracao.</li>
+<li><b>CROSS:</b> Parametrizacao do operador Crossover; Indica a probabilidade de ocorrer crossover entre um par de individuos.</li>
+<li><b>MUT:</b> Parametrizacar do operador Mutacao; Indica a probabilidade de ocorrer mutacao em um Individuo.</li>
+<li><b>TYPE:</b> Define se o problema sera do tipo binario (sem necessidade de codificacao) ou continuo (com necessidade de codificacao).</li>
+<li><b>BENCHMARK:</b> Define o benchmark que sera utilizado.</li>
+</ul>
+
+Criaremos agora uma funcao, chamada <b>createToolbox</b>, onde utilizaremos algumas ferramentas da biblioteca Deap para gerarmos os Individuos e a Populacao.
+
+<div>
+<hr>
+<code>
+1:	<span style="color: green">def</span> <span style="color: blue">def </span>createToolbox</span>(parameters):<br>
+2:	&emsp;toolbox = base.Toolbox()<br>
+3:	&emsp;toolbox.register("individual", generate, parameters=parameters)<br>
+4:	&emsp;toolbox.register("population", tools.initRepeat, list, toolbox.individual)<br>
+5:	&emsp;<span style="color: green">return</span> toolbox
+</code>
+<hr>
+</div>
+
+A linha 2 cria a "caixa de ferramenta", onde podemos adicionar diversas funcoes diferentes para lidarem com os individuos. No geral, esse sera um dos poucos recursos da Deap que utilizaremos, pois iremos escrever as funcoes dos operadores, para entendermos passo a passo.
+As linhas 3-4 adicionam duas funcoes a nossa toolbox. <br>
+A linha 3 adiciona a funcao que sera responsavel por criar cada Individuo da Populacao. O parametro "generate", indica o nome da funcao que sera utilizada para criar os Individuos, no caso, nos mesmos iremos escrever essa funcao. E o parametro "parameters=parameters" serve apenas para passar a variavel "parameters" para a funcao "generate".
+<br>
+A linha 4 adiciona a funcao responsavel por criar a Populacao. O parametro "list" informa que a Populacao sera do tipo <b>list</b> do python3, isto eh, cada Individuo, sera um elemento da lista. O parametro "toolbox.individual" informa qual funcao deve ser usada para criar cada Individuo, no caso, eh a funcao que acabamos de criar na linha 3. E o parametro "tools.initRepeat" informa que a funcao deve ser executada repetidamente.
+</p>
+</div>
+
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> REFERENCIAS E SUGESTOES</span>
+</div>
+<div id="divSynopsis"> 
+<p>
+<ul>
+<li>Um excelente artigo que faz uma revisao do algoritmo GA:<br>
+Katoch, S., Chauhan, S.S. & Kumar, V. A review on genetic algorithm: past, present, and future. Multimed Tools Appl 80, 8091–8126 (2021). https://doi.org/10.1007/s11042-020-10139-6</li>
+<li>Biblioteca DEAP utilizada nos codigos:<br>
+https://deap.readthedocs.io/en/master/<br>
+Félix-Antoine Fortin, François-Michel De Rainville, Marc-André Gardner, Marc Parizeau, Christian Gagné; 13(70):2171−2175, 2012.</li>
+</ul>
+</p>
+<p>
+Uso deste artigo em referencias:<br> 
+ECOGORA. Ecogora, © 2023. Conteúdos sobre computacao evolutiva. Disponível em: https://ecogora.vercel.app/. Acesso em: DIA MES. ANO.
+</p>
+<div class="myHead"><blink></blink></div>
+</div>
+
+</pre>
+</section>
+</body>
+</html>
