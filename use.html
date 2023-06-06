@@ -62,12 +62,12 @@ function setCookie(key, value, expiry) {
 As a adjustable framework, we need to configure it before use. This configuration is made through three configuration files, where we can set which components and what values for the hyper-parameters we want to use.
 These files are:
  <ul>
-  <li><b>algoConfig.ini:</b> Where it is the configuration related to the functioning of the algorithm itself (e.g. Population size, optimizers, ...).</li><br>
-  <li><b>frameConfig.ini:</b> Where it is the configuration of the framework parameters (e.g. number of runs, path of the files, number of evaluations, ...).</li><br>
-  <li><b>benchConfig.ini:</b> Where it is the configuration of the benchmark.</li><br>
+  <li><b><span style="color:white">algoConfig.ini:</span></b> Where it is the configuration related to the functioning of the algorithm itself (e.g. Population size, optimizers, ...).</li><br>
+  <li><b><span style="color:white">frameConfig.ini:</span></b> Where it is the configuration of the framework parameters (e.g. number of runs, path of the files, number of evaluations, ...).</li><br>
+  <li><b><span style="color:white">problemConfig.ini:</span></b> Where it is the configuration of problem (e.g. number of dimensions, dynamic or not, ...).</li><br>
 </ul> 
 
-These files are located in <b><i>AbEC/abec</i></b>.<br><br>
+These files are located in <b><i><span style="color:white">AbEC/abec/</span></i></b>.<br><br>
 Below a description and how to use these files is made.
 </div>
 </p>
@@ -77,95 +77,175 @@ Below a description and how to use these files is made.
 </div>
 <div id="divSynopsis"> 
 
-For the boolean configurations (<i>bool</i>), unless the opposite be said, 1 means enabled and 0 means disabled.
+	For the boolean configurations (<i>bool</i>), unless the opposite be said, 1 means enabled and 0 means disabled.
 
-<h1 style="color: orange">> algoConfig.ini</h1>
-<p> This is main configuration file, where we are goint to set which optimizers, components as well its hyper-parameters, that it will compose our algorithm. Below it is the entire file and a description of each line and how to set it (in this file, for example, it is configured the algorithm Particle Swarm Optimization, kwons as PSO).
-> <a href="algoConfig.ini">[ file ]</a>
-<div>
-<hr>
-<code>
-<span style="color: white">{</span><br>
-<span style="color: white">"__COMMENT__": "BASIC CONFIGURATION",</span><br>
-<span style="color: white">"ALGORITHM": "PSO",</span> <span style="color: yellow">-> Name of the algorithm. (</i>char</i>)</span><br>
-<span style="color: white">"POPSIZE": 50,</span></span> <span style="color: yellow">-> Number of individuals in the population. If there are more than one population, this number applies for each subpopulation. (<i>int</i>)</span><br>
-<span style="color: white">"MIN_POS": 0,</span></span> <span style="color: yellow">-> Min value of the search space. (<i>int</i>)</span><br>
-<span style="color: white">"MAX_POS": 100,</span></span> <span style="color: yellow">-> Max value of the search space. (<i>int</i>)</span><br>
-<span style="color: white">"__COMMENT__": "OPTIMIZER CONFIGURATION",</span><br>
-<span style="color: white">"GA_POP_PERC": 0,</span></span> <span style="color: yellow">-> Percentage of the individuals in the population that it will perform the <i>Genetic Algorithm (GA)</i>. (<i>float</i>) in <i>[0, 1]</i></span><br>
-<span style="color: white">"GA_ELI_PERC": 0.2,</span></span> <span style="color: yellow">-> Hyper-parameter percentage of the elit in the GA population. (<i>float</i>) in <i>[0, 1]</i></span><br>
-<span style="color: white">"GA_CROSS_PERC": 1,</span></span> <span style="color: yellow">-> Hyper-parameter percentage of the population to consider in GA population when applies the crossover. (<i>float</i>) in <i>[0, 1]</i></span><br>
-<span style="color: white">"GA_MUT_PERC": 0.1,</span></span> <span style="color: yellow">-> Hyper-parameter probability of the mutation in the GA population. (<i>float</i>) in <i>[0, 1]</i></span><br>
-<span style="color: white">"GA_MUT_STD": 1,</span></span> <span style="color: yellow">-> Hyper-parameter standard deviation of the normal distribution used in the mutation. (<i>float</i>) in <i>]0, MAX_POS-MIN_POS]</i></span><br>
-<span style="color: white">"GA_ENCODER": 0,</span></span> <span style="color: yellow">-> Use encoder in the GA individuals. If used, the values of the individuals will be converted into binary and the operators will apply in the bit level. (<i>bool</i>)</span><br>
-<span style="color: white">"GA_INDSIZE": 16,</span></span> <span style="color: yellow">-> If using encoder, the size of the individuals, number of bits to represent each dimension. (<i>int</i>) in <i>[1, 64]</i></span><br>
-<span style="color: white">"PSO_POP_PERC": 1,</span></span> <span style="color: yellow">-> Percentage of the individuals in the population that it will perform the <i>Particle Swarm Optimization (PSO)</i>. (<i>float</i>) in <i>[0, 1]</i></span><br>
-<span style="color: white">"PSO_PHI1": 2.05,</span></span> <span style="color: yellow">-> Hyper-parameter &sigma;<sub>1</sub> of the PSO. (<i>float</i>) in <i>[0, 10]</i></span><br>
-<span style="color: white">"PSO_PHI2": 2.05,</span></span> <span style="color: yellow">-> Hyper-parameter &sigma;<sub>2</sub> of the PSO. (<i>float</i>) in <i>[0, 10]</i></span><br>
-<span style="color: white">"PSO_W": 0.729,</span></span> <span style="color: yellow">-> Hyper-parameter &omega; of the PSO. (<i>float</i>) in <i>[0, 10]</i></span><br>
-<span style="color: white">"PSO_MIN_VEL": -100,</span></span> <span style="color: yellow">-> Min value of the speed of the PSO individuals. (<i>float</i>) in <i>[-(MAX_POS-MIN_POS), MAX_POS-MIN_POS]</i></span><br>
-<span style="color: white">"PSO_MAX_VEL": 100,</span></span> <span style="color: yellow">-> Max value of the speed of the PSO individuals. (<i>float</i>) in <i>[-(MAX_POS-MIN_POS), MAX_POS-MIN_POS]</i></span><br>
-<span style="color: white">"DE_POP_PERC": 0,</span></span> <span style="color: yellow">-> Percentage of the individuals in the population that it will perform the <i>Differential Evolution (DE)</i>. (<i>float</i>) in <i>[0, 1]</i></span><br>
-<span style="color: white">"DE_F": 0.5,</span></span> <span style="color: yellow">-> Hyper-parameter <i>F</i> of the DE. (<i>float</i>) in <i>[0, 10]</i></span><br>
-<span style="color: white">"DE_CR": 0.7,</span></span> <span style="color: yellow">-> Hyper-parameter <i>CR</i> of the DE. (<i>float</i>) in <i>[0, 10]</i></span><br>
-<span style="color: white">"ES_POP_PERC": 0,</span></span> <span style="color: yellow">-> Percentage of the individuals in the population that it will perform <i>Evolutionary Strategy (ES)</i>. (<i>float</i>) in <i>[0, 1]</i></span><br>
-<span style="color: white">"ES_RCLOUD": 0.2,</span></span> <span style="color: yellow">-> Hyper-parameter <i>r<sub>cloud</sub></i> of the ES. (<i>float</i>) in <i>]0, MAX_POS-MIN_POS]</i></span><br>
-<span style="color: white">"__COMMENT__": "COMPONENTS CONFIGURATION",</span><br>
-<span style="color: white">"COMP_CHANGE_DETECT": 0,</span></span> <span style="color: yellow">-> Change detection component. (<i>bool</i>)</span><br>
-<span style="color: white">"COMP_CHANGE_DETECT_MODE": 0,</span></span> <span style="color: yellow">-> Change detection mode: 0 - External trigger; 1 - Reevaluation. (<i>int</i>) in <i>[0, 1]</i></span><br>
-<span style="color: white">"COMP_MULTIPOP": 0,</span></span> <span style="color: yellow">-> Multipopulation component. (<i>bool</i>)</span><br>
-<span style="color: white">"COMP_MULTIPOP_N": 10,</span></span> <span style="color: yellow">-> Hyper-parameter number of subpopulations of the Multipopulation component. (<i>int</i>) > 1</i></span><br>
-<span style="color: white">"COMP_MUT": 0,</span></span> <span style="color: yellow">-> Mutation component. (<i>bool</i>)</span><br>
-<span style="color: white">"COMP_MUT_PERC": 0.05,</span></span> <span style="color: yellow">-> Hyper-parameter probability of the mutation in the population. (<i>float</i>) in <i>[0, 1]</i></span><br>
-<span style="color: white">"COMP_MUT_ELI": 0.5,</span></span> <span style="color: yellow">-> Hyper-parameter percentage of elit individuals to consider in the mutation component. (<i>float</i>) in <i>[0, 1[</i></span><br>
-<span style="color: white">"COMP_MUT_STD": 0.1,</span></span> <span style="color: yellow">-> Hyper-parameter standard deviation of the normal distribution used in the mutation component. (<i>float</i>) in <i>]0, MAX_POS-MIN_POS]</i></span><br>
-<span style="color: white">"COMP_EXCLUSION": 0,</span></span> <span style="color: yellow">-> Exclusion component. (<i>bool</i>)</span><br>
-<span style="color: white">"COMP_EXCLUSION_REXCL": 22.9,</span></span> <span style="color: yellow">-> Hyper-parameter exclusion radio (<i>r<sub>excl</sub></i>) of the Exclusion component. (<i>float</i>) in <i>]0, MAX_POS-MIN_POS]</i></span><br>
-<span style="color: white">"COMP_ANTI_CONVERGENCE": 0,</span></span> <span style="color: yellow">-> Anti-convergence component. (<i>bool</i>)</span><br>
-<span style="color: white">"COMP_ANTI_CONVERGENCE_RCONV": 39.7,</span></span> <span style="color: yellow">-> Hyper-parameter anti-convergence radius (<i>r<sub>conv</sub></i>) of the Anti-convergece component. (<i>float</i>) in <i>]0, MAX_POS-MIN_POS]</i></span><br>
-<span style="color: white">"COMP_LOCAL_SEARCH": 0,</span></span> <span style="color: yellow">-> Local-search component. (<i>bool</i>)</span><br>
-<span style="color: white">"COMP_LOCAL_SEARCH_ETRY": 20,</span></span> <span style="color: yellow">-> Hyper-parameter number of tries (<i>E<sub>try</sub></i>) of the Local-search component. (<i>int</i>) > 0</span><br>
-<span style="color: white">"COMP_LOCAL_SEARCH_RLS": 1,</span></span> <span style="color: yellow">-> Hyper-parameter local search radius (<i>r<sub>ls</sub></i>) of the Local-search component. (<i>float</i>) in <i>]0, MAX_POS-MIN_POS]</i></span><br>
-<span style="color: white">}</span><br>
+	<h1 style="color: orange">> algoConfig.ini</h1>
+	<p> This is main configuration file, where we are goint to set which optimizers, components as well its hyper-parameters, that it will compose our algorithm. Below it is the entire file and a description of each line and how to set it (in this file, for example, it is configured the algorithm Particle Swarm Optimization, kwons as PSO).
+	> <a href="algoConfig.ini">[ file ]</a>
 
-</code>
-<hr>
+	<div>
+	<hr>
+	<code>
+	<span style="color: white">{</span><br>
+	<span style="color: white">"__COMMENT__": "BASIC CONFIGURATION",</span><br>
+	<span style="color: white">"ALGORITHM": "PSO",</span> <span style="color: yellow">-> Name of the algorithm. (</i>char</i>)</span><br>
+	<span style="color: white">"POPSIZE": 50,</span></span> <span style="color: yellow">-> Number of individuals in the population. If there are more than one population, this number applies for each subpopulation. (<i>int</i>)</span><br>
+	<span style="color: white">"MIN_POS": 0,</span></span> <span style="color: yellow">-> Min value of the search space. (<i>int</i>)</span><br>
+	<span style="color: white">"MAX_POS": 100,</span></span> <span style="color: yellow">-> Max value of the search space. (<i>int</i>)</span><br>
+	<span style="color: white">"__COMMENT__": "OPTIMIZER CONFIGURATION",</span><br>
+	<span style="color: white">"GA_POP_PERC": 0,</span></span> <span style="color: yellow">-> Percentage of the individuals in the population that it will perform the <i>Genetic Algorithm (GA)</i>. (<i>float</i>) in <i>[0, 1]</i></span><br>
+	<span style="color: white">"GA_ELI_PERC": 0.2,</span></span> <span style="color: yellow">-> Hyper-parameter percentage of the elit in the GA population. (<i>float</i>) in <i>[0, 1]</i></span><br>
+	<span style="color: white">"GA_CROSS_PERC": 1,</span></span> <span style="color: yellow">-> Hyper-parameter percentage of the population to consider in GA population when applies the crossover. (<i>float</i>) in <i>[0, 1]</i></span><br>
+	<span style="color: white">"GA_MUT_PERC": 0.1,</span></span> <span style="color: yellow">-> Hyper-parameter probability of the mutation in the GA population. (<i>float</i>) in <i>[0, 1]</i></span><br>
+	<span style="color: white">"GA_MUT_STD": 1,</span></span> <span style="color: yellow">-> Hyper-parameter standard deviation of the normal distribution used in the mutation. (<i>float</i>) in <i>]0, MAX_POS-MIN_POS]</i></span><br>
+	<span style="color: white">"GA_ENCODER": 0,</span></span> <span style="color: yellow">-> Use encoder in the GA individuals. If used, the values of the individuals will be converted into binary and the operators will apply in the bit level. (<i>bool</i>)</span><br>
+	<span style="color: white">"GA_INDSIZE": 16,</span></span> <span style="color: yellow">-> If using encoder, the size of the individuals, number of bits to represent each dimension. (<i>int</i>) in <i>[1, 64]</i></span><br>
+	<span style="color: white">"PSO_POP_PERC": 1,</span></span> <span style="color: yellow">-> Percentage of the individuals in the population that it will perform the <i>Particle Swarm Optimization (PSO)</i>. (<i>float</i>) in <i>[0, 1]</i></span><br>
+	<span style="color: white">"PSO_PHI1": 2.05,</span></span> <span style="color: yellow">-> Hyper-parameter &sigma;<sub>1</sub> of the PSO. (<i>float</i>) in <i>[0, 10]</i></span><br>
+	<span style="color: white">"PSO_PHI2": 2.05,</span></span> <span style="color: yellow">-> Hyper-parameter &sigma;<sub>2</sub> of the PSO. (<i>float</i>) in <i>[0, 10]</i></span><br>
+	<span style="color: white">"PSO_W": 0.729,</span></span> <span style="color: yellow">-> Hyper-parameter &omega; of the PSO. (<i>float</i>) in <i>[0, 10]</i></span><br>
+	<span style="color: white">"PSO_MIN_VEL": -100,</span></span> <span style="color: yellow">-> Min value of the speed of the PSO individuals. (<i>float</i>) in <i>[-(MAX_POS-MIN_POS), MAX_POS-MIN_POS]</i></span><br>
+	<span style="color: white">"PSO_MAX_VEL": 100,</span></span> <span style="color: yellow">-> Max value of the speed of the PSO individuals. (<i>float</i>) in <i>[-(MAX_POS-MIN_POS), MAX_POS-MIN_POS]</i></span><br>
+	<span style="color: white">"DE_POP_PERC": 0,</span></span> <span style="color: yellow">-> Percentage of the individuals in the population that it will perform the <i>Differential Evolution (DE)</i>. (<i>float</i>) in <i>[0, 1]</i></span><br>
+	<span style="color: white">"DE_F": 0.5,</span></span> <span style="color: yellow">-> Hyper-parameter <i>F</i> of the DE. (<i>float</i>) in <i>[0, 10]</i></span><br>
+	<span style="color: white">"DE_CR": 0.7,</span></span> <span style="color: yellow">-> Hyper-parameter <i>CR</i> of the DE. (<i>float</i>) in <i>[0, 10]</i></span><br>
+	<span style="color: white">"ES_POP_PERC": 0,</span></span> <span style="color: yellow">-> Percentage of the individuals in the population that it will perform <i>Evolutionary Strategy (ES)</i>. (<i>float</i>) in <i>[0, 1]</i></span><br>
+	<span style="color: white">"ES_RCLOUD": 0.2,</span></span> <span style="color: yellow">-> Hyper-parameter <i>r<sub>cloud</sub></i> of the ES. (<i>float</i>) in <i>]0, MAX_POS-MIN_POS]</i></span><br>
+	<span style="color: white">"__COMMENT__": "COMPONENTS CONFIGURATION",</span><br>
+	<span style="color: white">"COMP_CHANGE_DETECT": 0,</span></span> <span style="color: yellow">-> Change detection component. (<i>bool</i>)</span><br>
+	<span style="color: white">"COMP_CHANGE_DETECT_MODE": 0,</span></span> <span style="color: yellow">-> Change detection mode: 0 - External trigger; 1 - Reevaluation. (<i>int</i>) in <i>[0, 1]</i></span><br>
+	<span style="color: white">"COMP_MULTIPOP": 0,</span></span> <span style="color: yellow">-> Multipopulation component. (<i>bool</i>)</span><br>
+	<span style="color: white">"COMP_MULTIPOP_N": 10,</span></span> <span style="color: yellow">-> Hyper-parameter number of subpopulations of the Multipopulation component. (<i>int</i>) > 1</i></span><br>
+	<span style="color: white">"COMP_MUT": 0,</span></span> <span style="color: yellow">-> Mutation component. (<i>bool</i>)</span><br>
+	<span style="color: white">"COMP_MUT_PERC": 0.05,</span></span> <span style="color: yellow">-> Hyper-parameter probability of the mutation in the population. (<i>float</i>) in <i>[0, 1]</i></span><br>
+	<span style="color: white">"COMP_MUT_ELI": 0.5,</span></span> <span style="color: yellow">-> Hyper-parameter percentage of elit individuals to consider in the mutation component. (<i>float</i>) in <i>[0, 1[</i></span><br>
+	<span style="color: white">"COMP_MUT_STD": 0.1,</span></span> <span style="color: yellow">-> Hyper-parameter standard deviation of the normal distribution used in the mutation component. (<i>float</i>) in <i>]0, MAX_POS-MIN_POS]</i></span><br>
+	<span style="color: white">"COMP_EXCLUSION": 0,</span></span> <span style="color: yellow">-> Exclusion component. (<i>bool</i>)</span><br>
+	<span style="color: white">"COMP_EXCLUSION_REXCL": 22.9,</span></span> <span style="color: yellow">-> Hyper-parameter exclusion radio (<i>r<sub>excl</sub></i>) of the Exclusion component. (<i>float</i>) in <i>]0, MAX_POS-MIN_POS]</i></span><br>
+	<span style="color: white">"COMP_ANTI_CONVERGENCE": 0,</span></span> <span style="color: yellow">-> Anti-convergence component. (<i>bool</i>)</span><br>
+	<span style="color: white">"COMP_ANTI_CONVERGENCE_RCONV": 39.7,</span></span> <span style="color: yellow">-> Hyper-parameter anti-convergence radius (<i>r<sub>conv</sub></i>) of the Anti-convergece component. (<i>float</i>) in <i>]0, MAX_POS-MIN_POS]</i></span><br>
+	<span style="color: white">"COMP_LOCAL_SEARCH": 0,</span></span> <span style="color: yellow">-> Local-search component. (<i>bool</i>)</span><br>
+	<span style="color: white">"COMP_LOCAL_SEARCH_ETRY": 20,</span></span> <span style="color: yellow">-> Hyper-parameter number of tries (<i>E<sub>try</sub></i>) of the Local-search component. (<i>int</i>) > 0</span><br>
+	<span style="color: white">"COMP_LOCAL_SEARCH_RLS": 1,</span></span> <span style="color: yellow">-> Hyper-parameter local search radius (<i>r<sub>ls</sub></i>) of the Local-search component. (<i>float</i>) in <i>]0, MAX_POS-MIN_POS]</i></span><br>
+	<span style="color: white">}</span><br>
+	</code>
+	<hr>
+	</div>
+
+	<h1 style="color: orange">> frameConfig.ini</h1>
+	<p> This file is used to setup the framework configuration, like, the metrics to be calculated, number of runs and etc. Below it is the entire file and a description of each line and how to set it.
+	> <a href="frameConfig.ini">[ file ]</a>
+	<div>
+	<hr>
+	<code>
+	<span style="color: white">{</span><br>
+	<span style="color: white">"__COMMENT__": "FRAMEWORK CONFIGURATION",</span><br>
+	<span style="color: white">"RUNS": 1,</span> <span style="color: yellow">-> Number of runs. (<i>int</i>) > 0</span><br>
+	<span style="color: white">"FINISH_RUN_MODE": 1,</span> <span style="color: yellow">-> Mode to finish the run. 0 - <i>Fixed-budget</i>, finish when achieve a fixed number of evaluations; 1 - <i>Fixed-target</i>, run until achieve a error less than a fixed target. (<i>int</i>) in <i>[0, 1]</i></span><br>
+	<span style="color: white">"FINISH_RUN_MODE_VALUE": 10000,</span></span> <span style="color: yellow">-> Number of evaluation if <i>FINISH_RUN_MODE = 1</i>  (<i>int</i>) > 1; Target error if <i>FINISH_RUN_MODE = 1</i>  (<i>float</i>) > 0. </span><br>
+	<span style="color: white">"SEED": 42,</span></span> <span style="color: yellow">-> The seed for the runs. (<i>float</i>)</span><br>
+	<span style="color: white">"PLOT": 0,</span></span> <span style="color: yellow">-> Save the performance curves of the runs. (<i>bool</i>)</span><br>
+	<span style="color: white">"CONFIG_COPY": 1,</span></span> <span style="color: yellow">-> Save the configuration files. (<i>bool</i>)</span><br>
+	<span style="color: white">"OFFLINE_ERROR": 0,</span></span> <span style="color: yellow">-> Calculate the <i>offline error</i> of the runs. (<i>bool</i>)</span><br>
+	<span style="color: white">"BEBC_ERROR": 0,</span></span> <span style="color: yellow">-> Calculate the <i>best before change</i> error. (<i>bool</i>)</span><br>
+	<span style="color: white">"PATH": "../examples",</span></span> <span style="color: yellow">-> Path to save the generated files. (<i>char</i>)</span><br>
+	<span style="color: white">"FILENAME": "data.csv",</span></span> <span style="color: yellow">-> File name of the performance data. (<i>char</i>)</span><br>
+	<span style="color: white">"LOG_ALL": 0,</span></span> <span style="color: yellow">-> Put all individuals data in the performance data. (<i>bool</i>)</span><br>
+	<span style="color: white">"DEBUG_RUN": 1,</span></span> <span style="color: yellow">-> Debug in run level. (<i>bool</i>)</span><br>
+	<span style="color: white">"DEBUG_RUN2": 0,</span></span> <span style="color: yellow">-> Debug in run level 2. (<i>bool</i>)</span><br>
+	<span style="color: white">"DEBUG_GEN": 0,</span></span> <span style="color: yellow">-> Debug in generation level. (<i>bool</i>)</span><br>
+	<span style="color: white">"DEBUG_POP": 0,</span></span> <span style="color: yellow">-> Debug in population level. (<i>bool</i>)</span><br>
+	<span style="color: white">"DEBUG_IND": 0</span></span> <span style="color: yellow">-> Debug in individual level. (<i>bool</i>)</span><br>
+	<span style="color: white">}</span><br>
+	</code>
+	<hr>
+	</div>
+
+	<h1 style="color: orange">> problemConfig.ini</h1>
+	<p> This file is used to setup the problem configuration, like the number of dimensions, if it is a dynamic problem and etc.
+	<br>
+	The framework provide some benchmarks problems for testing, using for this, the <a href="https://deap.readthedocs.io/en/master/api/benchmarks.html">DEAP</a> library. They are:
+	<ul>
+	  <li><b><span style="color:white">H1</span></b></li>
+	  <li><b><span style="color:white">BOHACHEVSKY</span></b></li>
+	  <li><b><span style="color:white">HIMMELBLAU</span></b></li>
+	  <li><b><span style="color:white">SPHERE</span></b></li>
+	  <li><b><span style="color:white">ROSENBROCK</span></b></li>
+	  <li><b><span style="color:white">SCHAFFER</span></b></li>
+	  <li><b><span style="color:white">SCHEFEL</span></b></li>
+	  <li><b><span style="color:white">RASTRIGIN</span></b></li>
+	  <li><b><span style="color:white">MPB</span></b></li>
+	</ul>
+	Below it is the entire file and a description of each line and how to set it.
+	> <a href="problemConfig.ini">[ file ]</a>
+	<div>
+	<hr>
+	<code>
+	<span style="color: white">{</span><br>
+	<span style="color: white">"__COMMENT__": "PROBLEM CONFIGURATION",</span><br>
+	<span style="color: white">"BENCHMARK": "MPB",</span> <span style="color: yellow">-> Name of the benchmark as it is in the list above. If you are going to use your own fitness function, must put "NONE" here. (<i>char</i>)</span><br>
+	<span style="color: white">"NDIM": 2,</span> <span style="color: yellow">-> Number of dimensions of the problem. (<i>int</i>) > 0</span><br>
+	<span style="color: white">"CHANGES": 1,</span></span> <span style="color: yellow">-> Changes in the environment, for dynamic problems. (<i>bool</i>)</span><br>
+	<span style="color: white">"CHANGES_NEVALS": [0, 5000, 10000],</span></span> <span style="color: yellow">-> A list containing the number of the evaluations in which the environment should change. (<i>list</i>)</span><br>
+	<span style="color: white">"SCENARIO_MPB": 2,</span></span> <span style="color: yellow">-> Scenario to use in the MPB. (<i>ind</i>) in <i>[1, 3]</i></span><br>
+	<span style="color: white">"UNIFORM_HEIGHT_MPB": 0,</span></span> <span style="color: yellow">-> Initial height of the peaks in the MPB. if 0 the height will be randomly choosed in the MPB. (<i>int</i>) in <i>[0, 100]</i></span><br>
+	<span style="color: white">"MOVE_SEVERITY_MPB": 1.5,</span></span> <span style="color: yellow">-> The distance a single peak moves when peaks change in the MPB. (<i>float</i>) in <i>]0, 100]</i></span><br>
+	<span style="color: white">"MIN_HEIGHT_MPB": 30,</span></span> <span style="color: yellow">-> Minimum height of the peaks in the MPB. (<i>float</i>) in <i>[0, 100]</i></span><br>
+	<span style="color: white">"MAX_HEIGHT_MPB": 70,</span></span> <span style="color: yellow">-> Maximum height of the peaks in the MPB. (<i>float</i>) in <i>]0, 100]</i></span><br>
+	<span style="color: white">"MIN_WIDTH_MPB": 1,</span></span> <span style="color: yellow">-> Minimum width of the peaks in the MPB. (<i>float</i>) in <i>[0, 100]</i></span><br>
+	<span style="color: white">"MAX_WIDTH_MPB": 12,</span></span> <span style="color: yellow">-> Maximum width of the peaks in the MPB. (<i>float</i>) in <i>]0, 100]</i></span><br>
+	<span style="color: white">"MIN_COORD_MPB": 0,</span></span> <span style="color: yellow">-> Minimum coordinate for the centre of the peaks in the MPB. (<i>float</i>) in <i>[0, 100]</i></span><br>
+	<span style="color: white">"MAX_COORD_MPB": 100,</span></span> <span style="color: yellow">-> Maximum coordinate for the centre of the peaks in the MPB. (<i>float</i>) in <i>[0, 100]</i></span><br>
+	<span style="color: white">"LAMBDA_MPB": 0.5,</span></span> <span style="color: yellow">-> Correlation between changes in the MPB. (<i>float</i>) in <i>[0, 100]</i></span><br>
+	<span style="color: white">}</span><br>
+	</code>
+	<hr>
+	</div>
+
 </div>
 
 
-<h1 style="color: orange">> frameConfig.ini</h1>
-<p> This file is used to setup the framework configuration, like, the metrics to be calculated, number of runs and etc. Below it is the entire file and a description of each line and how to set it.
-> <a href="frameConfig.ini">[ file ]</a>
-<div>
-<hr>
-<code>
-<span style="color: white">{</span><br>
-<span style="color: white">"__COMMENT__": "FRAMEWORK CONFIGURATION",</span><br>
-<span style="color: white">"RUNS": 1,</span> <span style="color: yellow">-> Number of runs. (<i>int</i>) > 0</span><br>
-<span style="color: white">"FINISH_RUN_MODE": 1,</span> <span style="color: yellow">-> Mode to finish the run. 0 - <i>Fixed-budget</i>, finish when achieve a fixed number of evaluations; 1 - <i>Fixed-target</i>, run until achieve a error less than a fixed target. (<i>int</i>) in <i>[0, 1]</i></span><br>
-<span style="color: white">"FINISH_RUN_MODE_VALUE": 10000,</span></span> <span style="color: yellow">-> Number of evaluation if <i>FINISH_RUN_MODE = 1</i>  (<i>int</i>) > 1; Target error if <i>FINISH_RUN_MODE = 1</i>  (<i>float</i>) > 0. </span><br>
-<span style="color: white">"SEED": 42,</span></span> <span style="color: yellow">-> The seed for the runs. (<i>float</i>)</span><br>
-<span style="color: white">"PLOT": 0,</span></span> <span style="color: yellow">-> Save the performance curves of the runs. (<i>bool</i>)</span><br>
-<span style="color: white">"CONFIG_COPY": 1,</span></span> <span style="color: yellow">-> Save the configuration files. (<i>bool</i>)</span><br>
-<span style="color: white">"OFFLINE_ERROR": 0,</span></span> <span style="color: yellow">-> Calculate the <i>offline error</i> of the runs. (<i>bool</i>)</span><br>
-<span style="color: white">"BEBC_ERROR": 0,</span></span> <span style="color: yellow">-> Calculate the <i>best before change</i> error. (<i>bool</i>)</span><br>
-<span style="color: white">"PATH": "../examples",</span></span> <span style="color: yellow">-> Path to save the generated files. (<i>char</i>)</span><br>
-<span style="color: white">"FILENAME": "data.csv",</span></span> <span style="color: yellow">-> File name of the performance data. (<i>char</i>)</span><br>
-<span style="color: white">"LOG_ALL": 0,</span></span> <span style="color: yellow">-> Put all individuals data in the performance data. (<i>bool</i>)</span><br>
-<span style="color: white">"DEBUG_RUN": 1,</span></span> <span style="color: yellow">-> Debug in run level. (<i>bool</i>)</span><br>
-<span style="color: white">"DEBUG_RUN2": 0,</span></span> <span style="color: yellow">-> Debug in run level 2. (<i>bool</i>)</span><br>
-<span style="color: white">"DEBUG_GEN": 0,</span></span> <span style="color: yellow">-> Debug in generation level. (<i>bool</i>)</span><br>
-<span style="color: white">"DEBUG_POP": 0,</span></span> <span style="color: yellow">-> Debug in population level. (<i>bool</i>)</span><br>
-<span style="color: white">"DEBUG_IND": 0</span></span> <span style="color: yellow">-> Debug in individual level. (<i>bool</i>)</span><br>
-<span style="color: white">}</span><br>
-
-</code>
-<hr>
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Running</span>
 </div>
+<div id="divSynopsis"> 
+<p> Once the configuration files are done, it is time to run the algorithm. To do that we just need to run the script abec.py that it is located in <b><i>AbEC/abec</i></b>, the same directory as the configuration files.<br><br>
+The following command do the job:
+
+	<div>
+	<hr>
+	<code>
+	<span style="color: green">$</span><span id="dollar"> ./abec.py</span><br>
+	</code>
+	<hr>
+	</div>
+</p>
+</div>
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Data</span>
+</div>
+<div id="divSynopsis"> 
+<p> The files generated during the optimization time, as well the plots and the metrics, are going to be in the path defined in the <i>frameConfig.ini</i> file.<br><br>
+
+So, in our example, the files will be saved in:
+<br>
+<br>
+<b><i><span style="color:white">AbEC/examples/PSO/YYYY-MM-DD/mm-ss/</span></i></b>
 <br><br>
+Where <i>YYYY, MM, DD, mm, ss</i> are the year, month, day, minute and second, respectivetely, of the moment in which the algorithm started to run.<br><br>
 
-<br>
-<br>
+And the files generated it will be:
+	<ul>
+	  <li><b><span style="color:white">data.csv:</span></b> CSV file containing the performance data of the runs.</li>
+	  <li><b><span style="color:white">offlineError.txt:</span></b> TXT file containing the value of the <i>offline error</i>. In the case where there were more than one run, the value will be the avarage.</li>
+	  <li><b><span style="color:white">optima.csv:</span></b> CSV file containing the optimal points.</li>
+	  <li><b><span style="color:white">algoConfig.ini:</span></b> Copy of the algoConfig.ini file used in the runs.</li>
+	  <li><b><span style="color:white">frameConfig.ini:</span></b> Copy of the frameConfig.ini file used in the runs.</li>
+	  <li><b><span style="color:white">problemConfig.ini:</span></b> Copy of the problemConfig.ini file used in the runs.</li>
+	</ul> 
+
+</p>
+</div>
 <p>
 Be free to use this framework.<br>
 AbEC © 2023.
