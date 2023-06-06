@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>AbEC | PSO</title>
+
+    <script src="scramble.js"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script>
+		MathJax = {
+		tex: {
+		  tags: 'ams'  // should be 'ams', 'none', or 'all'
+		}
+		};
+	</script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <link rel="icon" href="../../images/luffy-smile-rb.png" />
+    <link rel="shortcut icon" href="../../images/luffy-smile-rb.png" />
+    <link rel="stylesheet" type="text/css" href="../../style2.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/hack.min.css"
+      integrity="sha512-XgCw4Srl8lC1ECwcaHwAU0WnxQwHkqmInzg9wJLtGB7DRuMaXPuK2k9WJ2AwRDGdrgK9eJpZl2hUlLi2WQssmw=="
+      crossorigin="anonymous"
+    />
+	<style>
+		h1 {
+			text-align: center;
+			background: #EEEEEE;
+			padding: .2em 1em;
+			border-top: 3px solid #666666;
+			border-bottom: 3px solid #999999;
+		}
+  </style>
+  </head>
+
+<body>
+<section>
+<pre>
+
+<div style="float: left">PSO(1)</div><div style="float: right">PSO(1)</div><div style="margin: 0 auto; width: 100%; text-align: center"><span id="top">AbEC - PSO</span></div>
+<div id="google_translate_element"></div>
+> <a href="../../index.html">[ Home ]</a>
+> <a href="../../examples.html">[ Examples ]</a>
+<script type="text/javascript">
+function setCookie(key, value, expiry) {
+  var expires = new Date();
+  expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+  document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+}
+</script>
+
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> The algorithm</span>
+</div>
+<div id="divName"> 
+<p>The <i>Particle Swarm Optimization (PSO)</i> is a population-based global optimization algorithm that was inspired by the behavior of swarms of animals, such as birds and schools of fish. The algorithm starts with a group of particles, each representing a candidate solution. These particles move in the search space looking for the optimal solution. Each particle keeps the memory of its best position found so far and, through social interaction with other particles, seeks to find a better solution. Particles are attracted to the position of the best particles in their group and are also influenced by their own best position. The direction and speed of each particle are updated at each iteration of the algorithm, allowing them to explore the search space cooperatively. The PSO algorithm has been widely used for optimization problems in several areas, such as engineering, computer science, finance, among others. Its effectiveness and ease of implementation make it a popular choice for solving complex optimization problems.
+<br><br>If you want to know more about it, please <a href="https://duckduckgo.com/?q=pso+algorithm&hps=1&atb=v372-1&ia=web">come here</a>.
+
+Below the configuration files to run the PSO using the framework.
+</p>
+</div>
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Configuration files</span>
+</div>
+<div id="divSynopsis"> 
+
+<h1 style="color: orange">> algoConfig.ini</h1>
+> <a href="algoConfig.ini">[ file ]</a>
+<div>
+<hr>
+<code>
+<span style="color: white">{</span><br>
+<span style="color: white">"__COMMENT__": "BASIC CONFIGURATION",</span><br>
+<span style="color: white">"ALGORITHM": "PSO",</span> <span style="color: yellow">-> Configure the name</span><br>
+<span style="color: white">"POPSIZE": 50,</span><span style="color: yellow">-> Set the population size</span><br>
+<span style="color: white">"MIN_POS": 0,</span><span style="color: yellow">-> Set the min value in the search space</span><br>
+<span style="color: white">"MAX_POS": 100,</span><span style="color: yellow">-> Set the max value in the search space</span><br>
+<span style="color: white">"__COMMENT__": "OPTIMIZER CONFIGURATION",</span><br>
+<span style="color: white">"GA_POP_PERC": 0,</span><br>
+<span style="color: white">"GA_ELI_PERC": 0.2,</span><br>
+<span style="color: white">"GA_CROSS_PERC": 1,</span><br>
+<span style="color: white">"GA_MUT_PERC": 0.1,</span><br>
+<span style="color: white">"GA_MUT_STD": 1,</span><br>
+<span style="color: white">"GA_ENCODER": 0,</span><br>
+<span style="color: white">"GA_INDSIZE": 16,</span><br>
+<span style="color: white">"PSO_POP_PERC": 1,</span><span style="color: yellow">-> Set the whole population to perform PSO</span><br>
+<span style="color: white">"PSO_PHI1": 2.05,</span><span style="color: yellow">-> Set the &sigma;<sub>1</sub> hyper-parameter in 2.05</span><br>
+<span style="color: white">"PSO_PHI2": 2.05,</span><span style="color: yellow">-> Set the &sigma;<sub>1</sub> hyper-parameter in 2.05</span><br>
+<span style="color: white">"PSO_W": 0.729,</span><span style="color: yellow">-> Set the &omega; hyper-parameter in 0.729</span><br>
+<span style="color: white">"PSO_MIN_VEL": -100,</span><span style="color: yellow">-> Set the min speed of a individual in -100</span><br>
+<span style="color: white">"PSO_MAX_VEL": 100,</span><span style="color: yellow">-> Set the max speed of a individual in 100</span><br>
+<span style="color: white">"DE_POP_PERC": 0,</span><br>
+<span style="color: white">"DE_F": 0.5,</span><br>
+<span style="color: white">"DE_CR": 0.7,</span><br>
+<span style="color: white">"ES_POP_PERC": 0,</span><br>
+<span style="color: white">"ES_RCLOUD": 0.2,</span><br>
+<span style="color: white">"__COMMENT__": "COMPONENTS CONFIGURATION",</span><br>
+<span style="color: white">"COMP_CHANGE_DETECT": 0,</span><br>
+<span style="color: white">"COMP_CHANGE_DETECT_MODE": 0,</span><br>
+<span style="color: white">"COMP_MULTIPOP": 0,</span><br>
+<span style="color: white">"COMP_MULTIPOP_N": 10,</span><br>
+<span style="color: white">"COMP_MUT": 0,</span><br>
+<span style="color: white">"COMP_MUT_PERC": 0.05,</span><br>
+<span style="color: white">"COMP_MUT_ELI": 0.5,</span><br>
+<span style="color: white">"COMP_MUT_STD": 0.1,</span><br>
+<span style="color: white">"COMP_EXCLUSION": 0,</span><br>
+<span style="color: white">"COMP_EXCLUSION_REXCL": 22.9,</span><br>
+<span style="color: white">"COMP_ANTI_CONVERGENCE": 0,</span><br>
+<span style="color: white">"COMP_ANTI_CONVERGENCE_RCONV": 39.7,</span><br>
+<span style="color: white">"COMP_LOCAL_SEARCH": 0,</span><br>
+<span style="color: white">"COMP_LOCAL_SEARCH_ETRY": 20,</span><br>
+<span style="color: white">"COMP_LOCAL_SEARCH_RLS": 1,</span><br>
+<span style="color: white">}</span><br>
+
+</code>
+<hr>
+</div>
+<p>
+Be free to use this framework.<br>
+AbEC © 2023.
+</p>
+<div class="myHead"><blink></blink></div>
+</div>
+
+</pre>
+</section>
+</body>
+</html>
