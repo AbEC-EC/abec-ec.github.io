@@ -141,7 +141,7 @@ Below a description and how to use these files is made.
 	<span style="color: white">{</span><br>
 	<span style="color: white">"__COMMENT__": "FRAMEWORK CONFIGURATION",</span><br>
 	<span style="color: white">"RUNS": 1,</span> <span style="color: yellow">-> Number of runs. (<i>int</i>) > 0</span><br>
-	<span style="color: white">"FINISH_RUN_MODE": 0,</span> <span style="color: yellow">-> Mode to finish the run. 0 - <i>Fixed-budget</i>, finish when achieve a fixed number of evaluations; 1 - <i>Fixed-target</i>, run until achieve a error less than a fixed target. (<i>int</i>) in <i>[0, 1]</i></span><br>
+	<span style="color: white">"FINISH_RUN_MODE": 0,</span> <span style="color: yellow">-> Mode to finish the run. 0 - <i>Fixed-budget</i>, finish when achieve a fixed number of evaluations (<i>int</i>) in <i>[0, 1]</i>; 1 - <i>Fixed-target</i>, run until achieve a error less than a fixed target. (<i>float</i>) > 0</span><br>
 	<span style="color: white">"FINISH_RUN_MODE_VALUE": 10000,</span></span> <span style="color: yellow">-> Number of evaluation if <i>FINISH_RUN_MODE = 1</i>  (<i>int</i>) > 1; Target error if <i>FINISH_RUN_MODE = 1</i>  (<i>float</i>) > 0. </span><br>
 	<span style="color: white">"SEED": 42,</span></span> <span style="color: yellow">-> The seed for the runs. (<i>float</i>)</span><br>
 	<span style="color: white">"PLOT": 0,</span></span> <span style="color: yellow">-> Save the performance curves of the runs. (<i>bool</i>)</span><br>
