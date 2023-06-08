@@ -140,7 +140,7 @@ Below a description and how to use these files is made.
 	<code>
 	<span style="color: white">{</span><br>
 	<span style="color: white">"__COMMENT__": "FRAMEWORK CONFIGURATION",</span><br>
-	<span style="color: white">"RUNS": 1,</span> <span style="color: yellow">-> Number of runs. (<i>int</i>) > 0</span><br>
+	<span style="color: white">"RUNS": 5,</span> <span style="color: yellow">-> Number of runs. (<i>int</i>) > 0</span><br>
 	<span style="color: white">"FINISH_RUN_MODE": 0,</span> <span style="color: yellow">-> Mode to finish the run. 0 - <i>Fixed-budget</i>, finish when achieve a fixed number of evaluations (<i>int</i>) in <i>[0, 1]</i>; 1 - <i>Fixed-target</i>, run until achieve a error less than a fixed target. (<i>float</i>) > 0</span><br>
 	<span style="color: white">"FINISH_RUN_MODE_VALUE": 10000,</span></span> <span style="color: yellow">-> Number of evaluation if <i>FINISH_RUN_MODE = 1</i>  (<i>int</i>) > 1; Target error if <i>FINISH_RUN_MODE = 1</i>  (<i>float</i>) > 0. </span><br>
 	<span style="color: white">"SEED": 42,</span></span> <span style="color: yellow">-> The seed for the runs. (<i>float</i>)</span><br>
@@ -183,9 +183,9 @@ Below a description and how to use these files is made.
 	<code>
 	<span style="color: white">{</span><br>
 	<span style="color: white">"__COMMENT__": "PROBLEM CONFIGURATION",</span><br>
-	<span style="color: white">"BENCHMARK": "MPB",</span> <span style="color: yellow">-> Name of the benchmark as it is in the list above. If you are going to use your own fitness function, must put "NONE" here. (<i>char</i>)</span><br>
+	<span style="color: white">"BENCHMARK": "NONE",</span> <span style="color: yellow">-> Name of the benchmark as it is in the list above. If you are going to use your own fitness function (see the next chapter), must put "NONE" here. (<i>char</i>)</span><br>
 	<span style="color: white">"NDIM": 2,</span> <span style="color: yellow">-> Number of dimensions of the problem. (<i>int</i>) > 0</span><br>
-	<span style="color: white">"CHANGES": 1,</span></span> <span style="color: yellow">-> Changes in the environment, for dynamic problems. (<i>bool</i>)</span><br>
+	<span style="color: white">"CHANGES": 0,</span></span> <span style="color: yellow">-> Changes in the environment, for dynamic problems. (<i>bool</i>)</span><br>
 	<span style="color: white">"CHANGES_NEVALS": [5000, 10000, 15000],</span></span> <span style="color: yellow">-> A list containing the number of the evaluations in which the environment should change. (<i>list</i>)</span><br>
 	<span style="color: white">"SCENARIO_MPB": 2,</span></span> <span style="color: yellow">-> Scenario to use in the MPB. (<i>ind</i>) in <i>[1, 3]</i></span><br>
 	<span style="color: white">"UNIFORM_HEIGHT_MPB": 0,</span></span> <span style="color: yellow">-> Initial height of the peaks in the MPB. if 0 the height will be randomly choosed in the MPB. (<i>int</i>) in <i>[0, 100]</i></span><br>
@@ -204,6 +204,60 @@ Below a description and how to use these files is made.
 
 </div>
 
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Fitness Function</span>
+</div>
+<div id="divSynopsis"> 
+<p>If you selected <b><i>"NONE"</i></b> in the parameter <b><i>"BENCHMARK"</i></b> of the <i>problemConfig.ini</i>, that means that 
+you want to define your own fitness function and not use a benchmark.
+<h1 style="color: orange">> function.py</h1>
+To define the fitness function, you need to create a file named <span style="color: white"><b><i>function.py</i></b></span> in the same directory as the configuration files, and inside of
+ this file define a python method named <span style="color: white"><b><i>function(x)</i></b></span> where the argument <b><i>x</i></b> is a list with <b><i>"NDIM"</i></b> dimensions and represent a solution to be evaluated.
+<br>
+<br>
+The following command create and open the file:
+	<div>
+	<hr>
+	<code>
+	<span style="color: green">$</span><span id="dollar"> nano function.py</span><br>
+	</code>
+	<hr>
+	</div>
+<br><br>
+Then, we define the function inside the file, like this:
+	<div>
+	<hr>
+	<code>
+	<span style="color: green">def</span><span style="color: white"> function(x):</span><br>
+	</code>
+	<hr>
+	</div>
+
+<br><br>
+As a examples lets define a function that represents the following surface in a 3D space, and we want to minimize, that is, we want to find the coordinates <i>(x, y)</i> that represents the minumum value of the function:
+<br>
+<div style="text-align: center;">
+<img class="centerImg" src="images/surfaceFitFunction.png" alt="surface" style="width:100%;height:500px;">
+</div>
+<br>
+Represented by the following equation:
+<br>
+<div style="text-align: center;">
+<img class="centerImg" src="images/surfaceEq.png" alt="surface" style="width:30%;height:150px;">
+</div>
+With <i>A = 10</i> and <i>B = 2</i>. So, the <i>function.py</i> file will be like:
+	<div>
+	<hr>
+	<code>
+	<span style="color: green">def</span><span style="color: white"> function(x):</span><br>
+        &emsp;&emsp;&emsp;  	<span style="color: white">fitness = 5*x[0]*np.exp(- ( ((x[0])**2) + ((x[1])**2) )/4)</span><br>
+        &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">fitness</span><br>
+	</code>
+	<hr>
+	</div>
+
+</p>
+</div>
 
 <div class="myHead">
 <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Running</span>
@@ -219,8 +273,74 @@ The following command do the job:
 	</code>
 	<hr>
 	</div>
+<br><br>
+And the output will be something like this below, and you should confirm the configuration and then press enter to run the algorithm.
+	<div>
+	<hr>
+	<code>
+<span style="color: white; font-size: 13px">    ======================================================</span><br>
+<span style="color: white; font-size: 13px">          &emsp; &emsp; &emsp; &emsp;AbEC -> Ajustable Evolutionary Components        </span><br>
+<span style="color: white; font-size: 13px">            &emsp; &emsp; &emsp; &emsp; &emsp;A framework for Optimization Problems         </span><br>
+<span style="color: white; font-size: 13px">    ======================================================</span><br>
+<br>
+<span style="color: white; font-size: 13px">    [ALGORITHM SETUP]</span><br>
+<span style="color: white; font-size: 13px">    - Name: PSO</span><br>
+<span style="color: white; font-size: 13px">    - Individuals p/ population:	50</span><br>
+<span style="color: white; font-size: 13px">    - Optimizers (percentage of each population):</span><br>
+<span style="color: white; font-size: 13px">    -- [PSO]:	100%</span><br>
+<span style="color: white; font-size: 13px">    ---- Phi1:	2.05</span><br>
+<span style="color: white; font-size: 13px">    ---- Phi2:	2.05</span><br>
+<span style="color: white; font-size: 13px">    ---- W:		0.729</span><br>
+<br>
+<span style="color: white; font-size: 13px">    - Components:</span><br>
+<br>
+<span style="color: white; font-size: 13px">    [FRAMEWORK SETUP]</span><br>
+<span style="color: white; font-size: 13px">    - RUNS:		 5</span><br>
+<span style="color: white; font-size: 13px">    - NEVALS p/ RUN: 10000</span><br>
+<span style="color: white; font-size: 13px">    - SEED:		 42</span><br>
+<br>
+<span style="color: white; font-size: 13px">    [PROBLEM SETUP]</span><br>
+<span style="color: white; font-size: 13px">    - Name: Fitness Function</span><br>
+<span style="color: white; font-size: 13px">    - NDIM: 2</span><br>
+<br>
+<br>
+<span style="color: white; font-size: 13px">[Press enter to start...]</span><br>
+
+	</code>
+	<hr>
+	</div>
+<br><br>
+
+And finally, this is the result:
+	<div>
+	<hr>
+	<code>
+<span style="color: white; font-size: 13px">[START]</span><br>
+<br>
+<span style="color: white; font-size: 13px">[RUN:01][GEN:0200][NEVALS:010000][POP 0001][BEST 0038:[-1.414213571629893, -4.325656060293677e-08]][ERROR:-4.2888][Eo:0.0000]</span><br>
+<span style="color: white; font-size: 13px">[RUN:02][GEN:0200][NEVALS:010000][POP 0001][BEST 0049:[-1.4142135717211626, -1.0295950401217362e-08]][ERROR:-4.2888][Eo:0.0000]</span><br>
+<span style="color: white; font-size: 13px">[RUN:03][GEN:0200][NEVALS:010000][POP 0001][BEST 0033:[-1.414213575110105, -7.756472319190415e-09]][ERROR:-4.2888][Eo:0.0000]</span><br>
+<span style="color: white; font-size: 13px">[RUN:04][GEN:0200][NEVALS:010000][POP 0001][BEST 0048:[-1.4142135611245135, 3.9148779143536e-08]][ERROR:-4.2888][Eo:0.0000]</span><br>
+<span style="color: white; font-size: 13px">[RUN:05][GEN:0200][NEVALS:010000][POP 0001][BEST 0027:[-1.414213573873251, 5.019435182667992e-09]][ERROR:-4.2888][Eo:0.0000]</span><br>
+<br>
+<span style="color: white; font-size: 13px">==============================================</span><br>
+<span style="color: white; font-size: 13px">[RUNS:5]</span><br>
+<span style="color: white; font-size: 13px">[BEST MEAN: -4.29(0.00)]</span><br>
+<span style="color: white; font-size: 13px">==============================================</span><br>
+<br>
+<br>
+<span style="color: white; font-size: 13px">File generated: ../examples/PSO/2023-6-8/19-48/data.csv</span><br>
+<span style="color: white; font-size: 13px">Time Exec: 2.886240243911743 s</span><br>
+<br>
+<br>
+<span style="color: white; font-size: 13px">[END]</span><br>
+<span style="color: white; font-size: 13px">Thx :)</span><br>
+	</code>
+	<hr>
+	</div>
 </p>
 </div>
+
 <div class="myHead">
 <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Data</span>
 </div>
