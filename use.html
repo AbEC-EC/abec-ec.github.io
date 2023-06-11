@@ -101,8 +101,8 @@ Below a description and how to use these files is made.
 	<span style="color: white">"__COMMENT__": "BASIC CONFIGURATION",</span><br>
 	<span style="color: white">"ALGORITHM": "PSO",</span> <span style="color: yellow">-> Name of the algorithm. (</i>char</i>)</span><br>
 	<span style="color: white">"POPSIZE": 50,</span></span> <span style="color: yellow">-> Number of individuals in the population. If there are more than one population, this number applies for each subpopulation. (<i>int</i>)</span><br>
-	<span style="color: white">"MIN_POS": 0,</span></span> <span style="color: yellow">-> Min value of the search space. (<i>int</i>)</span><br>
-	<span style="color: white">"MAX_POS": 100,</span></span> <span style="color: yellow">-> Max value of the search space. (<i>int</i>)</span><br>
+	<span style="color: white">"MIN_POS": -10,</span></span> <span style="color: yellow">-> Min value of the search space. (<i>int</i>)</span><br>
+	<span style="color: white">"MAX_POS": 10,</span></span> <span style="color: yellow">-> Max value of the search space. (<i>int</i>)</span><br>
 	<span style="color: white">"__COMMENT__": "OPTIMIZER CONFIGURATION",</span><br>
 	<span style="color: white">"GA_POP_PERC": 0,</span></span> <span style="color: yellow">-> Percentage of the individuals in the population that it will perform the <i>Genetic Algorithm (GA)</i>. (<i>float</i>) in <i>[0, 1]</i></span><br>
 	<span style="color: white">"GA_ELI_PERC": 0.2,</span></span> <span style="color: yellow">-> Hyper-parameter percentage of the elit in the GA population. (<i>float</i>) in <i>[0, 1]</i></span><br>
@@ -115,8 +115,8 @@ Below a description and how to use these files is made.
 	<span style="color: white">"PSO_PHI1": 2.05,</span></span> <span style="color: yellow">-> Hyper-parameter &sigma;<sub>1</sub> of the PSO. (<i>float</i>) in <i>[0, 10]</i></span><br>
 	<span style="color: white">"PSO_PHI2": 2.05,</span></span> <span style="color: yellow">-> Hyper-parameter &sigma;<sub>2</sub> of the PSO. (<i>float</i>) in <i>[0, 10]</i></span><br>
 	<span style="color: white">"PSO_W": 0.729,</span></span> <span style="color: yellow">-> Hyper-parameter &omega; of the PSO. (<i>float</i>) in <i>[0, 10]</i></span><br>
-	<span style="color: white">"PSO_MIN_VEL": -100,</span></span> <span style="color: yellow">-> Min value of the speed of the PSO individuals. (<i>float</i>) in <i>[-(MAX_POS-MIN_POS), MAX_POS-MIN_POS]</i></span><br>
-	<span style="color: white">"PSO_MAX_VEL": 100,</span></span> <span style="color: yellow">-> Max value of the speed of the PSO individuals. (<i>float</i>) in <i>[-(MAX_POS-MIN_POS), MAX_POS-MIN_POS]</i></span><br>
+	<span style="color: white">"PSO_MIN_VEL": -10,</span></span> <span style="color: yellow">-> Min value of the speed of the PSO individuals. (<i>float</i>) in <i>[-(MAX_POS-MIN_POS), MAX_POS-MIN_POS]</i></span><br>
+	<span style="color: white">"PSO_MAX_VEL": 10,</span></span> <span style="color: yellow">-> Max value of the speed of the PSO individuals. (<i>float</i>) in <i>[-(MAX_POS-MIN_POS), MAX_POS-MIN_POS]</i></span><br>
 	<span style="color: white">"DE_POP_PERC": 0,</span></span> <span style="color: yellow">-> Percentage of the individuals in the population that it will perform the <i>Differential Evolution (DE)</i>. (<i>float</i>) in <i>[0, 1]</i></span><br>
 	<span style="color: white">"DE_F": 0.5,</span></span> <span style="color: yellow">-> Hyper-parameter <i>F</i> of the DE. (<i>float</i>) in <i>[0, 10]</i></span><br>
 	<span style="color: white">"DE_CR": 0.7,</span></span> <span style="color: yellow">-> Hyper-parameter <i>CR</i> of the DE. (<i>float</i>) in <i>[0, 10]</i></span><br>
@@ -153,7 +153,7 @@ Below a description and how to use these files is made.
 	<span style="color: white">"__COMMENT__": "FRAMEWORK CONFIGURATION",</span><br>
 	<span style="color: white">"RUNS": 5,</span> <span style="color: yellow">-> Number of runs. (<i>int</i>) > 0</span><br>
 	<span style="color: white">"FINISH_RUN_MODE": 0,</span> <span style="color: yellow">-> Mode to finish the run. 0 - <i>Fixed-budget</i>, finish when achieve a fixed number of evaluations (<i>int</i>) in <i>[0, 1]</i>; 1 - <i>Fixed-target</i>, run until achieve a error less than a fixed target. (<i>float</i>) > 0</span><br>
-	<span style="color: white">"FINISH_RUN_MODE_VALUE": 10000,</span></span> <span style="color: yellow">-> Number of evaluation if <i>FINISH_RUN_MODE = 1</i>  (<i>int</i>) > 1; Target error if <i>FINISH_RUN_MODE = 1</i>  (<i>float</i>) > 0. </span><br>
+	<span style="color: white">"FINISH_RUN_MODE_VALUE": 1000,</span></span> <span style="color: yellow">-> Number of evaluation if <i>FINISH_RUN_MODE = 1</i>  (<i>int</i>) > 1; Target error if <i>FINISH_RUN_MODE = 1</i>  (<i>float</i>) > 0. </span><br>
 	<span style="color: white">"SEED": 42,</span></span> <span style="color: yellow">-> The seed for the runs. (<i>float</i>)</span><br>
 	<span style="color: white">"PLOT": 0,</span></span> <span style="color: yellow">-> Save the performance curves of the runs. (<i>bool</i>)</span><br>
 	<span style="color: white">"CONFIG_COPY": 1,</span></span> <span style="color: yellow">-> Save the configuration files. (<i>bool</i>)</span><br>
@@ -338,7 +338,7 @@ And the files generated it will be:
         <br>
         <span style="color: white; font-size: 13px">    [FRAMEWORK SETUP]</span><br>
         <span style="color: white; font-size: 13px">    - RUNS:		 5</span><br>
-        <span style="color: white; font-size: 13px">    - NEVALS p/ RUN: 10000</span><br>
+        <span style="color: white; font-size: 13px">    - NEVALS p/ RUN: 1000</span><br>
         <span style="color: white; font-size: 13px">    - SEED:		 42</span><br>
         <br>
         <span style="color: white; font-size: 13px">    [PROBLEM SETUP]</span><br>
@@ -427,7 +427,6 @@ To execute the plot feature you can use the following command:
     <br>
 
 
-
     <h3 style="color:green">>> ALTERNATIVE <<</h3>
 
     For this example, as is a differentiable function, we could find the minimum points algebraically using the derivatives. For this, we just need to set the first derivative of the function equal to zero.
@@ -480,15 +479,27 @@ To execute the plot feature you can use the following command:
     and the plots:
     <br><br>
     <div style="text-align: center;">
-        <img class="centerImg" src="images/PSO.png" alt="surface" style="width:100%;height:600px;">
-    </div>
-    <br>
-    <div style="text-align: center;">
         <img class="centerImg" src="images/PSO-2.png" alt="surface" style="width:100%;height:600px;">
     </div>
     <br>
-    <br><br>
-    For today that's all people.
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/PSO-3.png" alt="surface" style="width:100%;height:600px;">
+    </div>
+    <br>
+    <h3 style="color:green">>> BONUS <<</h3>
+
+
+    Below is the performance curve of four different algorithms (PSO, GA, DE, ES) and with 30 runs, applied to the problem we defined above on the same plot for comparison.
+    <br>
+    <br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/COMP.png" alt="surface" style="width:100%;height:600px;">
+    </div>
+    <br>
+
+
+
+    For today that's all folks.
 </div>
 
 
