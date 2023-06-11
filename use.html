@@ -209,10 +209,10 @@ Below a description and how to use these files is made.
 </div>
 <div id="divSynopsis"> 
 <p>If you selected <b><i>"NONE"</i></b> in the parameter <b><i>"BENCHMARK"</i></b> of the <i>problemConfig.ini</i>, that means that 
-you want to define your own fitness function and not use a benchmark.
+you want to define your own fitness function and not use a benchmark.</p>
 <h1 style="color: orange">> function.py</h1>
-To define the fitness function, you need to create a file named <span style="color: white"><b><i>function.py</i></b></span> in the same directory as the configuration files, and inside of
- this file define a python method named <span style="color: white"><b><i>function(x)</i></b></span> where the argument <b><i>x</i></b> is a list with <b><i>"NDIM"</i></b> dimensions and represent a solution to be evaluated.
+<p>To define the fitness function, you need to create a file named <span style="color: white"><b><i>function.py</i></b></span> in the same directory as the configuration files, and inside of
+ this file define a python method named <span style="color: white"><b><i>function(x)</i></b></span> where the argument <b><i>x</i></b> is a list with <b><i>"NDIM"</i></b> dimensions and represent a solution to be evaluated.</p>
 <br>
 <br>
 The following command create and open the file:
@@ -232,34 +232,6 @@ Then, we define the function inside the file, like this:
 	</code>
 	<hr>
 	</div>
-
-<br><br>
-As a examples lets define a function that represents the following surface in a 3D space, and we want to minimize, that is, we want to find the coordinates <i>(x, y)</i> that represents the minumum value of the function:
-<br>
-<div style="text-align: center;">
-<img class="centerImg" src="images/surfaceFitFunction.png" alt="surface" style="width:100%;height:500px;">
-</div>
-<br>
-Represented by the following equation:
-<br>
-<div style="text-align: center;">
-<img class="centerImg" src="images/surfaceEq.png" alt="surface" style="width:30%;height:150px;">
-</div>
-With <i>A = 10</i> and <i>B = 2</i>. So, the <i>function.py</i> file will be like: 
-	> <a href="function.py" target="_blank">[ file ]</a>
-	<div>
-	<hr>
-	<code>
-	<span style="color: green">import</span><span style="color: white"> numpy</span><span style="color: green"> as</span><span style="color: white"> np</span><br>
-    <br>
-	<span style="color: green">def</span><span style="color: white"> function(x):</span><br>
-        &emsp;&emsp;&emsp;  	<span style="color: white">fitness = 5*x[0]*np.exp(- ( ((x[0])**2) + ((x[1])**2) )/4)</span><br>
-        &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">fitness</span><br>
-	</code>
-	<hr>
-	</div>
-
-</p>
 </div>
 
 <div class="myHead">
@@ -267,8 +239,7 @@ With <i>A = 10</i> and <i>B = 2</i>. So, the <i>function.py</i> file will be lik
 </div>
 <div id="divSynopsis"> 
 <p> Once the configuration files are done, it is time to run the algorithm. To do that we just need to run the script abec.py that it is located in <b><i>AbEC/abec</i></b>, the same directory as the configuration files.<br><br>
-The following command do the job:
-
+The following command do the job:</p>
 	<div>
 	<hr>
 	<code>
@@ -276,79 +247,14 @@ The following command do the job:
 	</code>
 	<hr>
 	</div>
-<br><br>
-And the output will be something like this below, and you should confirm the configuration and then press enter to run the algorithm.
-	<div>
-	<hr>
-	<code>
-<span style="color: white; font-size: 13px">    ======================================================</span><br>
-<span style="color: white; font-size: 13px">          &emsp; &emsp; &emsp; &emsp;AbEC -> Ajustable Evolutionary Components        </span><br>
-<span style="color: white; font-size: 13px">            &emsp; &emsp; &emsp; &emsp; &emsp;A framework for Optimization Problems         </span><br>
-<span style="color: white; font-size: 13px">    ======================================================</span><br>
-<br>
-<span style="color: white; font-size: 13px">    [ALGORITHM SETUP]</span><br>
-<span style="color: white; font-size: 13px">    - Name: PSO</span><br>
-<span style="color: white; font-size: 13px">    - Individuals p/ population:	50</span><br>
-<span style="color: white; font-size: 13px">    - Optimizers (percentage of each population):</span><br>
-<span style="color: white; font-size: 13px">    -- [PSO]:	100%</span><br>
-<span style="color: white; font-size: 13px">    ---- Phi1:	2.05</span><br>
-<span style="color: white; font-size: 13px">    ---- Phi2:	2.05</span><br>
-<span style="color: white; font-size: 13px">    ---- W:		0.729</span><br>
-<br>
-<span style="color: white; font-size: 13px">    - Components:</span><br>
-<br>
-<span style="color: white; font-size: 13px">    [FRAMEWORK SETUP]</span><br>
-<span style="color: white; font-size: 13px">    - RUNS:		 5</span><br>
-<span style="color: white; font-size: 13px">    - NEVALS p/ RUN: 10000</span><br>
-<span style="color: white; font-size: 13px">    - SEED:		 42</span><br>
-<br>
-<span style="color: white; font-size: 13px">    [PROBLEM SETUP]</span><br>
-<span style="color: white; font-size: 13px">    - Name: Fitness Function</span><br>
-<span style="color: white; font-size: 13px">    - NDIM: 2</span><br>
-<br>
-<br>
-<span style="color: white; font-size: 13px">[Press enter to start...]</span><br>
-
-	</code>
-	<hr>
-	</div>
-<br><br>
-
-And finally, this is the result:
-	<div>
-	<hr>
-	<code>
-<span style="color: white; font-size: 13px">[START]</span><br>
-<br>
-<span style="color: white; font-size: 13px">[RUN:01][GEN:0200][NEVALS:010000][POP 0001][BEST 0038:[-1.414213571629893, -4.325656060293677e-08]][ERROR:-4.2888][Eo:0.0000]</span><br>
-<span style="color: white; font-size: 13px">[RUN:02][GEN:0200][NEVALS:010000][POP 0001][BEST 0049:[-1.4142135717211626, -1.0295950401217362e-08]][ERROR:-4.2888][Eo:0.0000]</span><br>
-<span style="color: white; font-size: 13px">[RUN:03][GEN:0200][NEVALS:010000][POP 0001][BEST 0033:[-1.414213575110105, -7.756472319190415e-09]][ERROR:-4.2888][Eo:0.0000]</span><br>
-<span style="color: white; font-size: 13px">[RUN:04][GEN:0200][NEVALS:010000][POP 0001][BEST 0048:[-1.4142135611245135, 3.9148779143536e-08]][ERROR:-4.2888][Eo:0.0000]</span><br>
-<span style="color: white; font-size: 13px">[RUN:05][GEN:0200][NEVALS:010000][POP 0001][BEST 0027:[-1.414213573873251, 5.019435182667992e-09]][ERROR:-4.2888][Eo:0.0000]</span><br>
-<br>
-<span style="color: white; font-size: 13px">==============================================</span><br>
-<span style="color: white; font-size: 13px">[RUNS:5]</span><br>
-<span style="color: white; font-size: 13px">[BEST MEAN: -4.29(0.00)]</span><br>
-<span style="color: white; font-size: 13px">==============================================</span><br>
-<br>
-<br>
-<span style="color: white; font-size: 13px">File generated: ../examples/PSO/2023-6-8/19-48/data.csv</span><br>
-<span style="color: white; font-size: 13px">Time Exec: 2.886240243911743 s</span><br>
-<br>
-<br>
-<span style="color: white; font-size: 13px">[END]</span><br>
-<span style="color: white; font-size: 13px">Thx :)</span><br>
-	</code>
-	<hr>
-	</div>
-</p>
 </div>
 
 <div class="myHead">
 <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Data</span>
 </div>
 <div id="divSynopsis"> 
-<p> The files generated during the optimization time, as well the plots and the metrics, are going to be in the path defined in the <i>frameConfig.ini</i> file.<br><br>
+<p> The files generated during the optimization time, as well the plots and the metrics, are going to be in the path defined in the <i>frameConfig.ini</i> file.
+</p><br><br>
 
 So, in our example, the files will be saved in:
 <br>
@@ -366,9 +272,215 @@ And the files generated it will be:
 	  <li><b><span style="color:white">frameConfig.ini:</span></b> Copy of the frameConfig.ini file used in the runs.</li>
 	  <li><b><span style="color:white">problemConfig.ini:</span></b> Copy of the problemConfig.ini file used in the runs.</li>
 	</ul> 
-
-</p>
 </div>
+
+
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Example</span>
+</div>
+<div id="divSynopsis"> 
+    <p>As a examples lets define a function that represents the following surface in a 3D space, and we want to minimize, that is, we want to find the coordinates <i>(x, y)</i> that represents the minumum value of the function:</p>
+    <br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/surfaceFitFunction.png" alt="surface" style="width:100%;height:500px;">
+    </div>
+    <br>
+    Represented by the following equation:
+    <br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/surfaceEq.png" alt="surface" style="width:30%;height:150px;">
+    </div>
+    With <i>A = 10</i> and <i>B = 2</i>.
+    So, the <i>function.py</i> file will be like: 
+	> <a href="function.py" target="_blank">[ file ]</a>
+	<div>
+    	<hr>
+    	<code>
+    	<span style="color: green">import</span><span style="color: white"> numpy</span><span style="color: green"> as</span><span style="color: white"> np</span><br>
+        <br>
+    	<span style="color: green">def</span><span style="color: white"> function(x):</span><br>
+            &emsp;&emsp;&emsp;  	<span style="color: white">fitness = 5*x[0]*np.exp(- ( ((x[0])**2) + ((x[1])**2) )/4)</span><br>
+            &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">fitness</span><br>
+    	</code>
+    	<hr>
+	</div>
+    <br>
+    And the output will be something like this below, and you should confirm the configuration and then press enter to run the algorithm.
+   	<div>
+       	<hr>
+       	<code>
+        <span style="color: white; font-size: 13px">    ======================================================</span><br>
+        <span style="color: white; font-size: 13px">          &emsp; &emsp; &emsp; &emsp;AbEC -> Ajustable Evolutionary Components        </span><br>
+        <span style="color: white; font-size: 13px">            &emsp; &emsp; &emsp; &emsp; &emsp;A framework for Optimization Problems         </span><br>
+        <span style="color: white; font-size: 13px">    ======================================================</span><br>
+        <br>
+        <span style="color: white; font-size: 13px">    [ALGORITHM SETUP]</span><br>
+        <span style="color: white; font-size: 13px">    - Name: PSO</span><br>
+        <span style="color: white; font-size: 13px">    - Individuals p/ population:	50</span><br>
+        <span style="color: white; font-size: 13px">    - Optimizers (percentage of each population):</span><br>
+        <span style="color: white; font-size: 13px">    -- [PSO]:	100%</span><br>
+        <span style="color: white; font-size: 13px">    ---- Phi1:	2.05</span><br>
+        <span style="color: white; font-size: 13px">    ---- Phi2:	2.05</span><br>
+        <span style="color: white; font-size: 13px">    ---- W:		0.729</span><br>
+        <br>
+        <span style="color: white; font-size: 13px">    - Components:</span><br>
+        <br>
+        <span style="color: white; font-size: 13px">    [FRAMEWORK SETUP]</span><br>
+        <span style="color: white; font-size: 13px">    - RUNS:		 5</span><br>
+        <span style="color: white; font-size: 13px">    - NEVALS p/ RUN: 10000</span><br>
+        <span style="color: white; font-size: 13px">    - SEED:		 42</span><br>
+        <br>
+        <span style="color: white; font-size: 13px">    [PROBLEM SETUP]</span><br>
+        <span style="color: white; font-size: 13px">    - Name: Fitness Function</span><br>
+        <span style="color: white; font-size: 13px">    - NDIM: 2</span><br>
+        <br>
+        <br>
+        <span style="color: white; font-size: 13px">[Press enter to start...]</span><br>
+    	</code>
+    	<hr>
+  	</div>
+    <br>
+
+    And finally, this is the result:
+	<div>
+    	<hr>
+    	<code>
+        <span style="color: white; font-size: 13px">[START]</span><br>
+        <br>
+        <span style="color: white; font-size: 13px">[RUN:01][GEN:0200][NEVALS:010000][POP 0001][BEST 0038:[-1.414213571629893, -4.325656060293677e-08]][ERROR:-4.2888][Eo:0.0000]</span><br>
+        <span style="color: white; font-size: 13px">[RUN:02][GEN:0200][NEVALS:010000][POP 0001][BEST 0049:[-1.4142135717211626, -1.0295950401217362e-08]][ERROR:-4.2888][Eo:0.0000]</span><br>
+        <span style="color: white; font-size: 13px">[RUN:03][GEN:0200][NEVALS:010000][POP 0001][BEST 0033:[-1.414213575110105, -7.756472319190415e-09]][ERROR:-4.2888][Eo:0.0000]</span><br>
+        <span style="color: white; font-size: 13px">[RUN:04][GEN:0200][NEVALS:010000][POP 0001][BEST 0048:[-1.4142135611245135, 3.9148779143536e-08]][ERROR:-4.2888][Eo:0.0000]</span><br>
+        <span style="color: white; font-size: 13px">[RUN:05][GEN:0200][NEVALS:010000][POP 0001][BEST 0027:[-1.414213573873251, 5.019435182667992e-09]][ERROR:-4.2888][Eo:0.0000]</span><br>
+        <br>
+        <span style="color: white; font-size: 13px">==============================================</span><br>
+        <span style="color: white; font-size: 13px">[RUNS:5]</span><br>
+        <span style="color: white; font-size: 13px">[BEST MEAN: -4.29(0.00)]</span><br>
+        <span style="color: white; font-size: 13px">==============================================</span><br>
+        <br>
+        <br>
+        <span style="color: white; font-size: 13px">File generated: ../examples/PSO/2023-6-8/19-48/data.csv</span><br>
+        <span style="color: white; font-size: 13px">Time Exec: 2.886240243911743 s</span><br>
+        <br>
+        <br>
+        <span style="color: white; font-size: 13px">[END]</span><br>
+        <span style="color: white; font-size: 13px">Thx :)</span><br>
+    	</code>
+    	<hr>
+	</div>
+    <br>
+    Where we can see that our solution is something around <span style="color: white"><b><i>x&sime;-1.4142135</i></b></span> and <span style="color: white"><b><i>y&sime;0</b></i></span>.
+    <br><br>
+
+    Congratulations, you now have runned the algorithm on the problem that you defined. It depends on the context, but a usual natural next step is to visualize the performance curve of the algorithm.
+For this, the framework provides a script to visualize the current error of the algorhtm during the optimization process.
+To use this feature, go to the directory <b><i><span style="color:white">AbEC/abec/plot/currentError/</span></i></b>.
+In this directory there is a configuration file, named <i>config.ini</i> which allows us to setup some characteristics of the plot, like axes limits, title, name of the file, etc..
+<br><br>
+Using this script is possible to plot up to 4 graphs in the same figure, if you want to use for example, to compare different algorithms or setups.
+To execute the plot feature you can use the following command:
+    <br>
+    <br>
+	<div>
+	<hr>
+	<code>
+	<span style="color: green">$</span><span id="dollar"> ./currentErrorPlot.py -p PATH DATA1 .... DATA4</span><br>
+	</code>
+	<hr>
+	</div>
+    <br>
+    Here, <i>PATH</i> is the path for to where there are the runs that you want to plot and <i>DATAX</i> are the directories of the up to 4 different setups.
+    <br>
+    So, for the our example, we can use the following command:
+    <br><br>
+	<div>
+	<hr>
+	<code>
+	<span style="color: green">$</span><span id="dollar"> ./currentErrorPlot.py -p ../../../examples/PSO/2023-6-8 19-48</span><br>
+	</code>
+	<hr>
+	</div>
+    <br>
+    and then will be generated a figure with our performance curve of the current error. Like this:
+    <br><br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/PSO-0.png" alt="surface" style="width:100%;height:600px;">
+    </div>
+    <br>
+    We had 5 runs in our example, we can also plot each runs individually. For this the parameter <i>"ALLRUNS"</i> need to be set in 1.
+    And then the result is gonna be:
+    <br><br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/PSO-1.png" alt="surface" style="width:100%;height:600px;">
+    </div>
+    <br>
+
+
+
+    <h3 style="color:green">>> ALTERNATIVE <<</h3>
+
+    For this example, as is a differentiable function, we could find the minimum points algebraically using the derivatives. For this, we just need to set the first derivative of the function equal to zero.
+    <br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/min1.png" alt="surface" style="width:40%;height:90px;">
+    </div>
+    <br>
+    As is a multivariate function, we need to perform the partial derivative for each variable, and then set to zero to find the values, just like this:
+    <br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/min2.png" alt="surface" style="width:40%;height:100px;">
+    </div>
+    <br>
+    In our case:
+    <br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/min3.png" alt="surface" style="width:35%;height:75px;">
+    </div>
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/min4.png" alt="surface" style="width:35%;height:75px;">
+    </div>
+    <br>
+    And then, now we know the the optimal points are:
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/min5.png" alt="surface" style="width:20%;height:60px;">
+    </div>
+    <br>
+    And then the <i>function.py</i> it would be something like:
+	> <a href="function2.py" target="_blank">[ file ]</a>
+	<div>
+    	<hr>
+    	<code>
+    	<span style="color: green">import</span><span style="color: white"> numpy</span><span style="color: green"> as</span><span style="color: white"> np</span><br>
+        <br>
+        <span style="color: white">optimal = [-np.sqrt(2), 0]</span><br>
+        <br>
+    	<span style="color: green">def</span><span style="color: white"> equation(s):</span><br>
+            &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white"> return 5*s[0]*np.exp(- ( ((s[0])**2) + ((s[1])**2) )/4)</span><br>
+        <br>
+    	<span style="color: green">def</span><span style="color: white"> function(x):</span><br>
+            &emsp;&emsp;&emsp;  	<span style="color: white"> opt = equation(optimal)</span><br>
+            &emsp;&emsp;&emsp;  	<span style="color: white"> fit = equation(x)</span><br>
+            &emsp;&emsp;&emsp;  	<span style="color: white"> error = abs(opt - fit)</span><br>
+            &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white"> error</span><br>  
+    	</code>
+    	<hr>
+	</div>
+    <br><br>
+    and the plots:
+    <br><br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/PSO.png" alt="surface" style="width:100%;height:600px;">
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="images/PSO-2.png" alt="surface" style="width:100%;height:600px;">
+    </div>
+    <br>
+    <br><br>
+    For today that's all people.
+</div>
+
+
 <p>
 Be free to use this framework.<br>
 AbEC © 2023.
