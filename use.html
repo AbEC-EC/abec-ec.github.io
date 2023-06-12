@@ -68,7 +68,7 @@ function setCookie(key, value, expiry) {
 <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Overview</span>
 </div>
 <div id="divName"> 
-<p> After cloning the repository in our computer, we already have enough to run the framework. The directory created is <b><i>AbEC</i></b>, and inside of it contains all the files needed to configure and to use the framework.<br>
+After cloning the repository in our computer, we already have enough to run the framework. The directory created is <b><i>AbEC</i></b>, and inside of it contains all the files needed to configure and to use the framework..
 <br>
 As a adjustable framework, we need to configure it before use. This configuration is made through three configuration files, where we can set which components and what values for the hyper-parameters we want to use.
 These files are:
@@ -76,19 +76,26 @@ These files are:
   <li><b><span style="color:white">algoConfig.ini:</span></b> Where it is the configuration related to the functioning of the algorithm itself (e.g. Population size, optimizers, ...).</li><br>
   <li><b><span style="color:white">frameConfig.ini:</span></b> Where it is the configuration of the framework parameters (e.g. number of runs, path of the files, number of evaluations, ...).</li><br>
   <li><b><span style="color:white">problemConfig.ini:</span></b> Where it is the configuration of problem (e.g. number of dimensions, dynamic or not, ...).</li><br>
-</ul> 
+    </ul> 
 
-These files are located in <b><i><span style="color:white">AbEC/abec/</span></i></b>.<br><br>
+These files are located in <b><i><span style="color:white">AbEC/abec/</span></i></b>. After cloning the repository:
+	<div>
+    	<hr>
+    	<code>
+    	<span style="color: green">$</span><span id="dollar"> cd AbEC/abec</span><br>
+    	</code>
+    	<hr>
+	</div>
+    <br><br>
 Below a description and how to use these files is made.
-</div>
-</p>
+
 </div>
 <div class="myHead">
 <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Configuration files</span>
 </div>
 <div id="divSynopsis"> 
 
-    As a default configuration, the parametrization of the <i>frameConfig.ini</i> and <i>problemConfig.ini</i> files showed in the below explanation is used. This means that if any these
+ As a default configuration, the parametrization of the <i>frameConfig.ini</i> and <i>problemConfig.ini</i> files showed in the below explanation is used. This means that if any these
  configuration files is not found, the default configuration of their will be used. 
 <br><br>
     In that way, the only mandatory file is the <i>algoConfig.ini</i>.
@@ -230,8 +237,8 @@ Below a description and how to use these files is made.
 <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Fitness Function</span>
 </div>
 <div id="divSynopsis"> 
-<p>If you selected <b><i>"NONE"</i></b> in the parameter <b><i>"BENCHMARK"</i></b> of the <i>problemConfig.ini</i>, that means that 
-you want to define your own fitness function and not use a benchmark.</p>
+If you selected <b><i>"NONE"</i></b> in the parameter <b><i>"BENCHMARK"</i></b> of the <i>problemConfig.ini</i>, that means that 
+you want to define your own fitness function and not use a benchmark.
 <h1 style="color: orange">> function.py</h1>
 <p>To define the fitness function, you need to create a file that will evaluate the solutions of your algorithm 
 (i.e. <b><i>"function.py"</i></b>) in the <i>fitnessFunction</i> directory, and put this name in the parameter <i>"FUNCTION"</i> of the <i>problemConfig.ini</i>.
@@ -261,8 +268,8 @@ Then, we define the function inside the file, like this:
 <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Running</span>
 </div>
 <div id="divSynopsis"> 
-<p> Once the configuration files are done, it is time to run the algorithm. To do that we just need to run the script <i>abec.py</i> that it is located in <b><i>AbEC/abec</i></b>, the same directory as the configuration files.<br><br>
-The following command do the job:</p>
+Once the configuration files are done, it is time to run the algorithm. To do that we just need to run the script <i>abec.py</i> that it is located in <b><i>AbEC/abec</i></b>, the same directory as the configuration files.<br><br>
+The following command do the job:
 	<div>
     	<hr>
     	<code>
@@ -290,8 +297,7 @@ Therefore, it is possible to specify the path where the configuration files are 
 <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Data</span>
 </div>
 <div id="divSynopsis"> 
-<p> The files generated during the optimization time, as well the plots and the metrics, are going to be in the path defined in the <i>frameConfig.ini</i> file.
-</p>
+The files generated during the optimization time, as well the plots and the metrics, are going to be in the path defined in the <i>frameConfig.ini</i> file.
 
 So, in our example, the files will be saved in:
 <br>
@@ -309,6 +315,7 @@ And the files generated it will be:
 	  <li><b><span style="color:white">frameConfig.ini:</span></b> Copy of the frameConfig.ini file used in the runs.</li>
 	  <li><b><span style="color:white">problemConfig.ini:</span></b> Copy of the problemConfig.ini file used in the runs.</li>
 	</ul> 
+
 </div>
 
 
@@ -316,10 +323,9 @@ And the files generated it will be:
 <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Example</span>
 </div>
 <div id="divSynopsis"> 
-    <p>As a examples lets define a function that represents the following surface in a 3D space, and we want to minimize, that is, we want to find the coordinates <i>(x, y)</i> that represents the minumum value of the function.
+    As a examples lets define a function that represents the following surface in a 3D space, and we want to minimize, that is, we want to find the coordinates <i>(x, y)</i> that represents the minumum value of the function.
     <br>
     However, before of it, lets create a directory where we want to run our experiements. So we create the directory <i>example1</i> in the directory <b><i>AbEC/examples/</i></b>.
-    </p>
 	<div>
     	<hr>
     	<code>
