@@ -136,12 +136,15 @@ With the hyper-parameters defined, There are two methods that are mandatory, the
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-1&gt;"] <= MAX):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.1", "algoConfig.ini", "&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-1&gt;", "The &lt;HYPER-PARAMETER-1&gt; should be in the interval [MIN, MAX]")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-2&gt;"] <= MAX):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.2", "algoConfig.ini", "&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-2&gt;", "The &lt;HYPER-PARAMETER-2&gt; should be in the interval [MIN, MAX]")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-N&gt;"] <= MAX):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.N", "algoConfig.ini", "&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-N&gt;", "The &lt;HYPER-PARAMETER-N&gt; should be in the interval [MIN, MAX]")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
         	</code>
         	<hr>
@@ -177,13 +180,17 @@ And then the complete file will be something like:
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-1&gt;"] <= MAX):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.1", "algoConfig.ini", "&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-1&gt;", "The &lt;HYPER-PARAMETER-1&gt; should be in the interval [MIN, MAX]")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-2&gt;"] <= MAX):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.2", "algoConfig.ini", "&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-2&gt;", "The &lt;HYPER-PARAMETER-2&gt; should be in the interval [MIN, MAX]")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-N&gt;"] <= MAX):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.N", "algoConfig.ini", "&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-N&gt;", "The &lt;HYPER-PARAMETER-N&gt; should be in the interval [MIN, MAX]")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
+                <br>
           	<span style="color: green">def</span><span style="color: white"> optimizer(pop, parameters):</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
@@ -331,13 +338,17 @@ And then the complete file will be something like:
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-COMPONENT&gt;_&lt;HYPER-PARAMETER-1&gt;"] <= MAX):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.1", "algoConfig.ini", "&lt;NAME-OF-THE-COMPONENT&gt;_&lt;HYPER-PARAMETER-1&gt;", "The &lt;HYPER-PARAMETER-1&gt; should be in the interval [MIN, MAX]")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-COMPONENT&gt;_&lt;HYPER-PARAMETER-2&gt;"] <= MAX):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.2", "algoConfig.ini", "&lt;NAME-OF-THE-COMPONENT&gt;_&lt;HYPER-PARAMETER-2&gt;", "The &lt;HYPER-PARAMETER-2&gt; should be in the interval [MIN, MAX]")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-COMPONENT&gt;_&lt;HYPER-PARAMETER-N&gt;"] <= MAX):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.N", "algoConfig.ini", "&lt;NAME-OF-THE-COMPONENT&gt;_&lt;HYPER-PARAMETER-N&gt;", "The &lt;HYPER-PARAMETER-N&gt; should be in the interval [MIN, MAX]")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
+                <br>
               	<span style="color: green">def</span><span style="color: white"> component(depends on the scope, parameters):</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
@@ -440,10 +451,13 @@ As an example, we are going now to add an optimizer (Differential Evolution) and
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not</span><span style="color: white"> (0 < parameters["DE_F"] <= 10):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.3.1", "algoConfig.ini", "DE_F", "The F parameters should be in the interval ]0, 10]")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not</span><span style="color: white"> (0 < parameters["DE_CR"] <= 10):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.3.2", "algoConfig.ini", "DE_CR", "The CR parameter should be in the interval ]0, 10]")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
+                <br>
           	    <span style="color: green">def</span><span style="color: white"> optimizer(pop, best, parameters):</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">tempPop = copy.deepcopy(pop)</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">tempPop.ind = sorted(tempPop.ind, key = lambda x:x["id"])</span><br>
@@ -528,10 +542,13 @@ As an example, we are going now to add an optimizer (Differential Evolution) and
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not</span><span style="color: white"> (0 < parameters["COMP_LOCAL_SEARCH_ETRY"] < parameters["POPSIZE"]):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("4.4.1", "algoConfig.ini", "COMP_LOCAL_SEARCH_ETRY", "The number of tries of the Local Search should be 0 between [1, POPSIZE[")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">if not</span><span style="color: white"> (0 < parameters["COMP_LOCAL_SEARCH_RLS"] < parameters["MAX_POS"]):</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.4.2", "algoConfig.ini", "COMP_LOCAL_SEARCH_RLS", "The Local Search radio should be 0 between ]0, MAX_POS[")</span><br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
+                <br>
           	    <span style="color: green">def</span><span style="color: white"> component(best, parameters):</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">bp = copy.deepcopy(best)</span><br>
                 &emsp;&emsp;&emsp;
