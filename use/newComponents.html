@@ -407,6 +407,184 @@ in the file as follows:
     </div>
 </div>
 
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Example</span>
+</div>
+<div id="divSynopsis"> 
+
+As an example, we are going now to add an optimizer (Differential Evolution) and a general component (Local Search).
+
+<h1 style="color: orange">> AbEC/abec/optimizers/de.py</h1>
+   <div>
+    <hr>
+    <code>
+    <span style="color: green">$</span><span id="dollar"> nano abec/optimizers/de.py</span><br>
+    </code>
+    <hr>
+    </div>
+<br>
+
+> <a href="nc_files/de.py" target="_blank">[ file ]</a>
+    	<div>
+        	<hr>
+        	<code>
+        	<span style="color: green">import</span><span style="color: white"> sys </span><br>
+        	<span style="color: green">import</span><span style="color: white"> copy </span><br>
+        	<span style="color: green">import</span><span style="color: white"> abec </span><br>
+        	<span style="color: green">import</span><span style="color: white"> aux.globalVar </span><span style="color: green">as</span><span style="color: white"> globalVar </span><br>
+        	<span style="color: green">from</span><span style="color: white"> aux.aux </span><span style="color: green"> import </span><span style="color: white"> errorWarning </span><br>
+            <br>
+            <span style="color: white">params = ["F", "CR"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> cp(parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not</span><span style="color: white"> (0 < parameters["DE_F"] <= 10):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.3.1", "algoConfig.ini", "DE_F", "The F parameters should be in the interval ]0, 10]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not</span><span style="color: white"> (0 < parameters["DE_CR"] <= 10):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.3.2", "algoConfig.ini", "DE_CR", "The CR parameter should be in the interval ]0, 10]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br><br>
+          	    <span style="color: green">def</span><span style="color: white"> optimizer(pop, best, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">tempPop = copy.deepcopy(pop)</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">tempPop.ind = sorted(tempPop.ind, key = lambda x:x["id"])</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">dePop = [d for d in tempPop.ind if d["type"]=="DE"]</span><br>
+                &emsp;&emsp;&emsp;   	<span style="color: green">for</span><span style="color: white"> ind </span><span style="color: green">in</span><span style="color: white"> dePop: </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">x = []</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">candidates = [c for c in dePop if c["id"] != ind["id"]]</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">a, b, c = globalVar.rng.choice(candidates, 3, replace=False)</span><br>
+                <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">for</span><span style="color: white"> d </span><span style="color: green">in</span><span style="color: white"> range(parameters["NDIM"]): </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">x.append(a["pos"][d] + parameters["DE_F"]*(b["pos"][d] - c["pos"][d]))</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">if </span><span style="color: white"> x[d] > parameters["MAX_POS"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">x[d] = parameters["MAX_POS"]</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">elif </span><span style="color: white"> x[d] > parameters["MIN_POS"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">x[d] = parameters["MIN_POS"]</span><br>
+                <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">for</span><span style="color: white"> d </span><span style="color: green">in</span><span style="color: white"> range(parameters["NDIM"]): </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">if </span><span style="color: white"> globalVar.rng.random() < parameters["DE_CR"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">ind["pos"][d] = x[d]</span><br>
+                <br>
+                &emsp;&emsp;&emsp;   	<span style="color: green">for</span><span style="color: white"> ind </span><span style="color: green">in</span><span style="color: white"> dePop: </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">ind = abec.evaluate(ind, parameters)</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">for</span><span style="color: white"> i </span><span style="color: green">in</span><span style="color: white"> range(len(pop.ind)): </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">if </span><span style="color: white"> ind["id"] == pop.ind[i]["id"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">if </span><span style="color: white"> ind["fit"] < pop.ind[i]["fit"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">pop.ind[i] = ind.copy()</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">ind, globalVar.best = abec.updateBest(pop.ind[i], globalVar.best)</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">else </span><span style="color: white"> ind["fit"] < pop.ind[i]["fit"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">pop.ind[i]["ae"] = 1</span><br>
+
+                <br><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop</span><br>
+        	</code>
+        	<hr>
+    	</div>
+
+
+<h1 style="color: orange">> AbEC/abec/components/local_search.py</h1>
+   <div>
+    <hr>
+    <code>
+    <span style="color: green">$</span><span id="dollar"> nano abec/components/local_search.py</span><br>
+    </code>
+    <hr>
+    </div>
+<br>
+
+> <a href="nc_files/local_search.py" target="_blank">[ file ]</a>
+    	<div>
+        	<hr>
+        	<code>
+        	<span style="color: green">import</span><span style="color: white"> sys </span><br>
+        	<span style="color: green">import</span><span style="color: white"> copy </span><br>
+        	<span style="color: green">import</span><span style="color: white"> abec </span><br>
+        	<span style="color: green">import</span><span style="color: white"> aux.globalVar </span><span style="color: green">as</span><span style="color: white"> globalVar </span><br>
+        	<span style="color: green">from</span><span style="color: white"> aux.aux </span><span style="color: green"> import </span><span style="color: white"> errorWarning </span><br>
+            <br>
+            <span style="color: white">params = ["ETRY", "RLS"]</span><br>
+            <span style="color: white">scope = ["GET"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> cp(parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not</span><span style="color: white"> (0 < parameters["COMP_LOCAL_SEARCH_ETRY"] < parameters["POPSIZE"]):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("4.4.1", "algoConfig.ini", "COMP_LOCAL_SEARCH_ETRY", "The number of tries of the Local Search should be 0 between [1, POPSIZE[")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not</span><span style="color: white"> (0 < parameters["COMP_LOCAL_SEARCH_RLS"] < parameters["MAX_POS"]):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.4.2", "algoConfig.ini", "COMP_LOCAL_SEARCH_RLS", "The Local Search radio should be 0 between ]0, MAX_POS[")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br><br>
+          	    <span style="color: green">def</span><span style="color: white"> component(best, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">bp = copy.deepcopy(best)</span><br>
+                &emsp;&emsp;&emsp;
+                <span style="color: green">for</span><span style="color: white"> _ </span><span style="color: green">in</span><span style="color: white"> range(parameters["COMP_LOCAL_SEARCH_ETRY"]): </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">for</span><span style="color: white"> i </span><span style="color: green">in</span><span style="color: white"> range(parameters["NDIM"]): </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white; font-size: 16px">bp["pos"][i] = bp["pos"][i] + globalVar.rng.uniform(-1, 1)*parameters["COMP_LOCAL_SEARCH_RLS"]</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">bp["fit"] = abec.evaluate(bp, parameters, be = 1)</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	
+                <span style="color: green">if</span><span style="color: white"> bp["fit"] < best["fit"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">best = copy.deepcopy(bp)</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">best</span><br>
+        	</code>
+        	<hr>
+    	</div>
+
+<br><br>
+And then to use both in the algorithm, we set them up in the configuration file <b><i>algoConfig.ini</i></b>, just like this:
+   <div>
+    <hr>
+    <code>
+    <span style="color: green">$</span><span id="dollar"> nano abec/algoConfig.ini</span><br>
+    </code>
+    <hr>
+    </div>
+<br>
+> <a href="nc_files/algoConfig.ini" target="_blank">[ file ]</a>
+    <div>
+    <hr>
+    <code>
+    <span style="color: white">{</span><br>
+    <span style="color: white">"ALGORITHM": "DE_LS",</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"POPSIZE": 50,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"MIN_POS": -10,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"MAX_POS": 10,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"DE_POP_PERC": 1,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"DE_F": 0.5,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"DE_CR": 0.7,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"COMP_LOCAL_SEARCH": 1,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"COMP_LOCAL_SEARCH_ETRY": 10,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"COMP_LOCAL_SEARCH_RLS": 1</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">}</span><br>
+    </code>
+    <hr>
+    </div>
+
+
+</div>
+
 
 <span style="color: white">Be free to use this framework.</span><br>
 <span style="color: green">AbEC © 2023.</span>

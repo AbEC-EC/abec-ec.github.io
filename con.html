@@ -29,6 +29,28 @@
       integrity="sha512-XgCw4Srl8lC1ECwcaHwAU0WnxQwHkqmInzg9wJLtGB7DRuMaXPuK2k9WJ2AwRDGdrgK9eJpZl2hUlLi2WQssmw=="
       crossorigin="anonymous"
     />
+
+    <style>
+    #myDIV {
+      width: 70%;
+      padding: 50px 0;
+      text-align: left;
+      margin-top: 20px;
+
+    }
+    </style>
+
+    <script>
+    function myFunction() {
+      var x = document.getElementById("myDIV");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+    </script>
+
   </head>
 <body>
 <section>
@@ -39,13 +61,21 @@
 <span id="myName" >@AbEC</span>:<span id="dollar">~</span>$ con<blink></blink>&nbsp;&nbsp;&nbsp;
 </div>
 
-<div class="myBody">
-<span id="intro">If you wish to contact me, the
-email is the easiest way :)
-<a href = "mailto:mascarenhasav@gmail.com?subject = I wish to contact you&body = Hi :)">
-This is my email
-</a>
-</span>
+<div class="divName">
+    <span id="intro">If you wish to contact me, the email is the easiest way :)</span>
+    <br>
+    <button onclick="myFunction()">Show</button>
+    <div id="myDIV" style="display: none">
+        AbEC
+        abec.ec42@gmail.com
+        <a href = "mailto:abec.ec42@gmail.com?subject = I wish to contact you&body = Hi :)">This is the AbEC email</a>
+
+        <br>
+        Alexandre Mascarenhas
+        mascarenhasav@gmail.com
+        <a href = "mailto:mascarenhasav@gmail.com?subject = I wish to contact you&body = Hi :)">This is my email</a>
+    </div>
+
 </div>
 
 <br><br><br><br><br><br><br>
