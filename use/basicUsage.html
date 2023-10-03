@@ -55,6 +55,11 @@
 <div style="float: left">USE(2)</div><div style="float: right">USE(2)</div><div style="margin: 0 auto; width: 100%; text-align: center"><span id="top">AbEC - Basic usage</span></div>
 <div id="google_translate_element"></div>
 > <a href="../index.html">[ Home ]</a>
+>> <a href="#configurationFiles">[ Configuration files ]</a>
+>> <a href="#fitnessFunction">[ Fitness function ]</a>
+>> <a href="#running">[ Running ]</a>
+>> <a href="#data">[ Data ]</a>
+>> <a href="#example">[ Example ]</a>
 > <a href="../use.html">[ Back ]</a>
 
 <script type="text/javascript">
@@ -69,8 +74,10 @@ function setCookie(key, value, expiry) {
 <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Overview</span>
 </div>
 <div id="divName"> 
-After cloning the repository in our computer, we already have enough to run the framework. The directory created is <b><i>AbEC</i></b>, and inside of it contains all the files needed to configure and to use the framework..
-<br>
+After cloning the repository in our computer and run the install.sh script (to see more about the installation come <a href="../install.html" target="_blank">here</a>), we already have enough to run the framework. The directory created is <b><i>AbEC</i></b>, and inside of it contains all the files needed to configure and to use the framework.
+<br><br>
+There are two ways to run the framework, through the graphical interface and via the command line. In the <a href="#running" >Running section</a> we are going to explain how to use both. But fisrt, lets take a look in the most important part
+in the usage of the framework: The configuration files.<br><br>
 As a adjustable framework, we need to configure it before use. This configuration is made through three configuration files, where we can set which components and what values for the hyper-parameters we want to use.
 These files are:
  <ul>
@@ -92,7 +99,7 @@ Below a description and how to use these files is made.
 
 </div>
 <div class="myHead">
-<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Configuration files</span>
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="configurationFiles" class="sectionTitle"> Configuration files</span>
 </div>
 <div id="divSynopsis"> 
 
@@ -212,7 +219,7 @@ Below a description and how to use these files is made.
 	<code>
 	<span style="color: white">{</span><br>
 	<span style="color: white">"__COMMENT__": "PROBLEM CONFIGURATION",</span><br>
-	<span style="color: white">"BENCHMARK": "NONE",</span> <span style="color: gold; font-size: 14px">-> Name of the benchmark as it is in the list above. If you are going to use your own fitness function (see the next chapter), must put "NONE" here. (<i>char</i>)</span><br>
+	<span style="color: white">"BENCHMARK": "CUSTOM",</span> <span style="color: gold; font-size: 14px">-> Name of the benchmark as it is in the list above. If you are going to use your own fitness function (see the next chapter), must put "NONE" here. (<i>char</i>)</span><br>
 	<span style="color: white">"FUNCTION": "function.py",</span> <span style="color: gold; font-size: 14px">-> Name of the file containing the fitness function in the directory <i>fitnessFunction</i>. (<i>char</i>)</span><br>
 	<span style="color: white">"NDIM": 2,</span> <span style="color: gold; font-size: 14px">-> Number of dimensions of the problem. (<i>int</i>) > 0</span><br>
 	<span style="color: white">"CHANGES": 0,</span></span> <span style="color: gold; font-size: 14px">-> Changes in the environment, for dynamic problems. (<i>bool</i>)</span><br>
@@ -235,10 +242,10 @@ Below a description and how to use these files is made.
 </div>
 
 <div class="myHead">
-<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Fitness Function</span>
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="fitnessFunction" class="sectionTitle"> Fitness Function</span>
 </div>
 <div id="divSynopsis"> 
-If you selected <b><i>"NONE"</i></b> in the parameter <b><i>"BENCHMARK"</i></b> of the <i>problemConfig.ini</i>, that means that 
+If you selected <b><i>"CUSTOM"</i></b> in the parameter <b><i>"BENCHMARK"</i></b> of the <i>problemConfig.ini</i>, that means that 
 you want to define your own fitness function and not use a benchmark.
 <h1 style="color: orange">> function.py</h1>
 <p>To define the fitness function, you need to create a file that will evaluate the solutions of your algorithm 
@@ -266,28 +273,127 @@ Then, we define the function inside the file, like this:
 </div>
 
 <div class="myHead">
-<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Running</span>
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="running" class="sectionTitle"> Running</span>
 </div>
 <div id="divSynopsis"> 
-Once the configuration files are done, it is time to run the algorithm. To do that we just need to run the script <i>abec.py</i> that it is located in <b><i>AbEC/abec</i></b>, the same directory as the configuration files.<br><br>
-The following command do the job:
+As said before there are two ways to run the framework, through the graphical interface and via the command line. Lets see first how to use via graphical interface and then via command line <br><br>
+
+<span style="color: green"> > </span><span style="color: yellow">Running via graphical interface</span><br><br>
+
+This is most straightfoward way to use the framework, once the interface was made to be most intuitive as possible. So, to run the framework we need to run the app.sh script which is localted on Abec/abec dir. So,
+use the following command:<br>
+
+<div>
+	<hr>
+	<code>
+	<span style="color: green">$</span><span id="dollar"> source app.sh</span><br>
+	</code>
+	<hr>
+</div>
+<br>
+
+And then the window of the application will be opened as follows:
+<br><br>
+<div style="text-align: center;">
+    <img class="centerImg" src="../images/interface1.png" alt="interface1" style="width:70%;height:500px;">
+</div>
+<br>
+
+In the terminal located in the below part of the window there is a step-by-step to follow in order to configure and properly the framework. But lets take a look in a brief description of the buttons:<br>
+<ul>
+	<li><b><span style="color:white">Experiment: Configuration file:</span></b> Open the frameConfig.ini file in the default text editor.</li>
+	<li><b><span style="color:white">Algorithm: Configuration file:</span></b> Open the algoConfig.ini file in the default text editor.</li>
+	<li><b><span style="color:white">Problem: Configuration file:</span></b> Open the problemConfig.ini file in the default text editor.</li>
+	<li><b><span style="color:white">Continue:</span></b> Used to advence to the next step.</li>
+	<li><b><span style="color:white">Reset:</span></b> Restart the process from the begin.</li>
+</ul> 
+<br>
+
+We have also in the right side two tabs used to display the progress of the optimization process, it is a good alternative to have a preview of how the algorithm is performing. In these tabs we can enable/disable the corresponding graphic to be done.<br>
+The graphical options are: <br>
+<ul>
+	<li><b><span style="color:white">Performance</span></b> In this tab is displayed two performance curves, which represents two metrics used in the framework, the Current error and the Offline error.
+	It is enabled by default.</li>
+	<li><b><span style="color:white">Search Space</span></b> This one displays how the population (individuals) are spread out in the search space (so far, for problems with more than 2 dimensions it is used the 
+	"fisrt" two dimension to represent). It is disabled by default.</li>
+</ul>
+
+It is important to have in mind that the use of these features slow down the optimization process, mainly the search space feature. So you can for example, enable them for a brief moment during the optimization process
+to take a look how it is going and disable.<br>
+
+By clicking on the continue button come to the first step of the configuration.<br><br>
+
+<span style="color: green"> >> </span><span style="color: yellow">Step 1 - Configuration files</span><br><br>
+
+Now the configuration files buttions are enables and in this step we need to set up them by clicking on the respective button:
+<br><br>
+<div style="text-align: center;">
+    <img class="centerImg" src="../images/interface2.png" alt="interface1" style="width:70%;height:500px;">
+</div>
+<br>
+
+Once the configuration files are set up, press the continue button.<br><br>
+
+<span style="color: green"> >>> </span><span style="color: yellow">Step 1.1 - Problem configuration file</span><br><br>
+
+If you choose the "CUSTOM" option in the problem configuration file, that means you are not going to use a benchmark problem and want
+use use your own fitness function file. So, in this moment you need to upload the file by clicking in the "Input Fitness Function" button.<br><br>
+
+<div style="text-align: center;">
+    <img class="centerImg" src="../images/interface3.png" alt="interface1" style="width:70%;height:500px;">
+</div>
+<br>
+
+And then, press the continue button.<br><br>
+
+<span style="color: green"> >>> </span><span style="color: yellow">Step 2 - Reviewing the configuration</span><br><br>
+
+With the configuration files all set up, in this step is showed in the terminal a summary of the configurations. So it is time to take a look and see if it is 
+everything as expected with the configuration. <br><br>
+
+<div style="text-align: center;">
+    <img class="centerImg" src="../images/interface4.png" alt="interface1" style="width:70%;height:500px;">
+</div>
+<br>
+
+If is everything ok press continue, if not press reset and restart the from the step 1.<br><br>
+
+<span style="color: green"> >>> </span><span style="color: yellow">Step 3 - Checking the results</span><br><br>
+
+If you pressed continue in the step 2, the optimaztion process will start. After the process finish, it will be showed in the terminal the results.<br><br>
+
+<div style="text-align: center;">
+    <img class="centerImg" src="../images/interface5.png" alt="interface1" style="width:70%;height:500px;">
+</div>
+<br>
+
+Check it and if you want to redo the experiment or do any other experiment just press the reset button and we come back to the step 1.
+
+<br><br>
+<span style="color: green"> > </span><span style="color: yellow">Running via command line</span><br><br>
+
+We have also the option to run the framework whitout the graphical interface, directly on the terminal. To do that we just need to include the parameter "-i 0" after the command to run the framework in order to
+not initialize the interface.<br><br>
+
+We just need to have in mind that if we are running via command line, it is needed to set the configuration files beforehand, beucase once we run the commando to run the framework the optimization process will start
+directly. The commando then becomes: <br>
 	<div>
     	<hr>
     	<code>
-    	<span style="color: green">$</span><span id="dollar"> ./abec.py</span><br>
+    	<span style="color: green">$</span><span id="dollar"> source app.sh -i 0</span><br>
     	</code>
     	<hr>
 	</div>
     <br>
-    <p>However, during the experiments it may be convenient to have the files of different configurations 
+    However, during the experiments it may be convenient to have the files of different configurations 
 (instances) of the algorithms in specific directories. 
 Therefore, it is possible to specify the path where the configuration files are located, and this becomes the default path during the execution of the algorithm. To do so, just add the 
-<i>-p</i> argument when calling the framework script, like this:</p>
+<i>-p</i> argument when calling the framework script, like this:
 
 	<div>
     	<hr>
     	<code>
-    	<span style="color: green">$</span><span id="dollar"> ./abec.py -p <i>PATH</i></span><br>
+    	<span style="color: green">$</span><span id="dollar"> source app.sh -i 0 -p <i>PATH</i></span><br>
     	</code>
     	<hr>
 	</div>
@@ -295,42 +401,46 @@ Therefore, it is possible to specify the path where the configuration files are 
 </div>
 
 <div class="myHead">
-<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Data</span>
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="data" class="sectionTitle"> Data</span>
 </div>
 <div id="divSynopsis"> 
 The files generated during the optimization time, as well the plots and the metrics, are going to be in the path defined in the <i>frameConfig.ini</i> file.
 
-So, in our example, the files will be saved in:
+The files will be saved in:
 <br>
 <br>
-<b><i><span style="color:white">AbEC/examples/PSO/YYYY-MM-DD/mm-ss/</span></i></b>
+<b><i><span style="color:white">AbEC/experiments/"&lt;NAME-OF-THE-ALGORITHM&gt"/YYYY-MM-DD/mm-ss/</span></i></b>
 <br><br>
 Where <i>YYYY, MM, DD, mm, ss</i> are the year, month, day, minute and second, respectivetely, of the moment in which the algorithm started to run.<br><br>
 
-And the files generated it will be:
-	<ul>
-	  <li><b><span style="color:white">data.csv:</span></b> CSV file containing the performance data of the runs.</li>
-	  <li><b><span style="color:white">offlineError.txt:</span></b> TXT file containing the value of the <i>offline error</i>. In the case where there were more than one run, the value will be the avarage.</li>
-	  <li><b><span style="color:white">optima.csv:</span></b> CSV file containing the optimal points.</li>
-	  <li><b><span style="color:white">algoConfig.ini:</span></b> Copy of the algoConfig.ini file used in the runs.</li>
-	  <li><b><span style="color:white">frameConfig.ini:</span></b> Copy of the frameConfig.ini file used in the runs.</li>
-	  <li><b><span style="color:white">problemConfig.ini:</span></b> Copy of the problemConfig.ini file used in the runs.</li>
-	</ul> 
+And the files generated are:
+<ul>
+	<li><b><span style="color:white">algoConfig.ini:</span></b> Copy of the algoConfig.ini file used in the runs.</li>
+	<li><b><span style="color:white">frameConfig.ini:</span></b> Copy of the frameConfig.ini file used in the runs.</li>
+	<li><b><span style="color:white">problemConfig.ini:</span></b> Copy of the problemConfig.ini file used in the runs.</li>
+	<li><b><span style="color:white">results/log_all_"SEED-OF-FIRST-RUN".csv:</span></b> CSV file containing the performance data of the all runs x.</li>
+	<li><b><span style="color:white">results/"&lt;NAME-OF-THE-ALGORITHM&gt"_"RUNX"_"SEED-OF-RUNX".csv:</span></b> CSV file containing the performance data of the run x.</li>
+	<li><b><span style="color:white">results/results.csv:</span></b> CSV file containing the summary of the results and the metrics.</li>
+	<li><b><span style="color:white">results/ecMean.csv:</span></b> CSV file containing the current error data.</li>
+	<li><b><span style="color:white">results/ecMean.png:</span></b> Curve of the current error.</li>
+	<li><b><span style="color:white">results/eoMean.csv</span></b> CSV file containing the current error data.</li>
+	<li><b><span style="color:white">results/eoMean.png:</span></b> Curve of the offline error.</li>
+	<li><b><span style="color:white">results/optima.csv:</span></b> CSV file containing the optimal points.</li>
+</ul>
 
 </div>
 
-
 <div class="myHead">
-<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Example</span>
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="example" class="sectionTitle"> Example</span>
 </div>
 <div id="divSynopsis"> 
     As a examples lets define a function that represents the following surface in a 3D space, and we want to minimize, that is, we want to find the coordinates <i>(x, y)</i> that represents the minumum value of the function.
     <br>
-    However, before of it, lets create a directory where we want to run our experiements. So we create the directory <i>example1</i> in the directory <b><i>AbEC/examples/</i></b>.
+    However, before of it, lets create a directory where we want to run our experiements. So we create the directory <i>example1</i> in the directory <b><i>AbEC/experiments/</i></b>.
 	<div>
     	<hr>
     	<code>
-    	<span style="color: green">$</span><span id="dollar"> mkdir ../examples/example1</span><br>
+    	<span style="color: green">$</span><span id="dollar"> mkdir ../experiments/example1</span><br>
     	</code>
     	<hr>
 	</div>
