@@ -176,10 +176,13 @@ Below a description and how to use these files is made.
 	<span style="color: white">"FINISH_RUN_MODE": 0,</span> <span style="color: gold; font-size: 14px">-> Mode to finish the run. 0 - <i>Fixed-budget</i>, finish when achieve a fixed number of evaluations (<i>int</i>) in <i>[0, 1]</i>; 1 - <i>Fixed-target</i>, run until achieve a error less than a fixed target. (<i>float</i>) > 0</span><br>
 	<span style="color: white">"FINISH_RUN_MODE_VALUE": 1000,</span></span> <span style="color: gold; font-size: 14px">-> Number of evaluation if <i>FINISH_RUN_MODE = 1</i>  (<i>int</i>) > 1; Target error if <i>FINISH_RUN_MODE = 1</i>  (<i>float</i>) > 0. </span><br>
 	<span style="color: white">"SEED": 42,</span></span> <span style="color: gold; font-size: 14px">-> The seed for the runs. (<i>float</i>)</span><br>
-	<span style="color: white">"PARALLELIZATION": 1,</span></span> <span style="color: gold; font-size: 14px">-> Enable/disable the parallelization of the runs (<i>bool</i>)</span><br>
-	<span style="color: white">"NPROCESS": "AUTO",</span></span> <span style="color: gold; font-size: 14px">-> Number of process when parallelization is enabled. <i>AUTO</i> - 2/3 of the cores, <i>"MAX"</i> - all the cores, N (<i>int</i>) in [1, NCORES]</span><br>
-	<span style="color: white">"LOG_ALL": 0,</span></span> <span style="color: gold; font-size: 14px">-> Put all individuals data of a run in a file. (<i>bool</i>)</span><br>
-	<span style="color: white">"TERMINAL_OUTPUT": 1,</span></span> <span style="color: gold; font-size: 14px">-> Print the output in the terminal. (<i>bool</i>)</span><br>
+	<span style="color: white">"PLOT": 0,</span></span> <span style="color: gold; font-size: 14px">-> Save the performance curves of the runs. (<i>bool</i>)</span><br>
+	<span style="color: white">"CONFIG_COPY": 1,</span></span> <span style="color: gold; font-size: 14px">-> Save the configuration files. (<i>bool</i>)</span><br>
+	<span style="color: white">"OFFLINE_ERROR": 0,</span></span> <span style="color: gold; font-size: 14px">-> Calculate the <i>offline error</i> of the runs. (<i>bool</i>)</span><br>
+	<span style="color: white">"BEBC_ERROR": 0,</span></span> <span style="color: gold; font-size: 14px">-> Calculate the <i>best before change</i> error. (<i>bool</i>)</span><br>
+	<span style="color: white">"PATH": "../examples",</span></span> <span style="color: gold; font-size: 14px">-> Path to save the generated files. (<i>char</i>)</span><br>
+	<span style="color: white">"FILENAME": "data.csv",</span></span> <span style="color: gold; font-size: 14px">-> File name of the performance data. (<i>char</i>)</span><br>
+	<span style="color: white">"LOG_ALL": 0,</span></span> <span style="color: gold; font-size: 14px">-> Put all individuals data in the performance data. (<i>bool</i>)</span><br>
 	<span style="color: white">"DEBUG_RUN": 1,</span></span> <span style="color: gold; font-size: 14px">-> Debug in run level. (<i>bool</i>)</span><br>
 	<span style="color: white">"DEBUG_RUN2": 0,</span></span> <span style="color: gold; font-size: 14px">-> Debug in run level 2. (<i>bool</i>)</span><br>
 	<span style="color: white">"DEBUG_GEN": 0,</span></span> <span style="color: gold; font-size: 14px">-> Debug in generation level. (<i>bool</i>)</span><br>
@@ -246,7 +249,7 @@ If you selected <b><i>"CUSTOM"</i></b> in the parameter <b><i>"BENCHMARK"</i></b
 you want to define your own fitness function and not use a benchmark.
 <h1 style="color: orange">> function.py</h1>
 <p>To define the fitness function, you need to create a file that will evaluate the solutions of your algorithm 
-(i.e. <b><i>"function.py"</i></b>) in the same directory of the configuration files, and put this name in the parameter <i>"FUNCTION"</i> of the <i>problemConfig.ini</i>.
+(i.e. <b><i>"function.py"</i></b>) in the <i>fitnessFunction</i> directory, and put this name in the parameter <i>"FUNCTION"</i> of the <i>problemConfig.ini</i>.
 This file should contain a python method named <span style="color: white"><b><i>function(x)</i></b></span> where the argument <b><i>x</i></b> 
 is a list with <b><i>"NDIM"</i></b> dimensions and represent a solution to be evaluated.</p>
 <br>
@@ -254,7 +257,7 @@ The following command create and open the file:
 	<div>
 	<hr>
 	<code>
-	<span style="color: green">$</span><span id="dollar"> nano function.py</span><br>
+	<span style="color: green">$</span><span id="dollar"> nano fitnessFunction/function.py</span><br>
 	</code>
 	<hr>
 	</div>
@@ -462,7 +465,7 @@ And the files generated are:
 	<div>
     	<hr>
     	<code>
-    	<span style="color: green">$</span><span id="dollar"> nano ../experiments/example1/function.py</span><br>
+    	<span style="color: green">$</span><span id="dollar"> nano fitnessFunction/function.py</span><br>
     	</code>
     	<hr>
 	</div>
@@ -529,9 +532,9 @@ So, out file is something like this:
 	<hr>
 	<code>
 	<span style="color: white">{</span><br>
-	<span style="color: white">"RUNS": 10,</span> <br>
+	<span style="color: white">"RUNS": 5,</span> <br>
 	<span style="color: white">"FINISH_RUN_MODE": 0,</span><br>
-	<span style="color: white">"FINISH_RUN_MODE_VALUE": 600,</span><br>
+	<span style="color: white">"FINISH_RUN_MODE_VALUE": 500,</span><br>
 	<span style="color: white">"SEED": 42</span><br>
 	<span style="color: white">}</span><br>
 	</code>
@@ -556,8 +559,7 @@ So, out file is something like this:
 	<code>
 	<span style="color: white">{</span><br>
 	<span style="color: white">"BENCHMARK": "CUSTOM",</span> <br>
-	<span style="color: white">"NDIM": 2,</span><br>
-	<span style="color: white">"FUNCTION": "function.py"</span><br>
+	<span style="color: white">"NDIM": 2</span><br>
 	<span style="color: white">}</span><br>
 	</code>
 	<hr>
@@ -586,7 +588,7 @@ So, out file is something like this:
 	<div>
     	<hr>
     	<code>
-    	<span style="color: green">$</span><span id="dollar"> ls ../experiments/example1</span><br>
+    	<span style="color: green">$</span><span id="dollar"> ls ../examples/example1</span><br>
     	</code>
     	<hr>
 	</div>
@@ -598,20 +600,50 @@ So, out file is something like this:
     	<hr>
 	</div>
     <br><br>
-	We may want to take a look in the images generated:
-	<div>
-    	<hr>
-    	<code>
-    	<span style="color: green">$</span><span id="dollar"> open ../experiments/example1/results/ecMean.png</span><br>
-    	</code>
-    	<hr>
-	</div>
-	<br>
-	<div style="text-align: center;">
-        <img class="centerImg" src="../images/PSO-EX-1.png" alt="pso example 1" style="width:100%;height:600px;">
-    </div>
 
-    Congratulations!! you now have runned the algorithm on the problem that you defined. 
+    Congratulations!! you now have runned the algorithm on the problem that you defined. It depends on the context, but a usual natural next step is to visualize the performance curve of the algorithm.
+For this, the framework provides a script to visualize the current error of the algorhtm during the optimization process.
+To use this feature, go to the directory <b><i><span style="color:white">AbEC/abec/plot/currentError/</span></i></b>.
+In this directory there is a configuration file, named <i>config.ini</i> which allows us to setup some characteristics of the plot, like axes limits, title, name of the file, etc..
+<br><br>
+Using this script is possible to plot up to 4 graphs in the same figure, if you want to use for example, to compare different algorithms or setups.
+To execute the plot feature you can use the following command:
+    <br>
+    <br>
+	<div>
+	<hr>
+	<code>
+	<span style="color: green">$</span><span id="dollar"> ./currentErrorPlot.py -p <i>PATH</i> <i>DATA1</i> .... <i>DATA4</i></span><br>
+	</code>
+	<hr>
+	</div>
+    <br>
+    Here, <i>PATH</i> is the path for to where there are the runs that you want to plot and <i>DATAX</i> are the directories of the up to 4 different setups.
+    <br>
+    So, for the our example, we can use the following command:
+    <br><br>
+	<div>
+	<hr>
+	<code>
+	<span style="color: green">$</span><span id="dollar"> ./currentErrorPlot.py -p ../../../examples/PSO/2023-6-8 19-48</span><br>
+	</code>
+	<hr>
+	</div>
+    <br>
+    and then will be generated a figure with our performance curve of the current error. Like this:
+    <br><br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="../images/PSO-0.png" alt="surface" style="width:100%;height:600px;">
+    </div>
+    <br>
+    We had 5 runs in our example, we can also plot each runs individually. For this the parameter <i>"ALLRUNS"</i> need to be set in 1.
+    And then the result is gonna be:
+    <br><br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="../images/PSO-1.png" alt="surface" style="width:100%;height:600px;">
+    </div>
+    <br>
+
 
     <h3 style="color:green">>> ALTERNATIVE <<</h3>
 
@@ -641,15 +673,8 @@ So, out file is something like this:
         <img class="centerImg" src="../images/min5.png" alt="surface" style="width:20%;height:60px;">
     </div>
     <br>
-    And then the <i>functionAlt.py</i> it would be something like:
-	> <a href="functionAlt.py" target="_blank">[ file ]</a>
-	<div>
-    	<hr>
-    	<code>
-    	<span style="color: green">$</span><span id="dollar"> nano ../experiments/example1/functionAlt.py</span><br>
-    	</code>
-    	<hr>
-	</div>
+    And then the <i>function.py</i> it would be something like:
+	> <a href="function2.py" target="_blank">[ file ]</a>
 	<div>
     	<hr>
     	<code>
@@ -668,51 +693,32 @@ So, out file is something like this:
     	</code>
     	<hr>
 	</div>
-    <br>
-	As we changed the the fitness function file, we need to change in the problemConfig.ini:<br>
-	> <a href="problemConfigAlt.ini" target="_blank">[ file ]</a>
-	<div>
-    	<hr>
-    	<code>
-    	<span style="color: green">$</span><span id="dollar"> nano ../experiments/example1/problemConfig.ini</span><br>
-    	</code>
-    	<hr>
-	</div>
-	<div>
-	<hr>
-	<code>
-	<span style="color: white">{</span><br>
-	<span style="color: white">"BENCHMARK": "CUSTOM",</span> <br>
-	<span style="color: white">"NDIM": 2,</span><br>
-	<span style="color: white">"FUNCTION": "functionAlt.py"</span><br>
-	<span style="color: white">}</span><br>
-	</code>
-	<hr>
-	</div>
-	<br>
-	Running again:
-	<div>
-    	<hr>
-    	<code>
-    	<span style="color: green">$</span><span id="dollar"> ./app.sh -i 0 -p ../experiments/example1</span><br>
-    	</code>
-    	<hr>
-	</div>
-	<br>
-    The output will be something like this:
-	<div id="list">
-		<p><iframe src="readmeAlt.txt" frameborder="0" height="400" style="font-size: 10px; color: #EEEEEC; background: darkgreen;"
-		width="70%"></iframe></p>
-	</div>
-	<br>
-	And the graphic:
-	<br>
-	<div style="text-align: center;">
-        <img class="centerImg" src="../images/PSO-EX-2.png" alt="pso example 2" style="width:100%;height:600px;">
+    <br><br>
+    and the plots:
+    <br><br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="../images/PSO-2.png" alt="surface" style="width:100%;height:600px;">
     </div>
     <br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="../images/PSO-3.png" alt="surface" style="width:100%;height:600px;">
+    </div>
     <br>
-    That's all folks ... for today :)<br>
+    <h3 style="color:green">>> BONUS <<</h3>
+
+
+    Below is the performance curve of four different algorithms (PSO, GA, DE, ES) and with 30 runs, applied to the problem we defined above on the same plot for comparison.
+    <br>
+    <br>
+    <div style="text-align: center;">
+        <img class="centerImg" src="../images/COMP.png" alt="surface" style="width:100%;height:600px;">
+    </div>
+    The shadow around the algorithm line refers to the standard deviation of the 30 runs.
+    <br>
+    <br>
+    <br>
+    <br>
+    For today that's all folks.<br>
     ---------------------------------------------------------------------------------------------
 </div>
 

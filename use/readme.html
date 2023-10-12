@@ -1,0 +1,90 @@
+<style>
+body{
+	font: "Source Code Pro";
+	font-size: 14px;
+	color: #EEEEEC;
+}
+</style>
+<body>
+=================================================================<br>
+            AbEC -> Ajustable Evolutionary Components        
+             A framework for Optimization Problems         
+=================================================================
+*                                                                *
+*                                                                *
+*                    I hope you enjoy!                           *
+*                                                                *
+*                                                                *
+*                                                                *
+*                                                                *
+* For more informations please visit: https://abec-ec.github.io  *
+
+[ALGORITHM SETUP]
+- Name: PSO
+- Individuals p/ population:	30
+- [OPTIMIZERS]:
+-- [PSO]
+---- % of POP: 100%
+---- PHI1: 2.05
+---- PHI2: 2.05
+---- W: 0.729
+---- MIN_VEL: -10
+---- MAX_VEL: 10
+- [COMPONENTS]:
+
+[FRAMEWORK SETUP]
+- RUNS:		 5
+- NEVALS p/ RUN: 500
+- SEED:		 42
+
+[PROBLEM SETUP]
+- Name: CUSTOM
+- NDIM: 2
+
+[RUNNING]
+
+RUN | GEN | NEVALS |                    BEST                   | ERROR
+01   00016  000480  0027:[-1.41, 0.01]  0.0001
+04   00016  000480  0016:[-1.28, -0.02]  0.0427
+02   00016  000480  0003:[-1.31, -0.0]  0.0218
+05   00016  000480  0027:[-1.45, 0.08]  0.0095
+03   00016  000480  0025:[-1.37, 0.08]  0.0107
+
+[RESULTS]
+
+[FILES GENERATED]
+
+-[PATH] ../experiments/example1/results/
+	-[FILE] 0001/PSO_20231013_0244_0001_42_OPTIMA.csv
+	-[FILE] 0001/PSO_20231013_0244_0001_42_RUN.csv
+	-[FILE] 0002/PSO_20231013_0244_0002_43_OPTIMA.csv
+	-[FILE] 0002/PSO_20231013_0244_0002_43_RUN.csv
+	-[FILE] 0003/PSO_20231013_0244_0003_44_OPTIMA.csv
+	-[FILE] 0003/PSO_20231013_0244_0003_44_RUN.csv
+	-[FILE] 0004/PSO_20231013_0244_0004_45_OPTIMA.csv
+	-[FILE] 0004/PSO_20231013_0244_0004_45_RUN.csv
+	-[FILE] 0005/PSO_20231013_0244_0005_46_OPTIMA.csv
+	-[FILE] 0005/PSO_20231013_0244_0005_46_RUN.csv
+	-[FILE] ecMean.csv
+	-[FILE] ecMean.png
+	-[FILE] eoMean.csv
+	-[FILE] eoMean.png
+	-[FILE] readme.txt
+	-[FILE] results.csv
+
+==============================================
+[RUNS:5]
+[BEST POS (RUN 1) : [-1.41, 0.01]]
+[BEST FIT (RUN 1): 0.0001]
+[Ec  MEAN: 0.0170(0.0163)]
+[Eo  MEAN: 0.6230(0.1767)]
+[RUNTIME(s): 2.79 | 0.11(0.03)/run 1]
+==============================================
+[DATE: 10/13/2023 at 02:44]
+[END] Thx :)
+
+
+AbEC developed by Alexandre Mascarenhas
+For more informations please go to https://abec-ec.github.io
+Eh nois
+</body>

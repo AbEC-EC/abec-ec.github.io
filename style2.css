@@ -120,6 +120,13 @@ pre {
 }
 
 
+#list  p {
+	font: "Source Code Pro";
+	font-size: 10px;
+	color: #EEEEEC;	
+}
+
+
 
 #title {
 	color:#EE4F84; 
