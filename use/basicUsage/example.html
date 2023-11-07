@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JGW6MNEWGH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JGW6MNEWGH');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>AbEC | BU</title>
+
+    <script src="scramble.js"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script>
+		MathJax = {
+		tex: {
+		  tags: 'ams'  // should be 'ams', 'none', or 'all'
+		}
+		};
+	</script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <link rel="icon" href="../images/luffy-smile-rb.png" />
+    <link rel="shortcut icon" href="../images/luffy-smile-rb.png" />
+    <link rel="stylesheet" type="text/css" href="../../style2.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/hack.min.css"
+      integrity="sha512-XgCw4Srl8lC1ECwcaHwAU0WnxQwHkqmInzg9wJLtGB7DRuMaXPuK2k9WJ2AwRDGdrgK9eJpZl2hUlLi2WQssmw=="
+      crossorigin="anonymous"
+    />
+	<style>
+		h1 {
+			text-align: center;
+			background: #EEEEEE;
+			padding: .2em 1em;
+			border-top: 3px solid #666666;
+			border-bottom: 3px solid #999999;
+		}
+  </style>
+  </head>
+
+<body>
+<section>
+<pre>
+
+<div style="float: left">USE(6)</div><div style="float: right">USE(6)</div><div style="margin: 0 auto; width: 100%; text-align: center"><span id="top">AbEC - Examples</span></div>
+<a href="./results.html#results"><<</a>                                                                                           <a href="../../use.html">>></a>
+    <div id="google_translate_element"></div>
+    < <a href="../../index.html">[ Home ]</a>
+    < <a href="../../use.html">1. [ Use ]</a>
+    > <a href="./configurationFiles.html#configurationFiles">2. [ Configuration files ]</a>
+    > <a href="./fitnessFunction.html#fitnessFunction">3. [ Fitness function ]</a>
+    > <a href="./running.html#running">4. [ Running ]</a>
+    > <a href="./results.html#results">5. [ Results ]</a>
+    > <a href="">6. [ Example ]</a>
+    >> <a href="#alternative">6.1 [ Alternative ]</a>
+    > <a href="../newComponents.html">7. [ Adding new components ]</a>
+
+    
+    <script type="text/javascript">
+    function setCookie(key, value, expiry) {
+      var expires = new Date();
+      expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+      document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+    }
+    </script>
+
+    <div class="myHead">
+      <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="example" class="sectionTitle"> Example</span>
+      </div>
+      <div id="divSynopsis"> 
+          As a examples lets define a function that represents the following surface in a 3D space, and we want to minimize, that is, we want to find the coordinates <i>(x, y)</i> that represents the minumum value of the function.
+          <br>
+          However, before of it, lets create a directory where we want to run our experiements. So we create the directory <i>example1</i> in the directory <b><i>AbEC/experiments/</i></b>.
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">$</span><span id="dollar"> mkdir ../experiments/example1</span><br>
+            </code>
+            <hr>
+        </div>
+          <br>
+          And inside of this directory, we edit our configuration and function files.
+          <br>
+          Below is how the surface looks like:
+          <br>
+          <div style="text-align: center;">
+              <img class="centerImg" src="../../images/surfaceFitFunction.png" alt="surface" style="width:100%;height:500px;">
+          </div>
+          <br>
+          Represented by the following equation:
+          <br>
+          <div style="text-align: center;">
+              <img class="centerImg" src="../../images/surfaceEq.png" alt="surface" style="width:30%;height:150px;">
+          </div>
+          With <i>A = 10</i> and <i>B = 2</i>.
+          So, the <i>function.py</i> file will be like: 
+        > <a href="function.py" target="_blank">[ file ]</a>
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">$</span><span id="dollar"> nano ../experiments/example1/function.py</span><br>
+            </code>
+            <hr>
+        </div>
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">import</span><span style="color: white"> numpy</span><span style="color: green"> as</span><span style="color: white"> np</span><br>
+            <br>
+            <span style="color: green">def</span><span style="color: white"> function(x):</span><br>
+              &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">5*x[0]*np.exp(- ( ((x[0])**2) + ((x[1])**2) )/4)</span><br>
+            <br>
+            </code>
+            <hr>
+        </div>
+          <br>
+      
+          And now we need to set the configuration files. For the example lets use a classical PSO algorithm, without any components.
+      <br><br>
+        <span style="color: green"> > </span><span style="color: yellow">algoConfig.ini</span><br><br>
+          Starting with the <i>algoConfig.ini</i>, we are just going to set the optimizer to perform PSO and the rest just leave the default configuration.
+      So, out file is something like this:
+      
+        > <a href="algoConfig2.ini" target="_blank">[ file ]</a>
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">$</span><span id="dollar"> nano ../experiments/example1/algoConfig.ini</span><br>
+            </code>
+            <hr>
+        </div>
+        <div>
+        <hr>
+        <code>
+        <span style="color: white">{</span><br>
+        <span style="color: white">"ALGORITHM": "PSO",</span> <br>
+        <span style="color: white">"POPSIZE": 30,</span><br>
+        <span style="color: white">"MIN_POS": -10,</span><br>
+        <span style="color: white">"MAX_POS": 10,</span><br>
+        <span style="color: white">"PSO_POP_PERC": 1,</span><br>
+        <span style="color: white">"PSO_PHI1": 2.05,</span><br>
+        <span style="color: white">"PSO_PHI2": 2.05,</span><br>
+        <span style="color: white">"PSO_W": 0.729,</span><br>
+        <span style="color: white">"PSO_MIN_VEL": -10,</span><br>
+        <span style="color: white">"PSO_MAX_VEL": 10</span><br>
+        <span style="color: white">}</span><br>
+        </code>
+        <hr>
+        </div>
+      
+          <br>
+        <span style="color: green"> > </span><span style="color: yellow">frameConfig.ini</span><br><br>
+          In the <i>frameConfig.ini</i> we are just going to edit the number of evaluations in the parameter <i>"FINISH_RUN_MODE_VALUE"</i>.
+          The file is something like this:
+      
+        > <a href="frameConfig2.ini" target="_blank">[ file ]</a>
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">$</span><span id="dollar"> nano ../experiments/example1/frameConfig.ini</span><br>
+            </code>
+            <hr>
+        </div>
+        <div>
+        <hr>
+        <code>
+        <span style="color: white">{</span><br>
+        <span style="color: white">"RUNS": 10,</span> <br>
+        <span style="color: white">"FINISH_RUN_MODE": 0,</span><br>
+        <span style="color: white">"FINISH_RUN_MODE_VALUE": 600,</span><br>
+        <span style="color: white">"SEED": 42</span><br>
+        <span style="color: white">}</span><br>
+        </code>
+        <hr>
+        </div>
+      
+          <br>
+        <span style="color: green"> > </span><span style="color: yellow">problemConfig.ini</span><br><br>
+          Starting with the <i>algoConfig.ini</i>, we are just going to set the optimizer to perform PSO and the rest just leave the default configuration.
+      So, out file is something like this:
+      
+        > <a href="problemConfig2.ini" target="_blank">[ file ]</a>
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">$</span><span id="dollar"> nano ../experiments/example1/problemConfig.ini</span><br>
+            </code>
+            <hr>
+        </div>
+        <div>
+        <hr>
+        <code>
+        <span style="color: white">{</span><br>
+        <span style="color: white">"BENCHMARK": "CUSTOM",</span> <br>
+        <span style="color: white">"NDIM": 2,</span><br>
+        <span style="color: white">"FUNCTION": "function.py"</span><br>
+        <span style="color: white">}</span><br>
+        </code>
+        <hr>
+        </div>
+      
+          <br><br>
+          Once everything is configured, lets run!
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">$</span><span id="dollar"> ./app.sh -i 0 -p ../experiments/example1</span><br>
+            </code>
+            <hr>
+        </div>
+          <br>
+          The output will be something like this:
+        <div id="list">
+          <p><iframe src="readme.txt" frameborder="0" height="400" style="font-size: 10px; color: #EEEEEC; background: darkgreen;"
+          width="70%"></iframe></p>
+        </div>
+      
+          <br>
+          Where we can see that our solution is something around <span style="color: white"><b><i>x&sime;-1.41</i></b></span> and <span style="color: white"><b><i>y&sime;-0.01</b></i></span>.
+          <br>
+          And to see the files generated by running the algorithm:
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">$</span><span id="dollar"> ls ../experiments/example1</span><br>
+            </code>
+            <hr>
+        </div>
+        <div>
+            <hr>
+            <code>
+              <span style="color: white; font-size: 13px">algoConfig.ini     frameConfig.ini     problemConfig.ini     <span id="dollar" >results</span> </span><br>
+            </code>
+            <hr>
+        </div>
+          <br><br>
+        We may want to take a look in the images generated:
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">$</span><span id="dollar"> open ../experiments/example1/results/ecMean.png</span><br>
+            </code>
+            <hr>
+        </div>
+        <br>
+        <div style="text-align: center;">
+              <img class="centerImg" src="../../images/PSO-EX-1.png" alt="pso example 1" style="width:100%;height:600px;">
+          </div>
+      
+          Congratulations!! you now have runned the algorithm on the problem that you defined. 
+      
+          <h3 style="color:green" id ="alternative">>> ALTERNATIVE <<</h3>
+      
+          For this example, as is a differentiable function, we could find the minimum points algebraically using the derivatives. For this, we just need to set the first derivative of the function equal to zero.
+          <br>
+          <div style="text-align: center;">
+              <img class="centerImg" src="../../images/min1.png" alt="surface" style="width:40%;height:90px;">
+          </div>
+          <br>
+          As is a multivariate function, we need to perform the partial derivative for each variable, and then set to zero to find the values, just like this:
+          <br>
+          <div style="text-align: center;">
+              <img class="centerImg" src="../../images/min2.png" alt="surface" style="width:40%;height:100px;">
+          </div>
+          <br>
+          In our case:
+          <br>
+          <div style="text-align: center;">
+              <img class="centerImg" src="../../images/min3.png" alt="surface" style="width:35%;height:75px;">
+          </div>
+          <div style="text-align: center;">
+              <img class="centerImg" src="../../images/min4.png" alt="surface" style="width:35%;height:75px;">
+          </div>
+          <br>
+          And then, now we know the the optimal points are:
+          <div style="text-align: center;">
+              <img class="centerImg" src="../../images/min5.png" alt="surface" style="width:20%;height:60px;">
+          </div>
+          <br>
+          And then the <i>functionAlt.py</i> it would be something like:
+        > <a href="functionAlt.py" target="_blank">[ file ]</a>
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">$</span><span id="dollar"> nano ../experiments/example1/functionAlt.py</span><br>
+            </code>
+            <hr>
+        </div>
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">import</span><span style="color: white"> numpy</span><span style="color: green"> as</span><span style="color: white"> np</span><br>
+              <br>
+              <span style="color: white">optimal = [-np.sqrt(2), 0]</span><br>
+              <br>
+            <span style="color: green">def</span><span style="color: white"> equation(s):</span><br>
+                  &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white"> return 5*s[0]*np.exp(- ( ((s[0])**2) + ((s[1])**2) )/4)</span><br>
+              <br>
+            <span style="color: green">def</span><span style="color: white"> function(x):</span><br>
+                  &emsp;&emsp;&emsp;  	<span style="color: white"> opt = equation(optimal)</span><br>
+                  &emsp;&emsp;&emsp;  	<span style="color: white"> fit = equation(x)</span><br>
+                  &emsp;&emsp;&emsp;  	<span style="color: white"> error = abs(opt - fit)</span><br>
+                  &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white"> error</span><br>  
+            </code>
+            <hr>
+        </div>
+          <br>
+        As we changed the the fitness function file, we need to change in the problemConfig.ini:<br>
+        > <a href="problemConfigAlt.ini" target="_blank">[ file ]</a>
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">$</span><span id="dollar"> nano ../experiments/example1/problemConfig.ini</span><br>
+            </code>
+            <hr>
+        </div>
+        <div>
+        <hr>
+        <code>
+        <span style="color: white">{</span><br>
+        <span style="color: white">"BENCHMARK": "CUSTOM",</span> <br>
+        <span style="color: white">"NDIM": 2,</span><br>
+        <span style="color: white">"FUNCTION": "functionAlt.py"</span><br>
+        <span style="color: white">}</span><br>
+        </code>
+        <hr>
+        </div>
+        <br>
+        Running again:
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">$</span><span id="dollar"> ./app.sh -i 0 -p ../experiments/example1</span><br>
+            </code>
+            <hr>
+        </div>
+        <br>
+          The output will be something like this:
+        <div id="list">
+          <p><iframe src="readmeAlt.txt" frameborder="0" height="400" style="font-size: 10px; color: #EEEEEC; background: darkgreen;"
+          width="70%"></iframe></p>
+        </div>
+        <br>
+        And the graphic:
+        <br>
+        <div style="text-align: center;">
+              <img class="centerImg" src="../../images/PSO-EX-2.png" alt="pso example 2" style="width:100%;height:600px;">
+          </div>
+          <br>
+          <br>
+          That's all folks ... for today :)<br>
+          ---------------------------------------------------------------------------------------------
+      </div>
+      
+
+
+
+
+<span style="color: white">Be free to use this framework.</span><br>
+<span style="color: green">AbEC © 2023.</span>
+
+<div class="myHead"><blink></blink></div>
+</div>
+
+</pre>
+</section>
+</body>
+</html>

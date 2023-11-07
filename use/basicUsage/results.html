@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JGW6MNEWGH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JGW6MNEWGH');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>AbEC | BU</title>
+
+    <script src="scramble.js"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script>
+		MathJax = {
+		tex: {
+		  tags: 'ams'  // should be 'ams', 'none', or 'all'
+		}
+		};
+	</script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <link rel="icon" href="../images/luffy-smile-rb.png" />
+    <link rel="shortcut icon" href="../images/luffy-smile-rb.png" />
+    <link rel="stylesheet" type="text/css" href="../../style2.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/hack.min.css"
+      integrity="sha512-XgCw4Srl8lC1ECwcaHwAU0WnxQwHkqmInzg9wJLtGB7DRuMaXPuK2k9WJ2AwRDGdrgK9eJpZl2hUlLi2WQssmw=="
+      crossorigin="anonymous"
+    />
+	<style>
+		h1 {
+			text-align: center;
+			background: #EEEEEE;
+			padding: .2em 1em;
+			border-top: 3px solid #666666;
+			border-bottom: 3px solid #999999;
+		}
+  </style>
+  </head>
+
+<body>
+<section>
+<pre>
+
+<div style="float: left">USE(5)</div><div style="float: right">USE(5)</div><div style="margin: 0 auto; width: 100%; text-align: center"><span id="top">AbEC - Results</span></div>
+<a href="./running.html#running"><<</a>                                                                                           <a href="./example.html#example">>></a>
+    <div id="google_translate_element"></div>
+    < <a href="../index.html">[ Home ]</a>
+    < <a href="../../use.html">1. [ Use ]</a>
+    > <a href="./configurationFiles.html#configurationFiles">2. [ Configuration files ]</a>
+    > <a href="./fitnessFunction.html#fitnessFunction">3. [ Fitness function ]</a>
+    > <a href="./running.html#running">4. [ Running ]</a>
+    > <a href="">5. [ Results ]</a>
+    > <a href="./example.html#example">6. [ Example ]</a>
+    > <a href="../newComponents.html">7. [ Adding new components ]</a>
+    
+    <script type="text/javascript">
+    function setCookie(key, value, expiry) {
+      var expires = new Date();
+      expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+      document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+    }
+    </script>
+
+
+    <div class="myHead">
+        <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="results" class="sectionTitle"> Results</span>
+        </div>
+        <div id="divSynopsis"> 
+        The files generated during the optimization time, as well the plots and the metrics, are going to be in the path defined in the <i>frameConfig.ini</i> file.
+        
+        The files will be saved in:
+        <br>
+        <br>
+        <b><i><span style="color:white">AbEC/experiments/&lt;NAME-OF-THE-ALGORITHM&gt/YYYY-MM-DD/mm-ss/</span></i></b>
+        <br><br>
+        Where <i>YYYY, MM, DD, mm, ss</i> are the year, month, day, minute and second, respectivetely, of the moment in which the algorithm started to run.<br><br>
+        
+        And the files generated are:
+        <ul>
+            <li><b><span style="color:white">algoConfig.ini:</span></b> Copy of the algoConfig.ini file used in the runs.</li>
+            <li><b><span style="color:white">frameConfig.ini:</span></b> Copy of the frameConfig.ini file used in the runs.</li>
+            <li><b><span style="color:white">problemConfig.ini:</span></b> Copy of the problemConfig.ini file used in the runs.</li>
+            <li><b><span style="color:white">results/results.csv:</span></b> CSV file containing the summary of the results and the metrics.</li>
+            <li><b><span style="color:white">results/readme.txt:</span></b> A text file with the output of the experiment.</li>
+            <li><b><span style="color:white">results/ecMean.csv:</span></b> CSV file containing the current error data. *(Only if NRUNS > 1)</li>
+            <li><b><span style="color:white">results/ecMean.png:</span></b> Curve of the current error. *(Only if NRUNS > 1)</li>
+            <li><b><span style="color:white">results/eoMean.csv</span></b> CSV file containing the current error data. *(Only if NRUNS > 1)</li>
+            <li><b><span style="color:white">results/eoMean.png:</span></b> Curve of the offline error. *(Only if NRUNS > 1)</li>
+            <li><b><span style="color:white">results/XXXX/&lt;NAME-OF-THE-ALGORITHM&gt;_YYYYMMDD_HHmm_XXXX_SEED_RUN.csv>:</span></b> CSV file containing the performance data of the run XXXX.</li>
+            <li><b><span style="color:white">results/XXXX/&lt;NAME-OF-THE-ALGORITHM&gt;_YYYYMMDD_HHmm_XXXX__SEED_LOGALL.csv>:</span></b> CSV file containing the all data of the run XXXX. *Optional</li>
+            <li><b><span style="color:white">results/XXXX/&lt;NAME-OF-THE-ALGORITHM&gt;_YYYYMMDD_HHmm_XXXX__SEED_OPTIMA.csv>:</span></b> CSV file containing the optima points of the run XXXX. *(Only if BENCHMARK)</li>
+        </ul>
+        
+        </div>
+
+
+
+<span style="color: white">Be free to use this framework.</span><br>
+<span style="color: green">AbEC © 2023.</span>
+
+<div class="myHead"><blink></blink></div>
+</div>
+
+</pre>
+</section>
+</body>
+</html>

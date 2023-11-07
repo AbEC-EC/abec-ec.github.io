@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JGW6MNEWGH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JGW6MNEWGH');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>AbEC | BU</title>
+
+    <script src="scramble.js"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script>
+		MathJax = {
+		tex: {
+		  tags: 'ams'  // should be 'ams', 'none', or 'all'
+		}
+		};
+	</script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <link rel="icon" href="../images/luffy-smile-rb.png" />
+    <link rel="shortcut icon" href="../images/luffy-smile-rb.png" />
+    <link rel="stylesheet" type="text/css" href="../../style2.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/hack.min.css"
+      integrity="sha512-XgCw4Srl8lC1ECwcaHwAU0WnxQwHkqmInzg9wJLtGB7DRuMaXPuK2k9WJ2AwRDGdrgK9eJpZl2hUlLi2WQssmw=="
+      crossorigin="anonymous"
+    />
+	<style>
+		h1 {
+			text-align: center;
+			background: #EEEEEE;
+			padding: .2em 1em;
+			border-top: 3px solid #666666;
+			border-bottom: 3px solid #999999;
+		}
+  </style>
+  </head>
+
+<body>
+<section>
+<pre>
+<div style="float: left">USE(3)</div><div style="float: right">USE(3)</div><div style="margin: 0 auto; width: 100%; text-align: center"><span id="top">AbEC - Fitness Function</span></div>
+<a href="./configurationFiles.html#configurationFiles"><<</a>                                                                                           <a href="./running.html#running">>></a>
+<div id="google_translate_element"></div>
+< <a href="../../index.html">[ Home ]</a>
+< <a href="../../use.html">1. [ Use ]</a>
+> <a href="./configurationFiles.html#configurationFiles">2. [ Configuration files ]</a>
+> <a href="">3. [ Fitness function ]</a>
+> <a href="./running.html#running">4. [ Running ]</a>
+> <a href="./results.html#results">5. [ Results ]</a>
+> <a href="./example.html#example">6. [ Example ]</a>
+> <a href="../newComponents.html">7. [ Adding new components ]</a>
+
+<script type="text/javascript">
+function setCookie(key, value, expiry) {
+  var expires = new Date();
+  expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+  document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+}
+</script>
+
+<div class="myHead">
+    <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="fitnessFunction" class="sectionTitle"> Fitness Function</span>
+    </div>
+    <div id="divSynopsis"> 
+    If you selected <b><i>"CUSTOM"</i></b> in the parameter <b><i>"BENCHMARK"</i></b> of the <i>problemConfig.ini</i>, that means that 
+    you want to define your own fitness function and not use a benchmark.
+    <h1 style="color: orange">> function.py</h1>
+    <p>To define the fitness function, you need to create a file that will evaluate the solutions of your algorithm 
+    (i.e. <b><i>"function.py"</i></b>) in the same directory of the configuration files, and put this name in the parameter <i>"FUNCTION"</i> of the <i>problemConfig.ini</i>.
+    This file should contain a python method named <span style="color: white"><b><i>function(x)</i></b></span> where the argument <b><i>x</i></b> 
+    is a list with <b><i>"NDIM"</i></b> dimensions and represent a solution to be evaluated.</p>
+    <br>
+    The following command create and open the file:
+        <div>
+        <hr>
+        <code>
+        <span style="color: green">$</span><span id="dollar"> nano function.py</span><br>
+        </code>
+        <hr>
+        </div>
+    <br><br>
+    Then, we define the function inside the file, like this:
+        <div>
+        <hr>
+        <code>
+        <span style="color: green">def</span><span style="color: white"> function(x):</span><br>
+        </code>
+        <hr>
+        </div>
+    </div>
+    
+
+
+
+
+<span style="color: white">Be free to use this framework.</span><br>
+<span style="color: green">AbEC © 2023.</span>
+
+<div class="myHead"><blink></blink></div>
+</div>
+
+</pre>
+</section>
+</body>
+</html>

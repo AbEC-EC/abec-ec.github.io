@@ -54,14 +54,41 @@
 
 <div style="float: left">USE(1)</div><div style="float: right">USE(1)</div><div style="margin: 0 auto; width: 100%; text-align: center"><span id="top">AbEC - How to use</span></div>
 <div id="google_translate_element"></div>
-> <a href="index.html">[ Home ]</a>
-> <a href="use/basicUsage.html">[ Basic usage ]</a>
->> <a href="use/basicUsage.html#configurationFiles">[ Configuration files ]</a>
->> <a href="use/basicUsage.html#fitnessFunction">[ Fitness function ]</a>
->> <a href="use/basicUsage.html#running">[ Running ]</a>
->> <a href="use/basicUsage.html#data">[ Data ]</a>
->> <a href="use/basicUsage.html#example">[ Example ]</a>
-> <a href="use/newComponents.html">[ Adding new components ]</a>
+
+<div class="myHead">
+  <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Overview</span>
+  </div>
+  <div id="divName"> 
+  After cloning the repository in our computer and run the install.sh script (to see more about the installation come <a href="../install.html" target="_blank">here</a>), we already have enough to run the framework. The directory created is <b><i>AbEC</i></b>, and inside of it contains all the files needed to configure and to use the framework.
+  <br><br>
+  There are two ways to run the framework, through the graphical interface and via the command line. In the <a href="#running" >Running section</a> we are going to explain how to use both. But fisrt, lets take a look in the most important part
+  in the usage of the framework: The configuration files.<br><br>
+  As a adjustable framework, we need to configure it before use. This configuration is made through three configuration files, where we can set which components and what values for the hyper-parameters we want to use.
+  These files are:
+  <ul>
+    <li><b><span style="color:white">algoConfig.ini:</span></b> Where it is the configuration related to the functioning of the algorithm itself (e.g. Population size, optimizers, ...).</li><br>
+    <li><b><span style="color:white">expConfig.ini:</span></b> Where it is the configuration of the framework parameters (e.g. number of runs, path of the files, number of evaluations, ...).</li><br>
+    <li><b><span style="color:white">problemConfig.ini:</span></b> Where it is the configuration of problem (e.g. number of dimensions, dynamic or not, ...).</li><br>
+  </ul> 
+  
+  These files are located in <b><i><span style="color:white">AbEC/abec/</span></i></b>. After cloning the repository:
+    <div>
+        <hr>
+        <code>
+        <span style="color: green">$</span><span id="dollar"> cd AbEC/abec</span><br>
+        </code>
+        <hr>
+    </div>
+    <br>
+  Below is some documentation on how to use the framework.
+</div>  
+< <a href="index.html">[ Home ]</a>
+> <a href="use/basicUsage/configurationFiles.html">2. [ Configuration files ]</a>
+> <a href="use/basicUsage/fitnessFunction.html">3. [ Fitness function ]</a>
+> <a href="use/basicUsage/running.html">4. [ Running ]</a>
+> <a href="use/basicUsage/results.html">5. [ Results ]</a>
+> <a href="use/basicUsage/example.html">6. [ Example ]</a>
+> <a href="use/newComponents.html">7. [ Adding new components ]</a>
 
 <script type="text/javascript">
 function setCookie(key, value, expiry) {

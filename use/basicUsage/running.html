@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JGW6MNEWGH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JGW6MNEWGH');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>AbEC | BU</title>
+
+    <script src="scramble.js"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script>
+		MathJax = {
+		tex: {
+		  tags: 'ams'  // should be 'ams', 'none', or 'all'
+		}
+		};
+	</script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <link rel="icon" href="../images/luffy-smile-rb.png" />
+    <link rel="shortcut icon" href="../images/luffy-smile-rb.png" />
+    <link rel="stylesheet" type="text/css" href="../../style2.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/hack.min.css"
+      integrity="sha512-XgCw4Srl8lC1ECwcaHwAU0WnxQwHkqmInzg9wJLtGB7DRuMaXPuK2k9WJ2AwRDGdrgK9eJpZl2hUlLi2WQssmw=="
+      crossorigin="anonymous"
+    />
+	<style>
+		h1 {
+			text-align: center;
+			background: #EEEEEE;
+			padding: .2em 1em;
+			border-top: 3px solid #666666;
+			border-bottom: 3px solid #999999;
+		}
+  </style>
+  </head>
+
+<body>
+<section>
+<pre>
+
+<div style="float: left">USE(4)</div><div style="float: right">USE(4)</div><div style="margin: 0 auto; width: 100%; text-align: center"><span id="top">AbEC - Running</span></div>
+<a href="./fitnessFunction.html#fitnessFunction"><<</a>                                                                                           <a href="./results.html#results">>></a>
+    <div id="google_translate_element"></div>
+    < <a href="../index.html">[ Home ]</a>
+    < <a href="../../use.html">1. [ Use ]</a>
+    > <a href="./configurationFiles.html#configurationFiles">2. [ Configuration files ]</a>
+    > <a href="./fitnessFunction.html#fitnessFunction">3. [ Fitness function ]</a>
+    > <a href="">4. [ Running ]</a>
+    >> <a href="#graphicalInterface">4.1 [ Graphical interface ]</a>
+    >> <a href="#commandLine">4.2 [ Command line ]</a>
+    > <a href="./results.html#results">5. [ Results ]</a>
+    > <a href="./example.html#example">6. [ Example ]</a>
+    > <a href="../newComponents.html">7. [ Adding new components ]</a>
+    
+    <script type="text/javascript">
+    function setCookie(key, value, expiry) {
+      var expires = new Date();
+      expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+      document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+    }
+    </script>
+
+
+    <div class="myHead">
+        <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="running" class="sectionTitle"> Running</span>
+        </div>
+        <div id="divSynopsis"> 
+        As said before there are two ways to run the framework, through the graphical interface and via the command line. Lets see first how to use via graphical interface and then via command line <br><br>
+        
+        <span style="color: green" id="graphicalInterface"> > </span><span style="color: yellow">Running via graphical interface</span><br><br>
+        
+        This is most straightfoward way to use the framework, once the interface was made to be most intuitive as possible. So, to run the framework we need to run the app.sh script which is localted on Abec/abec dir. So,
+        use the following command:<br>
+        
+        <div>
+            <hr>
+            <code>
+            <span style="color: green">$</span><span id="dollar"> ./app.sh</span><br>
+            </code>
+            <hr>
+        </div>
+        <br>
+        
+        And then the window of the application will be opened as follows:
+        <br><br>
+        <div style="text-align: center;">
+            <img class="centerImg" src="../../images/interface1.png" alt="interface1" style="width:70%;height:500px;">
+        </div>
+        <br>
+        
+        In the terminal located in the below part of the window there is a step-by-step to follow in order to configure and properly the framework. But lets take a look in a brief description of the buttons:<br>
+        <ul>
+            <li><b><span style="color:white">Experiment: Configuration file:</span></b> Open the frameConfig.ini file in the default text editor.</li>
+            <li><b><span style="color:white">Algorithm: Configuration file:</span></b> Open the algoConfig.ini file in the default text editor.</li>
+            <li><b><span style="color:white">Problem: Configuration file:</span></b> Open the problemConfig.ini file in the default text editor.</li>
+            <li><b><span style="color:white">Continue:</span></b> Used to advence to the next step.</li>
+            <li><b><span style="color:white">Reset:</span></b> Restart the process from the begin.</li>
+        </ul> 
+        <br>
+        
+        We have also in the right side two tabs used to display the progress of the optimization process, it is a good alternative to have a preview of how the algorithm is performing. In these tabs we can enable/disable the corresponding graphic to be done.<br>
+        The graphical options are: <br>
+        <ul>
+            <li><b><span style="color:white">Performance</span></b> In this tab is displayed two performance curves, which represents two metrics used in the framework, the Current error and the Offline error.
+            It is enabled by default.</li>
+            <li><b><span style="color:white">Search Space</span></b> This one displays how the population (individuals) are spread out in the search space (so far, for problems with more than 2 dimensions it is used the 
+            "fisrt" two dimension to represent). It is disabled by default.</li>
+        </ul>
+        
+        It is important to have in mind that the use of these features slow down the optimization process, mainly the search space feature. So you can for example, enable them for a brief moment during the optimization process
+        to take a look how it is going and disable.<br>
+        
+        By clicking on the continue button come to the first step of the configuration.<br><br>
+        
+        <span style="color: green"> >> </span><span style="color: yellow">Step 1 - Configuration files</span><br><br>
+        
+        Now the configuration files buttons are enables and in this step we need to set up them by clicking on the respective button:
+        <br><br>
+        <div style="text-align: center;">
+            <img class="centerImg" src="../../images/interface2.png" alt="interface1" style="width:70%;height:500px;">
+        </div>
+        <br>
+        
+        Once the configuration files are set up, press the continue button.<br><br>
+        
+        <span style="color: green"> >>> </span><span style="color: yellow">Step 1.1 - Problem configuration file</span><br><br>
+        
+        If you choose the "CUSTOM" option in the problem configuration file, that means you are not going to use a benchmark problem and want
+        use use your own fitness function file. So, in this moment you need to upload the file by clicking in the "Input Fitness Function" button.<br><br>
+        
+        <div style="text-align: center;">
+            <img class="centerImg" src="../../images/interface3.png" alt="interface1" style="width:70%;height:500px;">
+        </div>
+        <br>
+        
+        And then, press the continue button.<br><br>
+        
+        <span style="color: green"> >>> </span><span style="color: yellow">Step 2 - Reviewing the configuration</span><br><br>
+        
+        With the configuration files all set up, in this step is showed in the terminal a summary of the configurations. So it is time to take a look and see if it is 
+        everything as expected with the configuration. <br><br>
+        
+        <div style="text-align: center;">
+            <img class="centerImg" src="../../images/interface4.png" alt="interface1" style="width:70%;height:500px;">
+        </div>
+        <br>
+        
+        If is everything ok press continue, if not press reset and restart the from the step 1.<br><br>
+        
+        <span style="color: green"> >>> </span><span style="color: yellow">Step 3 - Checking the results</span><br><br>
+        
+        If you pressed continue in the step 2, the optimaztion process will start. After the process finish, it will be showed in the terminal the results.<br><br>
+        
+        <div style="text-align: center;">
+            <img class="centerImg" src="../../images/interface5.png" alt="interface1" style="width:70%;height:500px;">
+        </div>
+        <br>
+        
+        Check it and if you want to redo the experiment or do any other experiment just press the reset button and we come back to the step 1.
+        
+        <br><br>
+        <span style="color: green" id ="commandLine"> > </span><span style="color: yellow">Running via command line</span><br><br>
+        
+        We have also the option to run the framework whitout the graphical interface, directly on the terminal. To do that we just need to include the parameter "-i 0" after the command to run the framework in order to
+        not initialize the interface.<br><br>
+        
+        We just need to have in mind that if we are running via command line, it is needed to set the configuration files beforehand, beucase once we run the commando to run the framework the optimization process will start
+        directly. The commando then becomes: <br>
+            <div>
+                <hr>
+                <code>
+                <span style="color: green">$</span><span id="dollar"> ./app.sh -i 0</span><br>
+                </code>
+                <hr>
+            </div>
+            <br>
+            However, during the experiments it may be convenient to have the files of different configurations 
+        (instances) of the algorithms in specific directories. 
+        Therefore, it is possible to specify the path where the configuration files are located, and this becomes the default path during the execution of the algorithm. To do so, just add the 
+        <i>-p</i> argument when calling the framework script, like this:
+        
+            <div>
+                <hr>
+                <code>
+                <span style="color: green">$</span><span id="dollar"> ./app.sh -i 0 -p <i>PATH</i></span><br>
+                </code>
+                <hr>
+            </div>
+            <span class="sectionTitle"> * This also works in the same way for the graphical interface mode</span>
+        
+        
+        </div>
+
+
+
+<span style="color: white">Be free to use this framework.</span><br>
+<span style="color: green">AbEC © 2023.</span>
+
+<div class="myHead"><blink></blink></div>
+</div>
+
+</pre>
+</section>
+</body>
+</html>
