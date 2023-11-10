@@ -1,0 +1,337 @@
+section {
+	width: 1040px;
+	height: 800px;
+	margin: 24px auto;
+	border: 0px solid;
+}
+
+body {
+	background-color: #1c1c1c;
+	border: 0px solid;
+	color: #e6e6e6;
+	color: #808080;
+    font-size: 18px;
+}
+
+pre {
+	height: 580px;
+	line-height: 1.3;
+	font-size: 18px;
+	border: 0px solid;
+	font-family: Hack, "Source Code Pro", "Inconsolata", "Ubuntu", "Andale Mono", "Lucida Console", monospace;
+}
+
+
+.myHead {
+	display: flex;
+	align-items: left;
+	justify-content: left;
+	color:#b0b0b0;
+	font-size: 20px;
+}
+
+.myHead blink::after {
+	content: "";
+	width: 10px;
+	height: 22px;
+	background: #b0b0b0;
+	display: inline-block;
+	animation: cursor-blink 1.5s steps(2) infinite;
+}
+
+.myHead blink{
+	display: flex;
+	align-items: center;
+	gap: 2px;
+}
+
+@keyframes cursor-blink {
+  0% {
+    opacity: 0;
+  }
+}
+
+#myName {
+	color:#468a1a;
+	text-align: left;
+}
+
+.myBody {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color:#b0b0b0;
+	font-size: 25px;
+}
+
+.education{
+	float: left;
+	align-items: left;
+	justify-content: left;
+	margin-left: 100px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	color:#808080;
+	font-size: 12px;
+}
+.experience{
+	float: left;
+	align-items: left;
+	justify-content: left;
+	margin-left: 100px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	color:#808080;
+	font-size: 12px;
+}
+.skills{
+	float: left;
+	align-items: left;
+	justify-content: left;
+	margin-left: 100px;
+	color:#808080;
+	font-size: 12px;
+}
+
+
+.myFoot {
+	position: absolute;
+        top: 480px;
+        padding: 15px 0;
+	margin-left: 0px;
+	align-items: bottom;
+	justify-content: bottom;
+	color:#EEEEEC;
+	font-size: 15px;
+}
+
+#resumeFoot {
+	top: 900px;
+}
+
+#top {
+	color: #468a1a;
+	font-size: 20px;
+}
+
+.sectionTitle {
+	color: #468a1a;
+	font-size: 20px;
+}
+
+
+#list  p {
+	font: "Source Code Pro";
+	font-size: 10px;
+	color: #EEEEEC;	
+}
+
+
+
+#title {
+	color:#EE4F84; 
+	color:#357C4C;
+	color:#468a1a;
+    font-size: 20px;
+	font-weight:bold;
+}
+
+
+
+#divName {
+   word-wrap:break-word; 
+   white-space: normal;
+   width: 1040px;
+}
+
+#divSynopsis {
+   word-wrap:break-word; 
+   white-space: normal;
+   width: 1040px;
+}
+
+#divDescription {
+   word-wrap:break-word; 
+   white-space: normal;
+   width: 1040px;
+}
+
+#divReferences {
+   word-wrap:break-word; 
+   white-space: normal;
+   width: 1040px;
+}
+
+
+#synopsis {
+}
+
+textarea{
+	font-size: 14px;
+	resize: none;
+	text-align: justify;
+	white-space: pre-line;
+	-moz-text-align-last: left;
+	text-align-last: left;
+	background-color: #1c1c1c;
+	color: #EEEEEC;
+	border: none;
+	overflow: auto;
+	outline: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+
+#dollar {
+	color: #66D9EF;
+}
+
+#dash {
+	color: #A6E223;
+	color: #FFD700;
+}
+
+#cursor {
+	animation-name: cursor;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	display: inline-block;
+}
+
+@keyframes cursor {
+	0% { background-color: #fff }
+	5% { background-color: #1e252e }
+	50% { background-color: #1e252e }
+	55% { background-color: #fff }
+	100% { background-color: #fff }
+}
+
+a {
+	/*color: #0bc;	*/
+	color: #E0E0E0;
+}
+
+.nobr { white-space: nowrap;
+	margin-left: 0px; }
+
+a:visited {
+	color: #468;
+}
+
+b:{
+	color: #a0a0a0;
+}
+
+input[type="text"] {
+	width: 60px;
+}
+
+.verticalLine {
+	border-left: 2px solid #000000;
+}
+
+.horizontalLine {
+	background-color: #e0e0e0;
+	width: 142px;
+	height: 1px;
+	border-top: 0px dotted black;
+	line-height: 100%;
+}
+  
+.line {
+	border-bottom: 1px solid #101010;
+/*	margin-top: 15px;*/
+	margin-left: 190px;
+	width: 35%;
+/*	align: center;*/
+}
+
+
+.hLine {
+	border: 0px solid
+        /*padding: 15px 0;*/
+/*	border-left: 2px solid #000000;*/
+}
+
+#bodyLine{
+	float: center;
+	margin-bottom: 100px;
+	align-items: center;
+	text-align: center;
+}
+
+#footLine{
+	position: absolute;
+	width: 60%;
+	right: 154px;
+	top: 90px;
+}
+
+#pdf{
+	float: left;
+	align-items: left;
+	justify-content: left;
+	margin-left: 100px;
+	color:#e0e0e0;
+	font-size: 12px;
+}
+
+#project {
+	color: #A0A0A0;
+}
+
+
+.fa:hover {
+	opacity: 0.5;
+}
+  
+.fa-linkedin {
+	background: #1c1c1c;
+	color: e0e0e0;
+}
+
+.fa-github {
+	background: #1c1c1c;
+	color: e0e0e0;
+}
+
+.fa-instagram {
+	background: #1c1c1c;
+	color: e0e0e0;
+}
+
+.fa {
+	padding: 6px;
+	font-size: 20px;
+	width: 20px;
+	text-decoration: none;
+/*	margin: 2px 2px;*/
+/*	margin-left: 120px;*/
+	align: center;
+}
+
+a:link {
+	color: #468;
+	background-color: transparent;
+	text-decoration: underline;
+}
+
+a:visited {
+	color: #468;
+	background-color: transparent;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: green;
+	background-color: transparent;
+	text-decoration: underline;
+}
+
+a:active {
+	color: purple;
+	background-color: transparent;
+	text-decoration: underline;
+}

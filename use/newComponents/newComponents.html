@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JGW6MNEWGH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JGW6MNEWGH');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>AbEC | NC</title>
+
+    <script src="scramble.js"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script>
+		MathJax = {
+		tex: {
+		  tags: 'ams'  // should be 'ams', 'none', or 'all'
+		}
+		};
+	</script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <link rel="icon" href="../images/luffy-smile-rb.png" />
+    <link rel="shortcut icon" href="../images/luffy-smile-rb.png" />
+    <link rel="stylesheet" type="text/css" href="../../css/style2.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/hack.min.css"
+      integrity="sha512-XgCw4Srl8lC1ECwcaHwAU0WnxQwHkqmInzg9wJLtGB7DRuMaXPuK2k9WJ2AwRDGdrgK9eJpZl2hUlLi2WQssmw=="
+      crossorigin="anonymous"
+    />
+	<style>
+		h1 {
+			text-align: center;
+			background: #EEEEEE;
+			padding: .2em 1em;
+			border-top: 3px solid #666666;
+			border-bottom: 3px solid #999999;
+		}
+  </style>
+  </head>
+
+<body>
+<section>
+<pre>
+
+<div style="float: left">USE(7)</div><div style="float: right">USE(7)</div><div style="margin: 0 auto; width: 100%; text-align: center"><span id="top">AbEC - Adding New Components</span></div>
+<a href="../../use.html"><<</a>                                                                                           <a href="./fitnessFunction.html#fitnessFunction">>></a>
+<div id="google_translate_element"></div>
+<span style="color: green"><</span> <a href="../../index.html">[ Home ]</a>
+<span style="color: green"><</span> <a href="../../use.html">1. [ Use ]</a>
+<span style="color: green">></span> <a href="../basicUsage/configurationFiles.html#configurationFiles">2. [ Configuration files ]</a>
+<span style="color: green">></span> <a href="../basicUsage/fitnessFunction.html#fitnessFunction">3. [ Fitness function ]</a>
+<span style="color: green">></span> <a href="../basicUsage/running.html#running">4. [ Running ]</a>
+<span style="color: green">></span> <a href="../basicUsage/results.html#results">5. [ Results ]</a>
+<span style="color: green">></span> <a href="../basicUsage/example.html#example">6. [ Example ]</a>
+<span style="color: green">></span> <a href="">7. [ Adding new components ]</a>
+<span style="color: green">>></span> <a href="./newOptimizer.html">7.1. [ Adding a New Optimizer ]</a>
+<span style="color: green">>>>></span> <a href="./newOptimizer.html#exampleOptimizer">7.1.1. [ Example of a New Optimizer ]</a>
+<span style="color: green">>></span> <a href="./newComponent.html">7.2. [ Adding a New Component ]</a>
+<span style="color: green">>>>></span> <a href="./newComponent.html#exampleComponent">7.2.1. [ Example of a New Component ]</a>
+<span style="color: green">>></span> <a href="./newMetric.html">7.3. [ Adding a New Metric File ]</a>
+<span style="color: green">>>>></span> <a href="./newMetric.html#exampleMetric">7.3.1. [ Example of a New Metric ]</a>
+
+<script type="text/javascript">
+function setCookie(key, value, expiry) {
+  var expires = new Date();
+  expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+  document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+}
+</script>
+
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Overview</span>
+</div>
+<div id="divName"> 
+    In the framework the algorithms are composed by components, these are divided into two categories: 
+    <ul>
+        <li><b><span style="color:white">Optimizers: </span></b>These are the strategies used 
+for the individuals during the optimization process, for example, <i>Genetic Algorithm</i>,
+<i> Particle Swarm Optimization </i>, etc ...</li><br>
+        <li><b><span style="color:white">General Components: </span></b>These are the components with
+specific objectives used to enhance the performance of the optimizer during the optimization process.
+For simplicity from now on we are going to reference to this class only by <b><span style="color:white">Components</span></b>.</li><br>
+        <li><b><span style="color:white">Metrics: </span></b>These are the measures used to evaluate the algorithm during the optimization process. It can be
+for example a measure evaluating the performance or the behavior of the algorithm. The Metrics
+are divided into three scopes, depending on the caracteristcs of the measure.
+    </ul>
+
+In order to test the compatibility, performance or even to just know if a new component works in the
+optimization, the framework provide a easy way to add a new component to the list of the available
+components. Basically you just need to write the script of the new component in python, and place
+it in <b><i><span style="color:white">AbEC/abec/optimizers/</span></i></b>, <b><i><span style="color:white">AbEC/abec/components/</span></i></b> or <b><i><span style="color:white">AbEC/abec/metrics/</span></i></b>, depends on which
+class the component belongs.
+<br>
+<br>
+Below is detailed how this works and is showed two examples, one for an optimizer and one
+for a component.
+
+</div>
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> How to do</span>
+</div>
+<div id="divSynopsis"> 
+    
+    The most important part here is the python file that defines the component. The name of
+this file is used by the framework to reference to this component. Now, lets define some rules
+that this file need to follow in order to be correctly interpreted by the framework, remembering
+that each type of component has different rules and need to be placed in different folders.
+<br>
+
+	<h1 style="color: orange" id="newOptimizer">> AbEC/abec/optimizers/optimizer.py</h1>
+	This is the file where we are going to implement the optimizer. First of all, lets talk
+about some requirements.
+<br><br>
+The template of a new optimizer can be downloaded in the link: <a href="scripts/optimizerTemplate.py" target="_blank">[ Optimizer template ]</a>.
+<br><br>
+<span style="color: green"> > </span><span style="color: yellow; font-size: 22px;" id="hyperParameters">Hyper-parameters</span><br><br>
+In order to set the hyper-parameters of the component, inside of the file it is necessary to be
+defined one list, named <b><i>params</i></b>, where each element of this list we put the hyper-parameters
+of our new component. Below a generic example of this list.
+	<div>
+    	<hr>
+    	<code>
+        <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+    	</code>
+    	<hr>
+	</div>
+    <br>
+
+With the hyper-parameters defined, There are two methods that are mandatory, they are 
+<b><i>cp</i></b> and <b><i>optimizer</i></b>.
+
+<br>
+<br><hr style="float: left; border-style: dashed;", size="3" width="50%" color="darkred"><br><br>
+<span style="color: green"> > </span><span style="color: yellow; font-size: 22px;" id="confirmationMethod">Confirmation of hyper-parameters (cp)</span><br><br>
+    This method is used to confirm that all the values of the hyper-parameters are within the allowed range.
+    A generic example of this method is showed below:
+
+    	<div>
+        	<hr>
+        	<code>
+        	<span style="color: green">from</span><span style="color: white"> aux.aux </span><span style="color: green"> import </span><span style="color: white"> errorWarning </span><br>
+        	<span style="color: green">import</span><span style="color: white"> sys </span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> cp(parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-1&gt;"] <= MAX):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.1", "algoConfig.ini", "&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-1&gt;", "The &lt;HYPER-PARAMETER-1&gt; should be in the interval [MIN, MAX]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-2&gt;"] <= MAX):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.2", "algoConfig.ini", "&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-2&gt;", "The &lt;HYPER-PARAMETER-2&gt; should be in the interval [MIN, MAX]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-N&gt;"] <= MAX):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.N", "algoConfig.ini", "&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-N&gt;", "The &lt;HYPER-PARAMETER-N&gt; should be in the interval [MIN, MAX]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
+        	</code>
+        	<hr>
+    	</div>
+<br><hr style="float: left; border-style: dashed;", size="3" width="50%" color="darkred"><br><br>
+<span style="color: green"> > </span><span style="color: yellow; font-size: 22px;">The optimizer (optimizer)</span><br><br>
+    This method is the implementation of the optimizer itself, hence, this is the most important
+    method and need to be carefully writen.
+
+    	<div>
+        	<hr>
+        	<code>
+        	<span style="color: green">def</span><span style="color: white"> optimizer(pop, best, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop</span><br>
+        	</code>
+        	<hr>
+    	</div>
+<br><hr style="float: left; border-style: dashed;", size="3" width="50%" color="darkred"><br><br>
+<span style="color: green"> > </span><span style="color: yellow; font-size: 22px;">optimizer.py</span><br><br>
+And then the complete file will be something like:
+
+    	<div>
+        	<hr>
+        	<code>
+        	<span style="color: green">from</span><span style="color: white"> aux.aux </span><span style="color: green"> import </span><span style="color: white"> errorWarning </span><br>
+        	<span style="color: green">import</span><span style="color: white"> sys </span><br>
+            <br>
+            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> cp(parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-1&gt;"] <= MAX):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.1", "algoConfig.ini", "&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-1&gt;", "The &lt;HYPER-PARAMETER-1&gt; should be in the interval [MIN, MAX]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-2&gt;"] <= MAX):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.2", "algoConfig.ini", "&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-2&gt;", "The &lt;HYPER-PARAMETER-2&gt; should be in the interval [MIN, MAX]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-N&gt;"] <= MAX):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.N", "algoConfig.ini", "&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-N&gt;", "The &lt;HYPER-PARAMETER-N&gt; should be in the interval [MIN, MAX]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
+                <br>
+          <span style="color: green">def</span><span style="color: white"> optimizer(pop, best, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop</span><br>
+        	</code>
+        	<hr>
+    	</div>
+      <br><br>
+
+	<h1 style="color: orange">> AbEC/abec/components/component.py</h1>
+	This is the file where we are going to implement the component.
+  The <a href="#hyperParameters"><b><i>params</i></b></a> list and <a href="#confirmationMethod"><b><i>cp</i></b></a> method works exactly the same as the optimizers.
+  But now we need to define the scope.
+<br><br>
+<span style="color: green"> > </span><span style="color: yellow; font-size: 22px;">Scope</span><br><br>
+
+Once we have defined the name of our component (the name of the file), and the hyper-parameters, 
+the following fair doubt may arise: <i>"But not all components act in the same way in the algorithm, what should I do?"</i>
+<br>
+For the optimizers this is not a problem but, to deal with it for the general components, the algorithm is divided into 5 scopes, and a list is used to indicate which scope the
+component should be. The scopes are:
+    <ul>
+        <li><b><span style="color:white">Initialization (INI): </span></b>These are the components that act on the initialization of the algorithms, before enter in the optimization loop (e.g Multipopulation with fixed number);
+In practice, this type of component receives as parameters a list containing all the subpopulations
+and the dictionary <i>parameters</i> which contains all the configurations of the configurations files.
+And should return the list of the subpopulations.
+    	<div>
+        	<hr>
+        	<code>
+            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+            <span style="color: white">scope = ["INI"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> component(pop, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop</span><br>
+        	</code>
+        	<hr>
+    	</div>
+      <br>
+      The template of a new <b><i>(INI)</i></b> component can be downloaded in the link: <a href="scripts/optimizerTemplate.py" target="_blank">[ Component template ]</a>.
+      <br>
+      <br><hr style="float: left; border-style: dashed; color: rgb(208, 208, 35)", size="3" width="50%"><br><br>
+      </li>
+      <li><b><span style="color:white">Global Diversity (GDV): </span></b>These are the components that acts on the whole population in order to increase the diversity. This means, if you have for example more than one subpopulation, and the component deal with all of them, this is the scope. 
+In practice this type of component receive as parameter a list containing all the subpopulations, 
+the dictionary <i>parameters</i> which contains all the configurations of the configurations files
+and a list called <i>"randomInit"</i>, this list is used to know which of the subpopulations
+need to be reinitialized based on the <b>ID</b> of the subpopulation. This means, each position
+of this list is refered to the correspondent subpopulation id, for example, if the index 5 of the list is set up to 1, 
+this means that the subpopulation with ID = 5 need to be reinitialized. 
+So, After apply the component, it needs to return the <i>"randomInit"</i> list.
+
+    	<div>
+        	<hr>
+        	<code>
+            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+            <span style="color: white">scope = ["GDV"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> component(pop, parameters, randomInit):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">randomInit</span><br>
+        	</code>
+        	<hr>
+    	</div>
+      <br>
+      The template of a new <b><i>(GDV)</i></b> component can be downloaded in the link: <a href="scripts/optimizerTemplate.py" target="_blank">[ Component template ]</a>.
+      <br>
+      <br><hr style="float: left; border-style: dashed; color: rgb(208, 208, 35)", size="3" width="50%"><br><br>
+      </li>
+      <li><b><span style="color:white">Global Exploration (GER): </span></b>These are the components that acts in all the populations (in case of multipopulations) in order to modify them.
+In practice this type of component receive as parameter a list containing all the subpopulations and
+the dictionary <i>parameters</i> which contains all the configurations of the configurations files.
+So, after apply the component, it needs to return the list of the subpopulations.
+
+    	<div>
+        	<hr>
+        	<code>
+            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+            <span style="color: white">scope = ["GER"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> component(pop, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop</span><br>
+        	</code>
+        	<hr>
+    	</div>
+      <br>
+      The template of a new <b><i>(GER)</i></b> component can be downloaded in the link: <a href="scripts/optimizerTemplate.py" target="_blank">[ Component template ]</a>.
+      <br>
+      <br><hr style="float: left; border-style: dashed; color: rgb(208, 208, 35)", size="3" width="50%"><br><br>
+      </li>
+      <li><b><span style="color:white">Global Exploitation (GET): </span></b>These are the components that acts in the global best of all populations (in case of multipopulations).
+In practice this type of component receive as parameters the global best and 
+the dictionary <i>parameters</i> which contains all the configurations of the configurations files.
+So, after apply the component, it needs to return the global best.
+
+    	<div>
+        	<hr>
+        	<code>
+            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+            <span style="color: white">scope = ["GET"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> component(best, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">best</span><br>
+        	</code>
+        	<hr>
+    	</div>
+      <br>
+      The template of a new <b><i>(GET)</i></b> component can be downloaded in the link: <a href="scripts/optimizerTemplate.py" target="_blank">[ Component template ]</a>.
+      <br>
+      <br><hr style="float: left; border-style: dashed; color: rgb(208, 208, 35)", size="3" width="50%"><br><br>
+      </li>
+      <li><b><span style="color:white">Local Diversity (LDV): </span></b>These are the components that acts
+in each subpopulation (in case of multipopulation) and modify them.
+In practice this type of component receive as parameters the subpopulation and 
+the dictionary <i>parameters</i> which contains all the configurations of the configurations files.
+So, after apply the component, it needs to return the subpopulation.
+
+    	<div>
+        	<hr>
+        	<code>
+            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+            <span style="color: white">scope = ["LDV"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> component(subpop, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">subpop</span><br>
+        	</code>
+        	<hr>
+    	</div>
+      <br>
+      The template of a new <b><i>(LDV)</i></b> component can be downloaded in the link: <a href="scripts/optimizerTemplate.py" target="_blank">[ Component template ]</a>.
+      <br>
+        </li>
+    </ul>
+<br><hr style="float: left; border-style: dashed; color: rgb(183, 25, 25)", size="3" width="50%" color="darkred"><br><br>
+<span style="color: green"> > </span><span style="color: yellow; font-size: 22px;">component.py</span><br><br>
+And then the complete file will be something like:
+
+    	<div>
+        	<hr>
+        	<code>
+        	<span style="color: green">from</span><span style="color: white"> aux.aux </span><span style="color: green"> import </span><span style="color: white"> errorWarning </span><br>
+        	<span style="color: green">import</span><span style="color: white"> sys </span><br>
+            <br>
+            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+            <span style="color: white">scope = ["XXX"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> cp(parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-COMPONENT&gt;_&lt;HYPER-PARAMETER-1&gt;"] <= MAX):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.1", "algoConfig.ini", "&lt;NAME-OF-THE-COMPONENT&gt;_&lt;HYPER-PARAMETER-1&gt;", "The &lt;HYPER-PARAMETER-1&gt; should be in the interval [MIN, MAX]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-COMPONENT&gt;_&lt;HYPER-PARAMETER-2&gt;"] <= MAX):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.2", "algoConfig.ini", "&lt;NAME-OF-THE-COMPONENT&gt;_&lt;HYPER-PARAMETER-2&gt;", "The &lt;HYPER-PARAMETER-2&gt; should be in the interval [MIN, MAX]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not </span><span style="color: white">(MIN <=  parameters["&lt;NAME-OF-COMPONENT&gt;_&lt;HYPER-PARAMETER-N&gt;"] <= MAX):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.X.N", "algoConfig.ini", "&lt;NAME-OF-THE-COMPONENT&gt;_&lt;HYPER-PARAMETER-N&gt;", "The &lt;HYPER-PARAMETER-N&gt; should be in the interval [MIN, MAX]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
+                <br>
+              	<span style="color: green">def</span><span style="color: white"> component(depends on the scope, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">depends on the scope</span><br>
+        	</code>
+        	<hr>
+    	</div>
+
+      <br><hr style="float: left; border-style: dashed;", size="3" width="50%" color="darkred"><br><br>
+<span style="color: green"> > </span><span style="color: yellow; font-size: 22px;">algoConfig.ini</span><br><br>
+
+Once you have added the component script in the respective folder, you will be able to configure
+this component in the configuration file <i>"algoConfig.ini"</i>. The component will appers
+in the file as follows:
+    <br><br>
+    For the <span style="color: white">optimizers:</span><br>
+    <div>
+    <hr>
+    <code>
+    <span style="color: white">{</span><br>
+    <span style="color: white">"&lt;NAME-OF-THE-OPTIMIZER&gt;_POP_PERC": 1</span> <span style="color: gold; font-size: 14px">-> This is the percentage of the individuals in the population that will perform this optimizer; 0 is turned off and 1 is 100% of the individuals. (<i>float</i>) in [0, 1]</span><br>
+    <span style="color: white">}</span><br>
+    </code>
+    <hr>
+    </div>
+    The optimizers parameters:
+    <div>
+    <hr>
+    <code>
+    <span style="color: white">{</span><br>
+    <span style="color: white">"&lt;NAME-OF-THE-OPTIMIZER&gt;_POP_PERC": 1,</span> <span style="color: gold; font-size: 14px">-> This is the percentage of the individuals in the population that will perform this optimizer; 0 is turned off and 1 is 100% of the individuals. (<i>float</i>) in [0, 1]</span><br>
+    <span style="color: white">"&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-1&gt;": value,</span> <span style="color: gold; font-size: 14px">-> range permitted for the value (<i>type</i>)</span><br>
+    <span style="color: white">"&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-2&gt;": value,</span> <span style="color: gold; font-size: 14px">-> range permitted for the value (<i>type</i>)</span><br>
+    <span style="color: white">.</span><br>
+    <span style="color: white">.</span><br>
+    <span style="color: white">"&lt;NAME-OF-THE-OPTIMIZER&gt;_&lt;HYPER-PARAMETER-N&gt;": value</span> <span style="color: gold; font-size: 14px">-> range permitted for the value (<i>type</i>)</span><br>
+    <span style="color: white">}</span><br>
+    </code>
+    <hr>
+    </div>
+    <br><br>
+    For the <span style="color: white">components:</span><br>
+    <div>
+    <hr>
+    <code>
+    <span style="color: white">{</span><br>
+    <span style="color: white">"COMP_&lt;NAME-OF-THE-COMPONENT&gt;": 1</span> <span style="color: gold; font-size: 14px">-> 0 or 1; 0 for turned off and 1 for turned on (<i>bool</i>)</span><br>
+    <span style="color: white">}</span><br>
+    </code>
+    <hr>
+    </div>
+    The components parameters:
+    <div>
+    <hr>
+    <code>
+    <span style="color: white">{</span><br>
+    <span style="color: white">"COMP_&lt;NAME-OF-THE-COMPONENT&gt;": 1,</span> <span style="color: gold; font-size: 14px">-> 0 or 1; 0 for turned off and 1 for turned on (<i>bool</i>)</span><br>
+    <span style="color: white">"COMP_&lt;NAME-OF-THE-COMPONENT&gt;_&lt;HYPER-PARAMETER-1&gt;": value,</span> <span style="color: gold; font-size: 14px">-> range permitted for the value (<i>type</i>)</span><br>
+    <span style="color: white">"COMP_&lt;NAME-OF-THE-COMPONENT&gt;_&lt;HYPER-PARAMETER-2&gt;": value,</span> <span style="color: gold; font-size: 14px">-> range permitted for the value (<i>type</i>)</span><br>
+    <span style="color: white">.</span><br>
+    <span style="color: white">.</span><br>
+    <span style="color: white">"COMP_&lt;NAME-OF-THE-COMPONENT&gt;_&lt;HYPER-PARAMETER-N&gt;": value</span> <span style="color: gold; font-size: 14px">-> range permitted for the value (<i>type</i>)</span><br>
+    <span style="color: white">}</span><br>
+    </code>
+    <hr>
+    </div>
+</div>
+
+<div class="myHead">
+<span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Example</span>
+</div>
+<div id="divSynopsis"> 
+
+As an example, we are going now to add an optimizer (Differential Evolution) and a general component (Local Search).
+
+<h1 style="color: orange">> AbEC/abec/optimizers/de.py</h1>
+   <div>
+    <hr>
+    <code>
+    <span style="color: green">$</span><span id="dollar"> nano abec/optimizers/de.py</span><br>
+    </code>
+    <hr>
+    </div>
+<br>
+
+> <a href="nc_files/de.py" target="_blank">[ file ]</a>
+    	<div>
+        	<hr>
+        	<code>
+        	<span style="color: green">import</span><span style="color: white"> sys </span><br>
+        	<span style="color: green">import</span><span style="color: white"> copy </span><br>
+        	<span style="color: green">import</span><span style="color: white"> abec </span><br>
+        	<span style="color: green">import</span><span style="color: white"> aux.globalVar </span><span style="color: green">as</span><span style="color: white"> globalVar </span><br>
+        	<span style="color: green">from</span><span style="color: white"> aux.aux </span><span style="color: green"> import </span><span style="color: white"> errorWarning </span><br>
+            <br>
+            <span style="color: white">params = ["F", "CR"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> cp(parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not</span><span style="color: white"> (0 < parameters["DE_F"] <= 10):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.3.1", "algoConfig.ini", "DE_F", "The F parameters should be in the interval ]0, 10]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not</span><span style="color: white"> (0 < parameters["DE_CR"] <= 10):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.3.2", "algoConfig.ini", "DE_CR", "The CR parameter should be in the interval ]0, 10]")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
+                <br>
+          	    <span style="color: green">def</span><span style="color: white"> optimizer(pop, best, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">tempPop = copy.deepcopy(pop)</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">tempPop.ind = sorted(tempPop.ind, key = lambda x:x["id"])</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">dePop = [d for d in tempPop.ind if d["type"]=="DE"]</span><br>
+                &emsp;&emsp;&emsp;   	<span style="color: green">for</span><span style="color: white"> ind </span><span style="color: green">in</span><span style="color: white"> dePop: </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">x = []</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">candidates = [c for c in dePop if c["id"] != ind["id"]]</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">a, b, c = globalVar.rng.choice(candidates, 3, replace=False)</span><br>
+                <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">for</span><span style="color: white"> d </span><span style="color: green">in</span><span style="color: white"> range(parameters["NDIM"]): </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">x.append(a["pos"][d] + parameters["DE_F"]*(b["pos"][d] - c["pos"][d]))</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">if </span><span style="color: white"> x[d] > parameters["MAX_POS"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">x[d] = parameters["MAX_POS"]</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">elif </span><span style="color: white"> x[d] > parameters["MIN_POS"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">x[d] = parameters["MIN_POS"]</span><br>
+                <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">for</span><span style="color: white"> d </span><span style="color: green">in</span><span style="color: white"> range(parameters["NDIM"]): </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">if </span><span style="color: white"> globalVar.rng.random() < parameters["DE_CR"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">ind["pos"][d] = x[d]</span><br>
+                <br>
+                &emsp;&emsp;&emsp;   	<span style="color: green">for</span><span style="color: white"> ind </span><span style="color: green">in</span><span style="color: white"> dePop: </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">ind = abec.evaluate(ind, parameters)</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">for</span><span style="color: white"> i </span><span style="color: green">in</span><span style="color: white"> range(len(pop.ind)): </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">if </span><span style="color: white"> ind["id"] == pop.ind[i]["id"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">if </span><span style="color: white"> ind["fit"] < pop.ind[i]["fit"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">pop.ind[i] = ind.copy()</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">ind, globalVar.best = abec.updateBest(pop.ind[i], globalVar.best)</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">else </span><span style="color: white"> ind["fit"] < pop.ind[i]["fit"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">pop.ind[i]["ae"] = 1</span><br>
+
+                <br><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop</span><br>
+        	</code>
+        	<hr>
+    	</div>
+
+
+<h1 style="color: orange">> AbEC/abec/components/local_search.py</h1>
+   <div>
+    <hr>
+    <code>
+    <span style="color: green">$</span><span id="dollar"> nano abec/components/local_search.py</span><br>
+    </code>
+    <hr>
+    </div>
+<br>
+
+> <a href="nc_files/local_search.py" target="_blank">[ file ]</a>
+    	<div>
+        	<hr>
+        	<code>
+        	<span style="color: green">import</span><span style="color: white"> sys </span><br>
+        	<span style="color: green">import</span><span style="color: white"> copy </span><br>
+        	<span style="color: green">import</span><span style="color: white"> abec </span><br>
+        	<span style="color: green">import</span><span style="color: white"> aux.globalVar </span><span style="color: green">as</span><span style="color: white"> globalVar </span><br>
+        	<span style="color: green">from</span><span style="color: white"> aux.aux </span><span style="color: green"> import </span><span style="color: white"> errorWarning </span><br>
+            <br>
+            <span style="color: white">params = ["ETRY", "RLS"]</span><br>
+            <span style="color: white">scope = ["GET"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> cp(parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not</span><span style="color: white"> (0 < parameters["COMP_LOCAL_SEARCH_ETRY"] < parameters["POPSIZE"]):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("4.4.1", "algoConfig.ini", "COMP_LOCAL_SEARCH_ETRY", "The number of tries of the Local Search should be 0 between [1, POPSIZE[")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">if not</span><span style="color: white"> (0 < parameters["COMP_LOCAL_SEARCH_RLS"] < parameters["MAX_POS"]):</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">errorWarning("3.4.2", "algoConfig.ini", "COMP_LOCAL_SEARCH_RLS", "The Local Search radio should be 0 between ]0, MAX_POS[")</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	<span style="color: white">sys.exit()</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
+                <br>
+          	    <span style="color: green">def</span><span style="color: white"> component(best, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">bp = copy.deepcopy(best)</span><br>
+                &emsp;&emsp;&emsp;
+                <span style="color: green">for</span><span style="color: white"> _ </span><span style="color: green">in</span><span style="color: white"> range(parameters["COMP_LOCAL_SEARCH_ETRY"]): </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style="color: green">for</span><span style="color: white"> i </span><span style="color: green">in</span><span style="color: white"> range(parameters["NDIM"]): </span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white; font-size: 16px">bp["pos"][i] = bp["pos"][i] + globalVar.rng.uniform(-1, 1)*parameters["COMP_LOCAL_SEARCH_RLS"]</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">bp["fit"] = abec.evaluate(bp, parameters, be = 1)</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  	
+                <span style="color: green">if</span><span style="color: white"> bp["fit"] < best["fit"]:</span><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              	<span style="color: white">best = copy.deepcopy(bp)</span><br>
+                <br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">best</span><br>
+        	</code>
+        	<hr>
+    	</div>
+
+<br><br>
+And then to use both in the algorithm, we set them up in the configuration file <b><i>algoConfig.ini</i></b>, just like this:
+   <div>
+    <hr>
+    <code>
+    <span style="color: green">$</span><span id="dollar"> nano abec/algoConfig.ini</span><br>
+    </code>
+    <hr>
+    </div>
+<br>
+> <a href="nc_files/algoConfig.ini" target="_blank">[ file ]</a>
+    <div>
+    <hr>
+    <code>
+    <span style="color: white">{</span><br>
+    <span style="color: white">"ALGORITHM": "DE_LS",</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"POPSIZE": 50,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"MIN_POS": -10,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"MAX_POS": 10,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"DE_POP_PERC": 1,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"DE_F": 0.5,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"DE_CR": 0.7,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"COMP_LOCAL_SEARCH": 1,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"COMP_LOCAL_SEARCH_ETRY": 10,</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">"COMP_LOCAL_SEARCH_RLS": 1</span> <span style="color: gold; font-size: 14px"></span><br>
+    <span style="color: white">}</span><br>
+    </code>
+    <hr>
+    </div>
+
+
+</div>
+
+
+<span style="color: white">Be free to use this framework.</span><br>
+<span style="color: green">AbEC © 2023.</span>
+
+<div class="myHead"><blink></blink></div>
+</div>
+
+</pre>
+</section>
+</body>
+</html>
