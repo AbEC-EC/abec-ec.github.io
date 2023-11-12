@@ -51,9 +51,8 @@
 <body>
 <section>
 <pre>
-
 <div style="float: left">USE(7.2)</div><div style="float: right">USE(7.2)</div><div style="margin: 0 auto; width: 100%; text-align: center"><span id="top">AbEC - Adding a New Component</span></div>
-<a href="../../use.html"><<</a>                                                                                           <a href="./fitnessFunction.html#fitnessFunction">>></a>
+<a href="./newOptimizer.html"><<</a>                                                                                           <a href="./newMetric.html">>></a>
 <div id="google_translate_element"></div>
 <span style="color: green"><</span> <a href="../../index.html">[ Home ]</a>
 <span style="color: green"><</span> <a href="../../use.html">1. [ Use ]</a>
@@ -63,10 +62,10 @@
 <span style="color: green">></span> <a href="../basicUsage/results.html#results">5. [ Results ]</a>
 <span style="color: green">></span> <a href="../basicUsage/example.html#example">6. [ Example ]</a>
 <span style="color: green">></span> <a href="./newComponents.html">7. [ Adding new components ]</a>
-<span style="color: green">>></span> <a href="./newOptimizer.html">7.1 [ Adding a New Optimizer ]</a>
+<span style="color: green">>></span> <a href="./newOptimizer.html">7.1. [ Adding a New Optimizer ]</a>
 <span style="color: green">>>>></span> <a href="./newOptimizer.html#exampleOptimizer">7.1.1. [ Example of a New Optimizer ]</a>
-<span style="color: green">>></span> <a href="">7.2. [ Adding a New Component ]</a>
-<span style="color: green">>>>></span> <a href="./newComponent.html#exampleComponent">7.2.1. [ Example of a New Component ]</a>
+<span style="color: green">>></span> <a style="color:green;" href="">7.2. [ Adding a New Component ]</a>
+<span style="color: green">>>>></span> <a style="color:gold;" href="./newComponent.html#exampleComponent">7.2.1. [ Example of a New Component ]</a>
 <span style="color: green">>></span> <a href="./newMetric.html">7.3. [ Adding a New Metric File ]</a>
 <span style="color: green">>>>></span> <a href="./newMetric.html#exampleMetric">7.3.1. [ Example of a New Metric ]</a>
 
@@ -95,8 +94,140 @@ of our new component. Below a generic example of this list.
     	<hr>
 	</div>
     <br>
+<br><hr style="float: left; border-style: dashed;", size="3" width="50%" color="darkred"><br><br>
+<span style="color: green"> > </span><span style="color: yellow; font-size: 22px;">Scope</span><br><br>
 
-With the hyper-parameters defined, There are two methods that are mandatory, they are 
+Once we have defined the name of our component (the name of the file), and the hyper-parameters, 
+the following fair doubt may arise: <i>"But not all components act in the same way in the algorithm, what should I do?"</i>.
+<br>
+Well, for the optimizers this is not a problem but, to deal with it for the general components, the algorithm is divided into 5 scopes, and a list is used to indicate which scope the
+component should be. The scopes are:
+    <ul>
+        <li><b><span style="color:white">Initialization (INI): </span></b>These are the components that act on the initialization of the algorithms, before enter in the optimization loop (e.g Multipopulation with fixed number);
+In practice, this type of component receives as parameters a list containing all the subpopulations
+and the dictionary <i>parameters</i> which contains all the configurations of the configurations files.
+And should return the list of the subpopulations.
+    	<div>
+        	<hr>
+        	<code>
+            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+            <span style="color: white">scope = ["INI"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> component(pop, runVars, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop, runVars</span><br>
+        	</code>
+        	<hr>
+    	</div>
+      <br>
+      The template of a new <b><i>(INI)</i></b> component can be downloaded in the link: <a href="scripts/component_ini_template.py" target="_blank">[ Component template ]</a>.
+      <br>
+      <br><hr style="float: left; border-style: dashed; color: rgb(208, 208, 35)", size="3" width="50%"><br><br>
+      </li>
+      <li><b><span style="color:white">Global Diversity (GDV): </span></b>These are the components that acts on the whole population in order to increase the diversity. This means, if you have for example more than one subpopulation, and the component deal with all of them, this is the scope. 
+In practice this type of component receive as parameter a list containing all the subpopulations, 
+the dictionary <i>parameters</i> which contains all the configurations of the configurations files
+and a list called <i>"randomInit"</i>, this list is used to know which of the subpopulations
+need to be reinitialized based on the <b>ID</b> of the subpopulation. This means, each position
+of this list is refered to the correspondent subpopulation id, for example, if the index 5 of the list is set up to 1, 
+this means that the subpopulation with ID = 5 need to be reinitialized. 
+So, After apply the component, it needs to return the <i>"randomInit"</i> list.
+
+    	<div>
+        	<hr>
+        	<code>
+            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+            <span style="color: white">scope = ["GDV"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> component(pop, runVars, parameters, randomInit):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">randomInit, runVars</span><br>
+        	</code>
+        	<hr>
+    	</div>
+      <br>
+      The template of a new <b><i>(GDV)</i></b> component can be downloaded in the link: <a href="scripts/component_gdv_template.py" target="_blank">[ Component template ]</a>.
+      <br>
+      <br><hr style="float: left; border-style: dashed; color: rgb(208, 208, 35)", size="3" width="50%"><br><br>
+      </li>
+      <li><b><span style="color:white">Global Exploration (GER): </span></b>These are the components that acts in all the populations (in case of multipopulations) in order to modify them.
+In practice this type of component receive as parameter a list containing all the subpopulations and
+the dictionary <i>parameters</i> which contains all the configurations of the configurations files.
+So, after apply the component, it needs to return the list of the subpopulations.
+
+    	<div>
+        	<hr>
+        	<code>
+            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+            <span style="color: white">scope = ["GER"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> component(pop, runVars, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop, runVars</span><br>
+        	</code>
+        	<hr>
+    	</div>
+      <br>
+      The template of a new <b><i>(GER)</i></b> component can be downloaded in the link: <a href="scripts/component_ger_template.py" target="_blank">[ Component template ]</a>.
+      <br>
+      <br><hr style="float: left; border-style: dashed; color: rgb(208, 208, 35)", size="3" width="50%"><br><br>
+      </li>
+      <li><b><span style="color:white">Global Exploitation (GET): </span></b>These are the components that acts in the global best of all populations (in case of multipopulations).
+In practice this type of component receive as parameters the global best and 
+the dictionary <i>parameters</i> which contains all the configurations of the configurations files.
+So, after apply the component, it needs to return the global best.
+
+    	<div>
+        	<hr>
+        	<code>
+            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+            <span style="color: white">scope = ["GET"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> component(best, runVars, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">best, runVars</span><br>
+        	</code>
+        	<hr>
+    	</div>
+      <br>
+      The template of a new <b><i>(GET)</i></b> component can be downloaded in the link: <a href="scripts/component_get_template.py" target="_blank">[ Component template ]</a>.
+      <br>
+      <br><hr style="float: left; border-style: dashed; color: rgb(208, 208, 35)", size="3" width="50%"><br><br>
+      </li>
+      <li><b><span style="color:white">Local Diversity (LDV): </span></b>These are the components that acts
+in each subpopulation (in case of multipopulation) and modify them.
+In practice this type of component receive as parameters the subpopulation and 
+the dictionary <i>parameters</i> which contains all the configurations of the configurations files.
+So, after apply the component, it needs to return the subpopulation.
+
+    	<div>
+        	<hr>
+        	<code>
+            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
+            <span style="color: white">scope = ["LDV"]</span><br>
+            <br>
+        	<span style="color: green">def</span><span style="color: white"> component(subpop, runVars, parameters):</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">subpop, runVars</span><br>
+        	</code>
+        	<hr>
+    	</div>
+      <br>
+      The template of a new <b><i>(LDV)</i></b> component can be downloaded in the link: <a href="scripts/component_ldv_template.py" target="_blank">[ Component template ]</a>.
+      <br>
+        </li>
+    </ul>
+    With the hyper-parameters defined, There are two methods that are mandatory, they are 
 <b><i>cp</i></b> and <b><i>component</i></b>.
 <br>
 <br><hr style="float: left; border-style: dashed;", size="3" width="50%" color="darkred"><br><br>
@@ -127,139 +258,6 @@ With the hyper-parameters defined, There are two methods that are mandatory, the
         	</code>
         	<hr>
     	</div>
-<br><hr style="float: left; border-style: dashed;", size="3" width="50%" color="darkred"><br><br>
-<span style="color: green"> > </span><span style="color: yellow; font-size: 22px;">Scope</span><br><br>
-
-Once we have defined the name of our component (the name of the file), and the hyper-parameters, 
-the following fair doubt may arise: <i>"But not all components act in the same way in the algorithm, what should I do?"</i>
-<br>
-For the optimizers this is not a problem but, to deal with it for the general components, the algorithm is divided into 5 scopes, and a list is used to indicate which scope the
-component should be. The scopes are:
-    <ul>
-        <li><b><span style="color:white">Initialization (INI): </span></b>These are the components that act on the initialization of the algorithms, before enter in the optimization loop (e.g Multipopulation with fixed number);
-In practice, this type of component receives as parameters a list containing all the subpopulations
-and the dictionary <i>parameters</i> which contains all the configurations of the configurations files.
-And should return the list of the subpopulations.
-    	<div>
-        	<hr>
-        	<code>
-            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
-            <span style="color: white">scope = ["INI"]</span><br>
-            <br>
-        	<span style="color: green">def</span><span style="color: white"> component(pop, parameters):</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop</span><br>
-        	</code>
-        	<hr>
-    	</div>
-      <br>
-      The template of a new <b><i>(INI)</i></b> component can be downloaded in the link: <a href="scripts/optimizerTemplate.py" target="_blank">[ Component template ]</a>.
-      <br>
-      <br><hr style="float: left; border-style: dashed; color: rgb(208, 208, 35)", size="3" width="50%"><br><br>
-      </li>
-      <li><b><span style="color:white">Global Diversity (GDV): </span></b>These are the components that acts on the whole population in order to increase the diversity. This means, if you have for example more than one subpopulation, and the component deal with all of them, this is the scope. 
-In practice this type of component receive as parameter a list containing all the subpopulations, 
-the dictionary <i>parameters</i> which contains all the configurations of the configurations files
-and a list called <i>"randomInit"</i>, this list is used to know which of the subpopulations
-need to be reinitialized based on the <b>ID</b> of the subpopulation. This means, each position
-of this list is refered to the correspondent subpopulation id, for example, if the index 5 of the list is set up to 1, 
-this means that the subpopulation with ID = 5 need to be reinitialized. 
-So, After apply the component, it needs to return the <i>"randomInit"</i> list.
-
-    	<div>
-        	<hr>
-        	<code>
-            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
-            <span style="color: white">scope = ["GDV"]</span><br>
-            <br>
-        	<span style="color: green">def</span><span style="color: white"> component(pop, parameters, randomInit):</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">randomInit</span><br>
-        	</code>
-        	<hr>
-    	</div>
-      <br>
-      The template of a new <b><i>(GDV)</i></b> component can be downloaded in the link: <a href="scripts/optimizerTemplate.py" target="_blank">[ Component template ]</a>.
-      <br>
-      <br><hr style="float: left; border-style: dashed; color: rgb(208, 208, 35)", size="3" width="50%"><br><br>
-      </li>
-      <li><b><span style="color:white">Global Exploration (GER): </span></b>These are the components that acts in all the populations (in case of multipopulations) in order to modify them.
-In practice this type of component receive as parameter a list containing all the subpopulations and
-the dictionary <i>parameters</i> which contains all the configurations of the configurations files.
-So, after apply the component, it needs to return the list of the subpopulations.
-
-    	<div>
-        	<hr>
-        	<code>
-            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
-            <span style="color: white">scope = ["GER"]</span><br>
-            <br>
-        	<span style="color: green">def</span><span style="color: white"> component(pop, parameters):</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop</span><br>
-        	</code>
-        	<hr>
-    	</div>
-      <br>
-      The template of a new <b><i>(GER)</i></b> component can be downloaded in the link: <a href="scripts/optimizerTemplate.py" target="_blank">[ Component template ]</a>.
-      <br>
-      <br><hr style="float: left; border-style: dashed; color: rgb(208, 208, 35)", size="3" width="50%"><br><br>
-      </li>
-      <li><b><span style="color:white">Global Exploitation (GET): </span></b>These are the components that acts in the global best of all populations (in case of multipopulations).
-In practice this type of component receive as parameters the global best and 
-the dictionary <i>parameters</i> which contains all the configurations of the configurations files.
-So, after apply the component, it needs to return the global best.
-
-    	<div>
-        	<hr>
-        	<code>
-            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
-            <span style="color: white">scope = ["GET"]</span><br>
-            <br>
-        	<span style="color: green">def</span><span style="color: white"> component(best, parameters):</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">best</span><br>
-        	</code>
-        	<hr>
-    	</div>
-      <br>
-      The template of a new <b><i>(GET)</i></b> component can be downloaded in the link: <a href="scripts/optimizerTemplate.py" target="_blank">[ Component template ]</a>.
-      <br>
-      <br><hr style="float: left; border-style: dashed; color: rgb(208, 208, 35)", size="3" width="50%"><br><br>
-      </li>
-      <li><b><span style="color:white">Local Diversity (LDV): </span></b>These are the components that acts
-in each subpopulation (in case of multipopulation) and modify them.
-In practice this type of component receive as parameters the subpopulation and 
-the dictionary <i>parameters</i> which contains all the configurations of the configurations files.
-So, after apply the component, it needs to return the subpopulation.
-
-    	<div>
-        	<hr>
-        	<code>
-            <span style="color: white">params = ["HYPER-PARAMETER-1", "HYPER-PARAMETER-2", ..., "HYPER-PARAMETER-N"]</span><br>
-            <span style="color: white">scope = ["LDV"]</span><br>
-            <br>
-        	<span style="color: green">def</span><span style="color: white"> component(subpop, parameters):</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">subpop</span><br>
-        	</code>
-        	<hr>
-    	</div>
-      <br>
-      The template of a new <b><i>(LDV)</i></b> component can be downloaded in the link: <a href="scripts/optimizerTemplate.py" target="_blank">[ Component template ]</a>.
-      <br>
-        </li>
-    </ul>
 <br><hr style="float: left; border-style: dashed; color: rgb(183, 25, 25)", size="3" width="50%" color="darkred"><br><br>
 <span style="color: green"> > </span><span style="color: yellow; font-size: 22px;">component.py</span><br><br>
 And then the complete file will be something like:
@@ -288,7 +286,7 @@ And then the complete file will be something like:
                 <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
                 <br>
-              	<span style="color: green">def</span><span style="color: white"> component(depends on the scope, parameters):</span><br>
+              	<span style="color: green">def</span><span style="color: white"> component(depends on the scope, runVars, parameters):</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
@@ -332,7 +330,7 @@ in the file as follows:
     <span id="myName" >[<span id="dollar">~</span>]</span>$<span id="top"> Example of a new Component</span>
   </div>
   <div id="divSynopsis"> 
-  As an example, we are going now to add an optimizer, the Differential Evolution (DE).
+  As an example, we are going now to add an component, the Local Search (LS).
   <h1 style="color: orange" id="exampleComponent">> AbEC/abec/components/local_search.py</h1>
    <div>
     <hr>
@@ -367,7 +365,7 @@ in the file as follows:
                 <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
                 <br>
-          	    <span style="color: green">def</span><span style="color: white"> component(best, parameters):</span><br>
+          	    <span style="color: green">def</span><span style="color: white"> component(best, runvars, parameters):</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">bp = copy.deepcopy(best)</span><br>
                 &emsp;&emsp;&emsp;
                 <span style="color: green">for</span><span style="color: white"> _ </span><span style="color: green">in</span><span style="color: white"> range(parameters["COMP_LOCAL_SEARCH_ETRY"]): </span><br>
@@ -382,13 +380,13 @@ in the file as follows:
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
               	<span style="color: white">best = copy.deepcopy(bp)</span><br>
                 <br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">best</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">best, runVars</span><br>
         	</code>
         	<hr>
     	</div>
 
 <br><br>
-And then to use both in the algorithm, we set them up in the configuration file <b><i>algoConfig.ini</i></b>, just like this:
+And then to use it in the algorithm, we set it up in the configuration file <b><i>algoConfig.ini</i></b>, just like this:
    <div>
     <hr>
     <code>

@@ -51,9 +51,8 @@
 <body>
 <section>
 <pre>
-
 <div style="float: left">USE(7.1)</div><div style="float: right">USE(7.1)</div><div style="margin: 0 auto; width: 100%; text-align: center"><span id="top">AbEC - Adding a New Optimizer</span></div>
-<a href="../../use.html"><<</a>                                                                                           <a href="./fitnessFunction.html#fitnessFunction">>></a>
+<a href="./newComponents.html"><<</a>                                                                                           <a href="./newComponent.html">>></a>
 <div id="google_translate_element"></div>
 <span style="color: green"><</span> <a href="../../index.html">[ Home ]</a>
 <span style="color: green"><</span> <a href="../../use.html">1. [ Use ]</a>
@@ -63,8 +62,8 @@
 <span style="color: green">></span> <a href="../basicUsage/results.html#results">5. [ Results ]</a>
 <span style="color: green">></span> <a href="../basicUsage/example.html#example">6. [ Example ]</a>
 <span style="color: green">></span> <a href="./newComponents.html">7. [ Adding new components ]</a>
-<span style="color: green">>></span> <a href="">7.1. [ Adding a New Optimizer ]</a>
-<span style="color: green">>>>></span> <a href="./newOptimizer.html#exampleOptimizer">7.1.1. [ Example of a New Optimizer ]</a>
+<span style="color: green">>></span> <a style="color:green;" href="">7.1. [ Adding a New Optimizer ]</a>
+<span style="color: green">>>>></span> <a style="color:gold;" href="./newOptimizer.html#exampleOptimizer">7.1.1. [ Example of a New Optimizer ]</a>
 <span style="color: green">>></span> <a href="./newComponent.html">7.2. [ Adding a New Component ]</a>
 <span style="color: green">>>>></span> <a href="./newComponent.html#exampleComponent">7.2.1. [ Example of a New Component ]</a>
 <span style="color: green">>></span> <a href="./newMetric.html">7.3. [ Adding a New Metric File ]</a>
@@ -84,7 +83,7 @@ function setCookie(key, value, expiry) {
 	This is the file where we are going to implement the optimizer. First of all, lets talk
 about some requirements.
 <br><br>
-The template of a new optimizer can be downloaded in the link: <a href="scripts/optimizerTemplate.py" target="_blank">[ Optimizer template ]</a>.
+The template of a new optimizer can be downloaded in the link: <a href="scripts/optimizer_template.py" target="_blank">[ Optimizer template ]</a>.
 <br><br>
 <span style="color: green"> > </span><span style="color: yellow; font-size: 22px;" id="hyperParameters">Hyper-parameters</span><br><br>
 In order to set the hyper-parameters of the component, inside of the file it is necessary to be
@@ -139,11 +138,11 @@ With the hyper-parameters defined, There are two methods that are mandatory, the
     	<div>
         	<hr>
         	<code>
-        	<span style="color: green">def</span><span style="color: white"> optimizer(pop, best, parameters):</span><br>
+        	<span style="color: green">def</span><span style="color: white"> optimizer(pop, best, runVars, parameters):</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop, runVars</span><br>
         	</code>
         	<hr>
     	</div>
@@ -174,11 +173,11 @@ And then the complete file will be something like:
                 <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
                 <br>
-          <span style="color: green">def</span><span style="color: white"> optimizer(pop, best, parameters):</span><br>
+          <span style="color: green">def</span><span style="color: white"> optimizer(pop, best, runVars, parameters):</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">.</span><br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop, runVars</span><br>
         	</code>
         	<hr>
     	</div>
@@ -253,7 +252,7 @@ As an example, we are going now to add an optimizer, the Differential Evolution 
                 <br>
                 &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">1</span><br>
                 <br>
-          	    <span style="color: green">def</span><span style="color: white"> optimizer(pop, best, parameters):</span><br>
+          	    <span style="color: green">def</span><span style="color: white"> optimizer(pop, best, runVars, parameters):</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">tempPop = copy.deepcopy(pop)</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">tempPop.ind = sorted(tempPop.ind, key = lambda x:x["id"])</span><br>
                 &emsp;&emsp;&emsp;  	<span style="color: white">dePop = [d for d in tempPop.ind if d["type"]=="DE"]</span><br>
@@ -304,12 +303,12 @@ As an example, we are going now to add an optimizer, the Differential Evolution 
               	<span style="color: white">pop.ind[i]["ae"] = 1</span><br>
 
                 <br><br>
-                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop</span><br>
+                &emsp;&emsp;&emsp;  	<span style="color: green">return</span> <span style="color: white">pop, runVars</span><br>
         	</code>
         	<hr>
     	</div>
       <br>
-      And then to use both in the algorithm, we set them up in the configuration file <b><i>algoConfig.ini</i></b>, just like this:
+      And then to use it in the algorithm, we set it up in the configuration file <b><i>algoConfig.ini</i></b>, just like this:
 
       <div>
        <hr>
