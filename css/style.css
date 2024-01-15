@@ -252,6 +252,17 @@ input[type="text"] {
 	color: e0e0e0;
 }
 
+.my-logo {
+    width: 20%;
+    height: auto;
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .fa-github {
 	background: #1c1c1c;
 	color: e0e0e0;
